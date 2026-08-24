@@ -1,0 +1,36 @@
+# Python environments and caches
+.venv*/
+.local_pydeps/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+
+# Local secrets and editor state
+.env
+.env.*
+.idea/
+.vscode/
+*.pem
+*.key
+
+# Generated reproduction outputs
+paper1/reproduced/
+
+# LaTeX build products
+*.aux
+*.blg
+*.log
+*.out
+*.synctex.gz
+*.xdv
+*.fls
+*.fdb_latexmk
+paper1/quantum_submission/build/
+paper1/quantum_submission/tmp/
+paper1/quantum_submission/build_preview/
+
+# Operating-system files
+.DS_Store
+Thumbs.db
+desktop.ini

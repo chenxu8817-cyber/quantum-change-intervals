@@ -1,65 +1,77 @@
-# Paper I submission and local-build bundles
+# Quantum Change Intervals
 
-This directory separates three different workflows. Do not upload the entire
-`delivery` directory to either arXiv or Quantum.
+Code, certified numerical data, tests, figures, and LaTeX sources accompanying
+the manuscript *Quantum Change Intervals: Exact Asymptotic Localization with
+Collective Measurements* by Xu Chen and Xue Ma.
 
-## 1. arXiv source upload
+Repository URL:
+<https://github.com/chenxu8817-cyber/quantum-change-intervals>
 
-Upload the contents of `arxiv_source`, preferably as the generated
-`quantum-change-intervals-arxiv-source.zip` archive.
+## Scope
 
-The archive is deliberately source-only. It contains the TeX sources, the
-custom Quantum class and BibTeX style, `references.bib`, the pre-generated
-`main.bbl`, and the three PDF figures. Including both the BibTeX inputs and the
-generated BBL makes the archive robust to either bibliography workflow. It does
-not contain PDF/auxiliary build products, PNG duplicates, numerical data, or
-review renders.
+This release is restricted to Paper I: one nonempty contiguous interval in
+which the known pure state changes from `|0>` to `|psi>` and then returns to
+`|0>`, with arbitrary collective measurements. Exploratory two-interval and
+fixed-m material is intentionally excluded.
 
-Select PDFLaTeX in the arXiv processor step. The source retains `\pdfoutput=1`
-because the vendored Quantum class version 6.1 enforces it during compilation.
+## Quick start
 
-Important: the current manuscript still contains author and affiliation
-placeholders. Replace them in the canonical
-`paper1/quantum_submission/main.tex`, rebuild, and regenerate these bundles
-before the actual arXiv upload.
+The audited environment uses CPython 3.12.x. On Windows PowerShell:
 
-## 2. Quantum initial submission
+```powershell
+py -3.12 -m venv .venv-paper1
+.\.venv-paper1\Scripts\python.exe -m pip install --upgrade pip
+.\.venv-paper1\Scripts\python.exe -m pip install -r requirements-lock.txt
+.\paper1\run_reproduction.ps1
+```
 
-Quantum's initial submission does not require a manuscript source archive or a
-separate manuscript PDF. The required manuscript input is the arXiv identifier
-of a preprint posted to, or cross-listed with, `quant-ph`. See
-`quantum_initial_submission/SUBMISSION_CHECKLIST.md`.
+For a fast test-and-figure check that skips regeneration of the full certified
+SDP grid:
 
-The PDF in that directory is an author-side reference copy only. Do not treat
-it as a required Quantum upload. Optional supplementary material may be added
-through the submission system, and the public code/data repository should be
-provided as a stable URL when available.
+```powershell
+.\paper1\run_reproduction.ps1 -SkipCertifiedGrid
+```
 
-## 3. Local LaTeX build
+See [REPRODUCING.md](REPRODUCING.md) and
+[paper1/NUMERICAL_REPRODUCIBILITY.md](paper1/NUMERICAL_REPRODUCIBILITY.md)
+for the full protocol, numerical grids, tolerances, and certificate semantics.
 
-`local_latex_source` is the complete self-contained source directory for
-building the paper locally. It includes both the BibTeX inputs and a generated
-BBL. Follow `local_latex_source/BUILD.md`.
+## Main entry points
 
-## 4. Overleaf project upload
+- `paper1_analytics.py`: Toeplitz limits and analytic special cases.
+- `paper1_numerics.py`: fixed/growing-length and no-anomaly calculations.
+- `interval_unknown_length_numerics.py`: certified unknown-length SDP grid.
+- `srm_scaling.py`: full dense physical-Gram SRM scaling.
+- `sdp_certification.py`: primal/dual solutions and safe feasible bounds.
+- `paper1_make_figures.py`: publication Figure 1--3 generation.
+- `verify_paper1_results.py`: tolerance-based comparison with reference data.
+- `environment_manifest.py`: environment metadata and SHA-256 manifest.
 
-Upload `quantum-change-intervals-overleaf-source.zip` using Overleaf's
-`New Project` -> `Upload Project` action. The archive keeps `main.tex` at its
-root and contains only the eight source inputs needed by Overleaf. Use
-`pdfLaTeX`, select `main.tex` as the main document, and pin the project to TeX
-Live 2025. TeX Live 2026's `array` package is incompatible with the current
-Quantum class version 6.1 at the theorem-comparison `tabularx` table. The
-archive omits the
-compiled `main.pdf`, auxiliary files, and the generated BBL because Overleaf
-can run BibTeX from `references.bib` and `quantum.bst`.
+## Archived reference data
 
-## Generated archives
+- `certified_sdp_results.csv`: 30 unknown-length primal/dual SDP cases.
+- `srm_scaling_m1.csv`: full dense physical-Gram SRM calculations through
+  `n=50`.
+- `paper1/paper1_fixed_and_growing_srm.csv`: fixed and growing known lengths.
+- `paper1/paper1_h0_certified_sdp.csv`: fixed-prior no-anomaly cases.
 
-- `quantum-change-intervals-arxiv-source.zip`: upload candidate for arXiv.
-- `quantum-change-intervals-local-latex-source.zip`: portable local source
-  package; this is not an arXiv or Quantum upload.
-- `quantum-change-intervals-overleaf-source.zip`: clean Overleaf project
-  upload with `main.tex` at the ZIP root.
+Generated reruns are written to `paper1/reproduced/`, which is intentionally
+ignored by Git to avoid duplicating the version-controlled reference tables.
 
-The checksums and exact file inventories are recorded in `SHA256SUMS.txt` and
-`FILE_INVENTORY.txt`.
+## Manuscript source
+
+The Quantum-class source is in `paper1/quantum_submission/`. Compile
+`main.tex` with pdfLaTeX/BibTeX. For Overleaf, use pdfLaTeX and TeX Live 2025;
+the current Quantum class version 6.1 is not compatible with the TeX Live 2026
+`array` package at the theorem-comparison table.
+
+## Citation and release status
+
+Citation metadata and the GitHub repository URL are provided in
+`CITATION.cff`. The immutable Paper-I release is tagged
+`v1.0.0-paper1`; an archival DOI can be added after a Zenodo or institutional
+deposit.
+
+The repository is released under the MIT License. The existing remote MIT
+license was retained and its copyright notice was synchronized to both
+authors. See `RELEASE_NOTES.md` and `GITHUB_UPLOAD_INSTRUCTIONS.md`.

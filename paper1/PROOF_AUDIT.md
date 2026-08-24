@@ -2,7 +2,7 @@
 
 This note records the claim boundary and the proof obligations that were closed
 before numerical certification. It is an internal submission checklist, not a
-substitute for the proofs in manuscript.md.
+substitute for the proofs in `quantum_submission/content.tex`.
 
 ## Scope frozen for this paper
 
@@ -52,7 +52,8 @@ general multi-anomaly patterns.
 
 ## Submission gate
 
-Before submission, replace author/affiliation, funding, conflict-of-interest,
-repository URL, and archival identifier placeholders. Check every bibliographic
-entry against the publisher record and convert the Markdown manuscript into the
-target journal's LaTeX class without changing theorem hypotheses.
+The author, affiliation, funding, conflict-of-interest, and repository fields
+have been supplied. Before submission, verify them, approve the public-release
+license, add the archival identifier after deposition, and check every
+bibliographic entry against the publisher record. The target-journal LaTeX
+conversion must not change theorem hypotheses.

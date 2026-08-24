@@ -53,6 +53,7 @@ def apply_publication_style() -> None:
             "legend.fontsize": 7.4,
             "legend.frameon": False,
             "lines.linewidth": 1.8,
+            "svg.fonttype": "none",
             "pdf.fonttype": 42,
             "ps.fonttype": 42,
             "savefig.facecolor": "white",
@@ -120,92 +121,292 @@ def _save(fig: plt.Figure, output_dir: Path, stem: str) -> list[Path]:
 def make_figure_1(output_dir: Path) -> list[Path]:
     """Draw the returning interval and collective-localization task."""
     apply_publication_style()
-    fig, ax = plt.subplots(figsize=(7.2, 2.65))
+    fig, ax = plt.subplots(figsize=(7.2, 2.55))
 
-    # A sparse sequence makes the two returning boundaries visible without
-    # asking the reader to count sites.  State labels and fill patterns provide
-    # redundant encoding, so the model remains legible in grayscale.
-    y_sequence = 0.72
-    reference_x = [0.0, 0.82, 2.43, 7.15, 8.76]
-    anomaly_x = [3.52, 4.34, 5.97]
-    ax.plot([reference_x[0], reference_x[-1]], [y_sequence, y_sequence],
-            color=GRAY, lw=1.0, zorder=0)
-    ax.scatter(reference_x, [y_sequence] * len(reference_x), s=325,
-               facecolor=LIGHT_GRAY, edgecolor="black", lw=0.7, zorder=2)
-    ax.scatter(anomaly_x, [y_sequence] * len(anomaly_x), s=325,
-               facecolor=BLUE, edgecolor="black", lw=0.7, zorder=2)
+    # Figure contract: the state sequence is the hero, the interval annotation
+    # identifies its two unknown boundaries, and the quieter lower row states
+    # the collective decision task.  The fills redundantly encode the two
+    # states, so the model remains legible in grayscale.
+    ink = "#26323D"
+    muted = "#6D7781"
+    connector = "#929CA5"
+    reference_fill = "#F5F6F7"
+    anomaly_fill = "#E7F0F7"
+    estimate_fill = "#FFF4E2"
+
+    y_sequence = 0.76
+    reference_x = [0.10, 0.96, 2.58, 7.28, 8.92]
+    anomaly_x = [3.57, 4.44, 6.04]
+    entry_x, return_x = 3.08, 6.68
+
+    # A pale interval rail makes contiguity visually primary without adding a
+    # decorative frame.  The sequence baseline remains visible through it.
+    interval_rail = FancyBboxPatch(
+        (entry_x + 0.04, y_sequence - 0.22),
+        return_x - entry_x - 0.08,
+        0.44,
+        boxstyle="round,pad=0.02,rounding_size=0.12",
+        facecolor=anomaly_fill,
+        edgecolor="none",
+        zorder=-1,
+    )
+    ax.add_patch(interval_rail)
+    ax.plot(
+        [reference_x[0], reference_x[-1]],
+        [y_sequence, y_sequence],
+        color=connector,
+        lw=1.05,
+        solid_capstyle="round",
+        zorder=0,
+    )
+    ax.scatter(
+        reference_x,
+        [y_sequence] * len(reference_x),
+        s=285,
+        facecolor=reference_fill,
+        edgecolor=ink,
+        lw=0.75,
+        zorder=2,
+    )
+    ax.scatter(
+        anomaly_x,
+        [y_sequence] * len(anomaly_x),
+        s=285,
+        facecolor=BLUE,
+        edgecolor=ink,
+        lw=0.75,
+        zorder=2,
+    )
     for x in reference_x:
         ax.text(x, y_sequence, r"$0$", ha="center", va="center",
-                fontsize=8.5, color="black", zorder=3)
+                fontsize=8.3, color=ink, zorder=3)
     for x in anomaly_x:
         ax.text(x, y_sequence, r"$\psi$", ha="center", va="center",
-                fontsize=8.5, color="white", zorder=3)
+                fontsize=8.3, color="white", zorder=3)
 
     # Ellipses indicate arbitrary numbers of omitted systems.
-    for x in (1.63, 5.16, 7.96):
-        ax.text(x, y_sequence + 0.02, r"$\cdots$", ha="center", va="center",
-                fontsize=12, color=GRAY)
+    for x in (1.77, 5.24, 8.10):
+        ax.text(
+            x,
+            y_sequence + 0.02,
+            r"$\cdots$",
+            ha="center",
+            va="center",
+            fontsize=11.0,
+            color=muted,
+        )
 
     position_labels = {
-        0.0: r"$1$",
-        2.43: r"$a-1$",
-        3.52: r"$a$",
-        5.97: r"$b$",
-        7.15: r"$b+1$",
-        8.76: r"$n$",
+        0.10: r"$1$",
+        2.58: r"$a-1$",
+        3.57: r"$a$",
+        6.04: r"$b$",
+        7.28: r"$b+1$",
+        8.92: r"$n$",
     }
     for x, label in position_labels.items():
-        ax.text(x, 0.31, label, ha="center", va="top", fontsize=7.7,
-                color=GRAY)
+        ax.text(
+            x,
+            0.39,
+            label,
+            ha="center",
+            va="top",
+            fontsize=7.4,
+            color=muted,
+        )
 
-    ax.text(1.22, 1.40, r"reference state $|0\rangle$", ha="center",
-            fontsize=8.6, color="black")
-    ax.text(4.76, 1.40, r"anomalous state $|\psi\rangle$", ha="center",
-            fontsize=8.6, color=BLUE, weight="bold")
-    ax.text(7.96, 1.40, r"reference state $|0\rangle$", ha="center",
-            fontsize=8.6, color="black")
+    # Direct region labels eliminate a detached legend and establish a clear
+    # reference--anomaly--reference reading order.
+    ax.text(
+        1.34,
+        1.47,
+        r"reference $|0\rangle$",
+        ha="center",
+        va="center",
+        fontsize=8.1,
+        color=ink,
+    )
+    ax.text(
+        4.88,
+        1.47,
+        r"anomalous $|\psi\rangle$",
+        ha="center",
+        va="center",
+        fontsize=8.2,
+        color=BLUE,
+        weight="bold",
+    )
+    ax.text(
+        8.10,
+        1.47,
+        r"reference $|0\rangle$",
+        ha="center",
+        va="center",
+        fontsize=8.1,
+        color=ink,
+    )
 
     # Dashed boundaries distinguish the entry and return locations from the
     # occupied sites themselves.
-    for x, label in ((2.98, r"entry at $a$"), (6.56, r"return at $b+1$")):
-        ax.plot([x, x], [0.43, 1.15], color=ORANGE, lw=1.15,
-                ls=(0, (3, 2)), zorder=1)
-        ax.text(x, 1.08, label, ha="center", va="bottom", fontsize=7.5,
-                color=ORANGE, zorder=4,
-                bbox={"facecolor": "white", "edgecolor": "none", "pad": 0.25})
+    for x, label in (
+        (entry_x, r"entry $a$"),
+        (return_x, r"return $b+1$"),
+    ):
+        ax.plot(
+            [x, x],
+            [0.50, 1.23],
+            color=ORANGE,
+            lw=1.15,
+            ls=(0, (2.5, 2.0)),
+            solid_capstyle="round",
+            zorder=1,
+        )
+        ax.text(
+            x,
+            1.17,
+            label,
+            ha="center",
+            va="bottom",
+            fontsize=7.3,
+            color="#B96500",
+            zorder=4,
+            bbox={"facecolor": "white", "edgecolor": "none", "pad": 0.18},
+        )
 
-    ax.annotate("", xy=(6.25, 0.02), xytext=(3.24, 0.02),
-                arrowprops={"arrowstyle": "|-|", "lw": 1.25, "color": BLUE})
-    ax.text(4.75, -0.18, r"interval $I=[a,b]$, length $i=b-a+1$",
-            ha="center", va="top", fontsize=8.0, color=BLUE)
+    # Exact horizontal bracket, avoiding arrowhead ambiguity at the endpoints.
+    bracket_y = 0.04
+    bracket_left, bracket_right = 3.31, 6.31
+    ax.plot(
+        [bracket_left, bracket_right],
+        [bracket_y, bracket_y],
+        color=BLUE,
+        lw=1.25,
+        solid_capstyle="round",
+    )
+    for x in (bracket_left, bracket_right):
+        ax.plot(
+            [x, x],
+            [bracket_y - 0.11, bracket_y + 0.11],
+            color=BLUE,
+            lw=1.25,
+            solid_capstyle="round",
+        )
+    ax.text(
+        4.81,
+        -0.15,
+        r"interval $I=[a,b]$  ·  length $i=b-a+1$",
+        ha="center",
+        va="top",
+        fontsize=7.8,
+        color=BLUE,
+    )
 
     # The inference layer states explicitly that the full sequence is measured
     # jointly and that the output is an exact interval estimate.
     measurement = FancyBboxPatch(
-        (2.78, -1.28), 3.30, 0.48,
-        boxstyle="round,pad=0.08,rounding_size=0.08",
-        facecolor="#E8F1F8", edgecolor=BLUE, linewidth=1.0,
+        (3.04, -1.34),
+        3.55,
+        0.52,
+        boxstyle="round,pad=0.055,rounding_size=0.065",
+        facecolor="#EDF4F9",
+        edgecolor=BLUE,
+        linewidth=0.95,
     )
     estimate = FancyBboxPatch(
-        (7.02, -1.28), 2.20, 0.48,
-        boxstyle="round,pad=0.08,rounding_size=0.08",
-        facecolor="#FFF1D2", edgecolor=ORANGE, linewidth=1.0,
+        (7.16, -1.34),
+        2.28,
+        0.52,
+        boxstyle="round,pad=0.055,rounding_size=0.065",
+        facecolor=estimate_fill,
+        edgecolor=ORANGE,
+        linewidth=0.95,
     )
     ax.add_patch(measurement)
     ax.add_patch(estimate)
-    ax.annotate("", xy=(4.43, -0.77), xytext=(4.43, -0.42),
-                arrowprops={"arrowstyle": "-|>", "lw": 1.0, "color": GRAY})
-    ax.annotate("", xy=(6.98, -1.04), xytext=(6.14, -1.04),
-                arrowprops={"arrowstyle": "-|>", "lw": 1.0, "color": GRAY})
-    ax.text(4.43, -1.04, r"collective POVM $\{M_I\}$ on all $n$ systems",
-            ha="center", va="center", fontsize=7.8, color=BLUE)
-    ax.text(8.12, -1.04, r"estimate $\widehat I=[\widehat a,\widehat b]$",
-            ha="center", va="center", fontsize=7.8, color="#955100")
+    ax.annotate(
+        "",
+        xy=(4.815, -0.78),
+        xytext=(4.815, -0.40),
+        arrowprops={
+            "arrowstyle": "-|>",
+            "lw": 0.9,
+            "color": connector,
+            "mutation_scale": 8,
+            "shrinkA": 1.5,
+            "shrinkB": 1.5,
+        },
+    )
+    ax.annotate(
+        "",
+        xy=(7.10, -1.08),
+        xytext=(6.65, -1.08),
+        arrowprops={
+            "arrowstyle": "-|>",
+            "lw": 0.95,
+            "color": connector,
+            "mutation_scale": 8,
+            "shrinkA": 1.5,
+            "shrinkB": 1.5,
+        },
+    )
+    ax.text(
+        4.815,
+        -1.00,
+        r"collective POVM $\{M_I\}$",
+        ha="center",
+        va="center",
+        fontsize=7.8,
+        color=BLUE,
+        weight="bold",
+    )
+    ax.text(
+        4.815,
+        -1.20,
+        r"jointly on all $n$ systems",
+        ha="center",
+        va="center",
+        fontsize=6.7,
+        color=muted,
+    )
+    ax.text(
+        8.30,
+        -0.99,
+        "interval estimate",
+        ha="center",
+        va="center",
+        fontsize=6.7,
+        color="#9B5900",
+    )
+    ax.text(
+        8.30,
+        -1.20,
+        r"$\widehat I=[\widehat a,\widehat b]$",
+        ha="center",
+        va="center",
+        fontsize=8.2,
+        color="#8A4E00",
+        weight="bold",
+    )
 
-    ax.set(xlim=(-0.48, 9.72), ylim=(-1.52, 1.63))
-    ax.set_aspect("equal", adjustable="box")
+    ax.set(xlim=(-0.42, 9.78), ylim=(-1.52, 1.68))
     ax.axis("off")
-    fig.tight_layout(pad=0.25)
+    fig.tight_layout(pad=0.18)
+
+    # SVG is retained as an editable-text master; PDF remains the manuscript
+    # asset and PNG is the review/README preview.
+    output_dir.mkdir(parents=True, exist_ok=True)
+    fig.savefig(
+        output_dir / "figure1_model_geometry.svg",
+        bbox_inches="tight",
+        pad_inches=0.03,
+    )
+    fig.savefig(
+        output_dir / "figure1_model_geometry.tiff",
+        dpi=600,
+        bbox_inches="tight",
+        pad_inches=0.03,
+        pil_kwargs={"compression": "tiff_lzw"},
+    )
     return _save(fig, output_dir, "figure1_model_geometry")
 
 
@@ -292,9 +493,9 @@ def make_figure_3(
     ax = axes[0]
     for c in (0.8, 0.95):
         color = parameter_colors[c]
-        for schedule, marker, style, label_name in (
-            ("sqrt_growth", "o", "-", r"$i=\lceil\sqrt{N}\rceil$"),
-            ("balanced_growth", "s", "--", r"$i=\lfloor N/2\rfloor$"),
+        for schedule, marker, style in (
+            ("sqrt_growth", "o", "-"),
+            ("balanced_growth", "s", "--"),
         ):
             rows = sorted(
                 (row for row in known_rows
@@ -308,7 +509,11 @@ def make_figure_3(
                 marker=marker,
                 ms=4,
                 ls=style,
-                label=rf"$c={c}$, {label_name}",
+                label=(
+                    rf"$c={c}$, $i$=⌈√$N$⌉"
+                    if schedule == "sqrt_growth"
+                    else rf"$c={c}$, $i=\lfloor N/2\rfloor$"
+                ),
             )
         target = next(
             float(row["target"]) for row in known_rows
@@ -324,7 +529,7 @@ def make_figure_3(
     ax.legend(
         loc="center right",
         bbox_to_anchor=(0.99, 0.57),
-        fontsize=5.9,
+        prop={"family": "DejaVu Sans", "size": 6.7},
         frameon=True,
         facecolor="white",
         edgecolor=LIGHT_GRAY,
@@ -359,7 +564,7 @@ def make_figure_3(
         ncol=2,
         loc="center",
         bbox_to_anchor=(0.55, 0.61),
-        fontsize=6.2,
+        fontsize=6.7,
         frameon=True,
         facecolor="white",
         edgecolor=LIGHT_GRAY,
@@ -370,6 +575,7 @@ def make_figure_3(
     )
 
     ax = axes[2]
+    endpoint_labels = []
     for c in (0.6, 0.8, 0.95, 0.99):
         rows = sorted(
             (row for row in sdp_rows if math.isclose(float(row["c"]), c)),
@@ -382,8 +588,9 @@ def make_figure_3(
             [max(float(row["sdp_upper_minus_srm"]), 1e-14) for row in rows]
         )
         midpoint = (lower + upper) / 2.0
+        n_values = [float(row["n"]) for row in rows]
         ax.errorbar(
-            [float(row["n"]) for row in rows],
+            n_values,
             midpoint,
             yerr=np.vstack((midpoint - lower, upper - midpoint)),
             color=parameter_colors.get(c, ORANGE),
@@ -394,23 +601,46 @@ def make_figure_3(
             elinewidth=0.8,
             label=rf"$c={c}$",
         )
+        endpoint_labels.append(
+            (c, n_values[-1], midpoint[-1], parameter_colors.get(c, ORANGE))
+        )
     ax.set_yscale("log")
     ax.set(
         xlabel=r"sequence length $n$",
-        ylabel=r"bounds on $P_{\rm opt}-P_{\rm SRM}$",
+        ylabel="bounds on Pₒₚₜ − Pₛᵣₘ",
         title="(c) Certified gap intervals",
         xticks=[3, 4, 5, 6, 7],
+        xlim=(2.8, 8.0),
     )
-    ax.legend(
-        loc="center right",
-        bbox_to_anchor=(0.99, 0.49),
-        fontsize=5.9,
-        frameon=True,
-        facecolor="white",
-        edgecolor=LIGHT_GRAY,
-        framealpha=0.96,
-        borderpad=0.35,
-    )
+    # Unicode subscripts keep the exact quantity visible without mathtext's
+    # nested script shrinkage; DejaVu Sans supplies the full subscript set.
+    ax.yaxis.label.set_fontfamily("DejaVu Sans")
+
+    # Direct endpoint labels keep the certified curves identifiable without a
+    # legend covering the blue and purple intervals.  The two closest terminal
+    # values (c=0.8 and c=0.99) receive opposite log-scale offsets; short,
+    # low-salience leaders preserve an unambiguous curve-to-label mapping.
+    label_scale = {0.6: 1.16, 0.8: 0.78, 0.95: 1.10, 0.99: 1.24}
+    for c, x_end, y_end, color in endpoint_labels:
+        ax.annotate(
+            rf"$c={c}$",
+            xy=(x_end, y_end),
+            xytext=(7.28, y_end * label_scale[c]),
+            color=color,
+            fontsize=6.7,
+            fontweight="bold",
+            ha="left",
+            va="center",
+            annotation_clip=False,
+            arrowprops={
+                "arrowstyle": "-",
+                "color": color,
+                "lw": 0.75,
+                "alpha": 0.82,
+                "shrinkA": 1.5,
+                "shrinkB": 2.0,
+            },
+        )
 
     for ax in axes:
         ax.grid(axis="y", color=LIGHT_GRAY, lw=0.6)

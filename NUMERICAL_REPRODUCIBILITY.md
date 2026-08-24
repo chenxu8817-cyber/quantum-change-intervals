@@ -1,91 +1,118 @@
-# Paper I numerical certification
+# Numerical certification and reproducibility report
 
 ## Scope
 
-Paper I retains only one-interval assets.  Multiple-interval CSV files,
-forest tests, and the Lean combinatorial proof belong to Paper II and are not
-evidence for the claims in this manuscript.
+The numerical work is split into two non-interchangeable layers.
 
-## Certified unknown-length grid
+1. Small-size certification solves both the primal and dual minimum-error SDPs.
+2. Medium-size scaling computes the exact SRM from the dense physical Gram
+   matrix and refuses infeasible allocations before construction.
 
-`certified_sdp_results.csv` contains 30 cases with
+No approximate matrix is silently substituted for the exact physical Gram.
 
-- \(n=3,\ldots,7\);
-- \(c=0.3,0.6,0.8,0.9,0.95,0.99\);
-- independent primal and dual solutions;
-- signed and absolute gaps;
-- raw and normalized completeness residuals;
-- primal/dual PSD violations;
-- complementarity residuals;
-- postprocessed feasible primal and dual objectives;
-- the feasible interval width, primal contraction, and dual safety shift;
-- rechecked safe completeness and PSD residuals.
+## Primal and dual SDP certification
 
-The completed reference verification has all 30 primal and dual statuses equal
-to optimal. Its largest absolute primal--dual gap is
-\(6.782\times10^{-9}\), its largest normalized Frobenius completeness residual
-is \(1.759\times10^{-12}\), and its largest primal and dual PSD violations are
-\(6.801\times10^{-10}\) and \(2.822\times10^{-10}\), respectively.
+The file certified_sdp_results.csv contains 30 cases:
 
-These raw objectives are solver diagnostics, not the reported rigorous
-bracket. For the upper bound, the largest negative dual-slack eigenvalue is
-repaired by an identity shift plus a scale-aware positive roundoff margin. For
-the lower bound, every raw POVM element is projected onto the PSD cone,
-normalized by the inverse square root of its sum, and conservatively completed
-after a final contraction. The largest resulting feasible interval width is
-\(8.854\times10^{-9}\). The largest safe completeness residual is
-\(1.377\times10^{-15}\), every safe primal and dual PSD violation is zero,
-and the smallest safe primal eigenvalue and rechecked dual slack eigenvalue
-are \(3.4103\times10^{-13}\) and \(3.4102\times10^{-13}\), respectively.
+- n = 3,...,7;
+- c = 0.3, 0.6, 0.8, 0.9, 0.95, 0.99;
+- solver: CLARABEL;
+- both primal and dual objectives;
+- independently recomputed feasibility and complementarity residuals.
 
-## Fixed and growing known lengths
+Worst observed certificate diagnostics were:
 
-`paper1_fixed_and_growing_srm.csv` checks three schedules:
+| diagnostic | maximum |
+|---|---:|
+| absolute primal-dual gap | 6.782e-9 |
+| absolute relative gap | 7.157e-8 |
+| primal completeness residual, Frobenius | 2.083e-13 |
+| primal PSD violation | 6.802e-10 |
+| dual PSD violation | 2.822e-10 |
+| complementarity residual | 6.782e-9 |
 
-- fixed \(i=2\), compared with the elliptic/Toeplitz limit;
-- \(i=\lceil\sqrt N\rceil\);
-- \(i=\lfloor N/2\rfloor\),
+Small negative gaps at the 1e-9 scale are preserved in the CSV and are
+interpreted as floating-point solver tolerance, not truncated to zero.
 
-for \(N=10,20,40,80\) and \(c=0.5,0.8,0.95\).
+The same general certificate was also run directly on multi-interval models:
 
-## No-anomaly hypothesis
+| file | m | n values | c values | maximum absolute gap |
+|---|---:|---|---|---:|
+| certified_sdp_m2.csv | 2 | 4,5 | 0.5,0.9,0.99 | 4.380e-9 |
+| certified_sdp_m3.csv | 3 | 6,7 | 0.5,0.9,0.99 | 5.706e-9 |
 
-`paper1_h0_certified_sdp.csv` solves weighted-prior primal and dual SDPs for
+Thus primal/dual certification is not inferred from the single-interval
+experiment; it is evaluated on the physical m=2 and m=3 Gram matrices as well.
 
-- \(c=0.5,0.8,0.95\);
-- \(\pi_0=0.2,0.5\);
-- \(N=3,5\);
-- \(i=1,2\).
+## Exact dense SRM scaling
 
-All 24 cases have optimal primal and dual statuses. The largest absolute gap
-is \(2.149\times10^{-9}\), the largest normalized completeness residual is
-\(4.856\times10^{-13}\), and the largest dual PSD violation is
-\(6.889\times10^{-10}\).
+The resource-aware exact calculations are:
 
-The same feasible postprocessing is applied to these weighted-prior cases. The
-largest safe interval width is \(3.883\times10^{-9}\), the largest safe
-completeness residual is \(4.014\times10^{-16}\), and every safe primal and
-dual PSD violation is zero. The smallest safe primal eigenvalue and safe dual
-slack eigenvalue are \(2.2726\times10^{-13}\) and
-\(2.2734\times10^{-13}\), respectively.
+| file | m | n range | largest candidate count | overlap grid |
+|---|---:|---:|---:|---|
+| srm_scaling_m1.csv | 1 | 10,20,30,40,50 | 1275 | 0.5,0.8,0.9,0.95,0.99 |
+| srm_scaling_m2.csv | 2 | 8,10,12,14 | 1365 | 0.5,0.8,0.9,0.95,0.99 |
+| srm_scaling_m3.csv | 3 | 7,8,9,10 | 462 | 0.5,0.8,0.9,0.95,0.99 |
 
-The endpoint unit tests additionally verify perfect discrimination at \(c=0\)
-and largest-prior guessing at \(c=1\).
+For m=1 the exact full-candidate SRM is therefore extended through n=50.
+For m=2 and m=3 the exact dense range is intentionally smaller because
 
-## Exact SRM scaling
+    M(n,m) = binomial(n+1, 2m).
 
-`srm_scaling_m1.csv` contains exact dense physical-Gram SRM results for
-\(n=10,20,30,40,50\) and \(c=0.5,0.8,0.9,0.95,0.99\).
+At m=2,n=50, M=249900 and the Gram alone requires about 500 GB in float64.
+The scaling script rejects such a case before allocation.
 
-## Verification semantics
+## High-overlap stress tests
 
-`verify_paper1_results.py` compares regenerated and archived scientific
-columns within declared tolerances.  It ignores wall-clock and solver-iteration
-columns. It separately checks the raw residual thresholds, safe residual
-thresholds, ordering of every feasible interval, and consistency of the
-lower/upper aliases used by Figure 3(c). A SHA256 manifest records the exact
-manuscript, code, tests, data, and environment metadata used in the run.
+Every scaling table includes c=0.9,0.95,0.99 and records
 
-The stored verification report has passed: true: all 30 certified SDP rows and
-all 25 SRM-scaling rows agree with their archived counterparts within the
-declared tolerances.
+    xi(c) = 1 / abs(log(c))
+
+and n/xi. At c=0.99, xi is approximately 99.5. Consequently even n=50 has
+n/xi approximately 0.503 and is not in a clean asymptotic regime. The large
+finite-size deviations at high overlap are therefore reported as slow
+convergence and conditioning stress, not as evidence against the theorem.
+
+## Unit tests
+
+The test suite checks:
+
+- binomial candidate counts;
+- bit-mask, incidence, and direct symmetric-difference agreement;
+- Gram symmetry, unit diagonal, PSD, and c=0,1 endpoints;
+- agreement of the common m=2 constructor with the legacy implementation;
+- the general endpoint-matching dichotomy for m=1,...,4;
+- SRM endpoint values and the square-root-trace lower bound;
+- canonical rank reduction;
+- primal/dual recovery of orthogonal, identical, and binary Helstrom cases;
+- direct fixed-m multi-interval SDP integration;
+- certificate output fields and residuals;
+- dense-memory resource refusal;
+- environment manifest completeness.
+- the seven directed \(m=3\) forest-layer factorizations
+  \(B_{F,\boldsymbol\delta}=U_{F,\boldsymbol\delta}V_{F,\boldsymbol\delta}\);
+- exact subset-expansion reconstruction of the oriented three-block
+  correction and the exclusion of simultaneous upper/lower cross edges.
+- exhaustive monotone-forest checks through \(m=6\) of the separator bound
+  \(\kappa(F)+z(F)\le m-1\).
+- exhaustive checks through \(m=4\) of the two-sided energy-cover inequalities
+  used to pay the concatenated multi-depth coefficients.
+
+The file proofs/EnergyPayment.lean machine-checks the discrete exponent and
+separator arithmetic with Lean 4 and contains no sorry or custom axiom. It
+does not claim to formalize the real-analysis or Schatten-norm part of the
+paper, because this workspace does not vendor Mathlib.
+
+Run:
+
+    python -m unittest discover -s tests -v
+
+## Locked environment
+
+The reproducibility files are:
+
+- .python-version: Python 3.12.13;
+- pyproject.toml: direct exact dependencies;
+- requirements-lock.txt: full exact package snapshot;
+- reproduction_manifest.json: machine, solver, BLAS, thread, and file hashes;
+- REPRODUCING.md: commands for tests and data regeneration.

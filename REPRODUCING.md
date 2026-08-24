@@ -1,57 +1,49 @@
-# Reproducing Paper I
+# Reproducing the numerical results
 
-The certified environment uses CPython 3.12.x. The current audited rerun used
-3.12.10; the earlier archived runtime record used 3.12.13. Do not run these
-commands with the workspace default Python 3.14.
+The certified environment is Python 3.12.13 with the exact versions in
+requirements-lock.txt. The workspace-local .local_pydeps directory is only a
+convenience cache; the lock file and manifest are the reproducibility record.
 
-## Clean environment
+## Environment
 
-On Windows PowerShell:
+Create a Python 3.12 environment and install the locked dependencies:
 
-```powershell
-py -3.12 -m venv .venv-paper1
-.\.venv-paper1\Scripts\python.exe -m pip install --upgrade pip
-.\.venv-paper1\Scripts\python.exe -m pip install -r requirements-lock.txt
-.\paper1\run_reproduction.ps1
-```
+    python -m pip install -r requirements-lock.txt
 
-The default workflow uses only the activated `.venv-paper1`; repository code
-does not silently prepend `.local_pydeps`.
+For deterministic timing comparisons, set the BLAS thread counts explicitly:
 
-## Audited workspace cache
+    $env:OMP_NUM_THREADS = "1"
+    $env:MKL_NUM_THREADS = "1"
+    $env:OPENBLAS_NUM_THREADS = "1"
 
-The existing `.local_pydeps` directory is a CPython 3.12 convenience cache.
-It is not part of the clean-environment protocol.  To reproduce the current
-workspace without reinstalling packages, opt in explicitly:
+Generate the machine and solver manifest:
 
-```powershell
-.\paper1\run_reproduction.ps1 -UseWorkspaceCache
-```
+    python environment_manifest.py
 
-The script rejects a non-3.12 interpreter before importing compiled packages.
+## Tests
 
-## Outputs
+    python -m unittest discover -s tests -v
 
-The workflow:
+## Small-size primal/dual SDP certification
 
-1. runs the complete unit-test suite;
-2. regenerates fixed- and growing-length SRM checks;
-3. regenerates the fixed-\(H_0\) primal/dual SDP grid;
-4. regenerates the 30-case unknown-length primal/dual grid;
-5. regenerates the exact dense \(m=1\) SRM scaling table through \(n=50\);
-6. compares scientific columns with archived tables using explicit tolerances;
-7. records a Paper-I-only environment and SHA256 manifest.
+    python interval_unknown_length_numerics.py --n-min 3 --n-max 7 --c 0.3 0.6 0.8 0.9 0.95 0.99 --solver CLARABEL --output certified_sdp_results.csv
 
-Timing and iteration-count columns are reported but excluded from numerical
-identity checks.  They are machine-dependent diagnostics, not scientific
-results.
+The CSV contains independently recomputed primal and dual objectives, absolute
+and relative gaps, primal completeness residuals, primal/dual PSD violations,
+and complementarity residuals.
 
-## Fast validation
+Small fixed-m multi-interval certificates are generated with:
 
-To skip the 30-case certified SDP regeneration while editing prose:
+    python fixed_m_sdp_grid.py --m 2 --n 4 5 --c 0.5 0.9 0.99 --output certified_sdp_m2.csv
 
-```powershell
-.\paper1\run_reproduction.ps1 -UseWorkspaceCache -SkipCertifiedGrid
-```
+    python fixed_m_sdp_grid.py --m 3 --n 6 7 --c 0.5 0.9 0.99 --output certified_sdp_m3.csv
 
-This mode is a development check and is not the final reproduction protocol.
+## Resource-aware exact SRM scaling
+
+The exact dense m=1 run through n=50 is:
+
+    python srm_scaling.py --m 1 --n 10 20 30 40 50 --c 0.5 0.8 0.9 0.95 0.99 --max-gram-gib 2 --output srm_scaling_m1.csv
+
+For m=2 or larger, choose smaller n. The script refuses a case before
+allocation whenever the dense Gram estimate exceeds the configured limit. It
+never silently substitutes an approximate matrix for the exact physical Gram.

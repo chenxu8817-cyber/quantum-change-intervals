@@ -67,7 +67,6 @@ PAPER1_HASHED_FILES = [
     ".python-version",
     "pyproject.toml",
     "requirements-lock.txt",
-    "paper1/manuscript.md",
     "paper1/README.md",
     "paper1/PROOF_AUDIT.md",
     "paper1/REPRODUCING.md",
