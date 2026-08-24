@@ -1,3 +1,23 @@
+# v1.1.0-paper1
+
+This manuscript release adds the exceptional-sector Gram transfer theorem and
+its Følner comparison corollary, clarifies the joint no-change priors and the
+scope of the Bayes-optimal statements, and strengthens the theorem-to-theorem
+comparison with prior quantum change-point, multi-anomaly, edge-detection, and
+certified-answer work.
+
+It also includes:
+
+- synchronized Quantum-class sources and the verified 15-page PDF;
+- revised Figures 1--3, including an explicit nonorthogonal-overlap cue,
+  prior-specific labels without comparison shading, and separated curve labels;
+- corrected safeguarded primal normalization and explicit numerical scope for
+  \(n>7\);
+- the regenerated bibliography, proof audit, reference data, environment
+  manifest, and reproducibility package; and
+- an AI-assistance disclosure integrated into the author-contribution
+  statement.
+
 # v1.0.0-paper1
 
 This immutable release accompanies the manuscript *Quantum Change Intervals:

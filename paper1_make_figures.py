@@ -249,6 +249,15 @@ def make_figure_1(output_dir: Path) -> list[Path]:
         weight="bold",
     )
     ax.text(
+        4.88,
+        1.30,
+        r"state overlap $c=|\langle0|\psi\rangle|$",
+        ha="center",
+        va="center",
+        fontsize=6.5,
+        color=muted,
+    )
+    ax.text(
         8.10,
         1.47,
         r"reference $|0\rangle$",
@@ -454,12 +463,21 @@ def make_figure_2(output_dir: Path) -> list[Path]:
     )
     axes[0].legend(ncol=2, loc="lower left")
 
-    axes[1].plot(c_values, long_limit, color=BLUE, lw=2.3,
-                 label=r"known growing length: $p_1(c^2)$")
-    axes[1].plot(c_values, unknown_limit, color=RED, lw=2.3, ls="--",
-                 label=r"unknown length: $p_1(c)^2$")
-    axes[1].fill_between(c_values, unknown_limit, long_limit,
-                         color=LIGHT_BLUE, alpha=0.14, linewidth=0)
+    axes[1].plot(
+        c_values,
+        long_limit,
+        color=BLUE,
+        lw=2.3,
+        label=r"Known: uniform translations, $p_1(c^2)$",
+    )
+    axes[1].plot(
+        c_values,
+        unknown_limit,
+        color=RED,
+        lw=2.3,
+        ls="--",
+        label=r"Unknown: uniform intervals, $p_1(c)^2$",
+    )
     axes[1].set(
         xlabel=r"state overlap $c=|\langle0|\psi\rangle|$",
         ylabel=r"asymptotic success probability",

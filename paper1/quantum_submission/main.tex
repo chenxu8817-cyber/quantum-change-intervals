@@ -10,6 +10,7 @@
 \usepackage{tabularx}
 \usepackage[numbers,sort&compress]{natbib}
 \usepackage{microtype}
+\usepackage{placeins}
 \usepackage{hyperref}
 
 \providecommand{\tightlist}{%
@@ -53,19 +54,21 @@ Gram matrix is
 Toeplitz symbol gives an exact integral for the asymptotic Bayes success
 probability, and the square-root measurement (SRM) attains the same limit.
 When both the known length and the number of admissible translations diverge,
-with no restriction on their ratio, the optimum approaches the one-dimensional
-Toeplitz (single-change) functional evaluated at the effective compound overlap
-\(c^2\), namely \(p_1(c^2)\).
+with no restriction on their ratio, the optimal success probability converges
+to the one-dimensional Toeplitz (single-change) functional evaluated at the
+effective compound overlap \(c^2\), namely \(p_1(c^2)\).
 For an unknown length, the physical Gram kernel is not globally
 two-dimensional Toeplitz because separated intervals carry a gap-dependent
 correction. Under the prior uniform over all nonempty intervals, we remove a
 vanishing-prior short sector, use a triangular Følner reduction, and transfer
 the result back to both the Bayes optimum and the SRM of the full physical
-family. The resulting, prior-specific limit is \(p_1(c)^2\). Adding a
-no-change hypothesis
-with fixed prior preserves these conditional localization laws. Finite-size
-semidefinite programs and full dense physical-Gram SRM computations illustrate
-the asymptotic results.
+family. An exceptional-sector Gram transfer theorem isolates the reusable
+mechanism behind this step. The resulting, prior-specific limit is
+\(p_1(c)^2\). For the stated conditional uniform anomaly prior, adding a
+no-change hypothesis with fixed prior changes the optimal joint Bayes limit to
+\(\pi_0+(1-\pi_0)L\), where \(L\) is the conditional localization limit; no
+augmented weighted-SRM claim is made. Finite-size semidefinite programs and
+full dense physical-Gram SRM computations illustrate the asymptotic results.
 \end{abstract}
 
 \noindent\textbf{Keywords:} quantum change point; quantum state
