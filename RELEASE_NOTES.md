@@ -1,10 +1,10 @@
-# v1.1.0-paper1
+# v1.2.0-paper1
 
-This manuscript release adds the exceptional-sector Gram transfer theorem and
-its Følner comparison corollary, clarifies the joint no-change priors and the
-scope of the Bayes-optimal statements, and strengthens the theorem-to-theorem
-comparison with prior quantum change-point, multi-anomaly, edge-detection, and
-certified-answer work.
+This submission-ready manuscript release adds the exceptional-sector Gram
+transfer theorem and its Følner comparison corollary, clarifies the joint
+no-change priors and the scope of the Bayes-optimal statements, and strengthens
+the theorem-to-theorem comparison with prior quantum change-point,
+multi-anomaly, edge-detection, and certified-answer work.
 
 It also includes:
 
@@ -17,6 +17,13 @@ It also includes:
   manifest, and reproducibility package; and
 - an AI-assistance disclosure integrated into the author-contribution
   statement.
+
+# v1.1.0-paper1
+
+This intermediate source tag introduced the exceptional-sector transfer
+framework and the expanded prior-work comparison. It was not published as a
+separate GitHub Release; the submission-ready revision is
+`v1.2.0-paper1`.
 
 # v1.0.0-paper1
 

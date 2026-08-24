@@ -3,7 +3,7 @@
 ## Prepared release identity
 
 - Suggested repository name: `quantum-change-intervals`
-- Current manuscript release tag: `v1.1.0-paper1`
+- Current manuscript release tag: `v1.2.0-paper1`
 - Suggested archive title: *Quantum Change Intervals: Exact Asymptotic
   Localization with Collective Measurements - code and data*
 - Archive contents: the files hashed by the `paper1` profile in
@@ -20,7 +20,7 @@ disclosure. The repository retains its existing MIT License, with the
 copyright notice synchronized to Xu Chen and Xue Ma.
 
 Xue Ma's ORCID and a Zenodo or institutional-archive DOI may be added later;
-neither item blocks the GitHub tag `v1.1.0-paper1`. Do not add an archival DOI
+neither item blocks the GitHub tag `v1.2.0-paper1`. Do not add an archival DOI
 to the manuscript until it resolves to the immutable tagged release.
 
 ## Publication sequence
@@ -30,7 +30,7 @@ to the manuscript until it resolves to the immutable tagged release.
    rewriting its history or replacing its MIT terms.
 2. Run `paper1/run_reproduction.ps1` in a clean CPython 3.12 clone, regenerate
    the PDF and manifest, inspect the diff, and push `main`.
-3. Create and push the immutable `v1.1.0-paper1` tag. Optionally enable the
+3. Create and push the immutable `v1.2.0-paper1` tag. Optionally enable the
    repository in Zenodo and let Zenodo archive that exact tag.
 4. If archived, record both the concept DOI and version DOI. Use the version DOI in the
    manuscript's data-and-code statement for exact reproducibility; use the

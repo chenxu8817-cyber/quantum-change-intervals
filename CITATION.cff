@@ -11,8 +11,8 @@ authors:
   - family-names: "Ma"
     given-names: "Xue"
     affiliation: "Network Management Center, China Mobile Communications Group Hebei Co., Ltd."
-version: "1.1.0-paper1"
-date-released: "2026-08-24"
+version: "1.2.0-paper1"
+date-released: "2026-08-25"
 repository-code: "https://github.com/chenxu8817-cyber/quantum-change-intervals"
 url: "https://github.com/chenxu8817-cyber/quantum-change-intervals"
 abstract: >-

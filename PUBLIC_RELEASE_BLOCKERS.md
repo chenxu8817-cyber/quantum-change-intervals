@@ -4,7 +4,7 @@ No technical or licensing blocker remains for the Paper-I GitHub release.
 The repository retains the MIT License already used by the public remote, with
 the copyright notice synchronized to Xu Chen and Xue Ma. The manuscript,
 author metadata, figures, numerical tables, code, tests, and citation metadata
-are synchronized for tag `v1.1.0-paper1`.
+are synchronized for tag `v1.2.0-paper1`.
 
 Two optional metadata steps remain and do not block the GitHub release:
 

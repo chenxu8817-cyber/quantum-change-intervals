@@ -77,7 +77,7 @@ the current Quantum class version 6.1 is not compatible with the TeX Live 2026
 
 Citation metadata and the GitHub repository URL are provided in
 `CITATION.cff`. The current Paper-I manuscript release is tagged
-`v1.1.0-paper1`; an archival DOI can be added after a Zenodo or institutional
+`v1.2.0-paper1`; an archival DOI can be added after a Zenodo or institutional
 deposit.
 
 The repository is released under the MIT License. The existing remote MIT
