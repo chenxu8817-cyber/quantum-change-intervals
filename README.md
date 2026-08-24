@@ -11,8 +11,11 @@ Repository URL:
 
 This release is restricted to Paper I: one nonempty contiguous interval in
 which the known pure state changes from `|0>` to `|psi>` and then returns to
-`|0>`, with arbitrary collective measurements. Exploratory two-interval and
-fixed-m material is intentionally excluded.
+`|0>`, with arbitrary collective measurements. Paper-II theorems, numerical
+tables, forest factorizations, and their dedicated tests are intentionally
+excluded. A few shared constructors retain an `interval_count` argument for
+code reuse, but every archived dataset and release test in this package uses
+the one-interval model.
 
 ## Quick start
 

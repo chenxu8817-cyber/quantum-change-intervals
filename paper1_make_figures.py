@@ -7,6 +7,7 @@ import csv
 import math
 import os
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
@@ -54,6 +55,7 @@ def apply_publication_style() -> None:
             "legend.frameon": False,
             "lines.linewidth": 1.8,
             "svg.fonttype": "none",
+            "svg.hashsalt": "quantum-change-intervals-paper1",
             "pdf.fonttype": 42,
             "ps.fonttype": 42,
             "savefig.facecolor": "white",
@@ -112,7 +114,17 @@ def _save(fig: plt.Figure, output_dir: Path, stem: str) -> list[Path]:
     output_dir.mkdir(parents=True, exist_ok=True)
     pdf = output_dir / f"{stem}.pdf"
     png = output_dir / f"{stem}.png"
-    fig.savefig(pdf, bbox_inches="tight", pad_inches=0.03)
+    release_timestamp = datetime(2026, 8, 24, tzinfo=timezone.utc)
+    fig.savefig(
+        pdf,
+        bbox_inches="tight",
+        pad_inches=0.03,
+        metadata={
+            "Creator": "Quantum Change Intervals reproducibility workflow",
+            "CreationDate": release_timestamp,
+            "ModDate": release_timestamp,
+        },
+    )
     fig.savefig(png, dpi=300, bbox_inches="tight", pad_inches=0.03)
     plt.close(fig)
     return [pdf, png]
@@ -399,6 +411,10 @@ def make_figure_1(output_dir: Path) -> list[Path]:
         output_dir / "figure1_model_geometry.svg",
         bbox_inches="tight",
         pad_inches=0.03,
+        metadata={
+            "Creator": "Quantum Change Intervals reproducibility workflow",
+            "Date": "2026-08-24",
+        },
     )
     fig.savefig(
         output_dir / "figure1_model_geometry.tiff",
@@ -460,13 +476,16 @@ def make_figure_2(output_dir: Path) -> list[Path]:
 
 def make_figure_3(
     output_dir: Path,
+    known_data_path: Path = (
+        ROOT / "paper1" / "paper1_fixed_and_growing_srm.csv"
+    ),
     sdp_data_path: Path = ROOT / "certified_sdp_results.csv",
     srm_data_path: Path = ROOT / "srm_scaling_m1.csv",
 ) -> list[Path]:
     """Plot finite-size convergence and the certified SRM-optimum gap."""
     apply_publication_style()
     known_rows = _read_numeric_csv(
-        ROOT / "paper1" / "paper1_fixed_and_growing_srm.csv",
+        known_data_path,
         {"schedule", "c", "N", "srm", "target"},
     )
     unknown_rows = _read_numeric_csv(
@@ -650,6 +669,9 @@ def make_figure_3(
 
 def make_all_figures(
     output_dir: Path = ROOT / "paper1" / "figures",
+    known_data_path: Path = (
+        ROOT / "paper1" / "paper1_fixed_and_growing_srm.csv"
+    ),
     sdp_data_path: Path = ROOT / "certified_sdp_results.csv",
     srm_data_path: Path = ROOT / "srm_scaling_m1.csv",
 ) -> list[Path]:
@@ -660,6 +682,7 @@ def make_all_figures(
     outputs.extend(
         make_figure_3(
             output_dir,
+            known_data_path=known_data_path,
             sdp_data_path=sdp_data_path,
             srm_data_path=srm_data_path,
         )
@@ -673,6 +696,11 @@ if __name__ == "__main__":
         "--output-dir", type=Path, default=ROOT / "paper1" / "figures"
     )
     parser.add_argument(
+        "--known-data",
+        type=Path,
+        default=ROOT / "paper1" / "paper1_fixed_and_growing_srm.csv",
+    )
+    parser.add_argument(
         "--sdp-data", type=Path, default=ROOT / "certified_sdp_results.csv"
     )
     parser.add_argument(
@@ -681,6 +709,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
     for generated in make_all_figures(
         output_dir=args.output_dir,
+        known_data_path=args.known_data,
         sdp_data_path=args.sdp_data,
         srm_data_path=args.srm_data,
     ):
