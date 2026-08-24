@@ -1,4 +1,9 @@
-"""Independent primal/dual SDP certification for pure-state discrimination."""
+"""Floating-point primal/dual SDP verification for state discrimination.
+
+Historical public API and output-field names retain 'certify' for backward
+compatibility. The computations use conventional IEEE double precision, not
+interval arithmetic or exact-rational certification.
+"""
 
 from __future__ import annotations
 
@@ -171,12 +176,12 @@ def _safe_dual_bound(
     dual: np.ndarray,
     rhos: list[np.ndarray],
 ) -> tuple[np.ndarray, float, float, float]:
-    """Shift a numerical dual point to a strictly feasible dual point.
+    """Shift a numerical dual point toward strict dual feasibility.
 
     If ``delta`` is the largest negative-slack violation, then
     ``dual + (delta + margin) I`` dominates every weighted state.  The final
-    recheck protects the construction against the eigensolver roundoff used to
-    estimate ``delta``.
+    floating-point recheck diagnoses the eigensolver roundoff used to estimate
+    delta; it is not a directed-rounding proof of feasibility.
     """
     dual_symmetric = _symmetric(dual)
     slacks = [_symmetric(dual_symmetric - rho) for rho in rhos]
@@ -298,7 +303,7 @@ def certify_minimum_error(
     verbose: bool = False,
     priors: np.ndarray | None = None,
 ) -> dict[str, float | int | str]:
-    """Solve both SDPs and independently recompute all certificate residuals."""
+    """Solve both SDPs and independently recompute floating-point residuals."""
     states, metadata = canonical_weighted_states(
         gram, rank_tolerance=rank_tolerance, priors=priors
     )

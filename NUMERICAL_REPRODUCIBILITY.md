@@ -1,11 +1,11 @@
-# Paper I numerical certification
+# Paper I numerical verification
 
 The authoritative numerical report is
 [`paper1/NUMERICAL_REPRODUCIBILITY.md`](paper1/NUMERICAL_REPRODUCIBILITY.md).
 The public Paper-I evidence consists of:
 
-- 30 certified unknown-length primal/dual SDP cases in
-  `certified_sdp_results.csv`;
+- 30 safeguarded unknown-length primal/dual SDP cases in
+  `certified_sdp_results.csv` (legacy filename);
 - 25 full dense one-interval SRM scaling cases through `n=50` in
   `srm_scaling_m1.csv`;
 - fixed- and growing-known-length checks in
@@ -17,3 +17,8 @@ The public Paper-I evidence consists of:
 
 Paper-II multi-interval tables, forest factorizations, and their dedicated
 tests are intentionally not part of this release.
+
+All bracket endpoints and residual checks use conventional IEEE double
+precision. They are safeguarded floating-point diagnostics, not validated
+interval-arithmetic or exact-rational certificates. Historical filenames and
+APIs containing `certified` or `certify` are retained for reproducibility.

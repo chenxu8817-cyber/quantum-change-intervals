@@ -71,7 +71,7 @@ def h0_gram(candidate_count: int, length: int, overlap: float) -> np.ndarray:
 def h0_rows(
     overlaps: list[float], solver: str = "CLARABEL"
 ) -> list[dict[str, object]]:
-    """Return certified small H0 detection-localization rows."""
+    """Return safeguarded floating-point H0 detection-localization rows."""
     rows: list[dict[str, object]] = []
     for overlap in overlaps:
         for prior_h0 in (0.2, 0.5):
@@ -137,4 +137,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

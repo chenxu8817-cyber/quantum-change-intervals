@@ -1,6 +1,6 @@
 # Reproducing Paper I
 
-The certified environment uses CPython 3.12.x. The current audited rerun used
+The pinned numerical environment uses CPython 3.12.x. The current audited rerun used
 3.12.10; the earlier archived runtime record used 3.12.13. Do not run these
 commands with the workspace default Python 3.14.
 
@@ -48,7 +48,7 @@ results.
 
 ## Fast validation
 
-To skip the 30-case certified SDP regeneration while editing prose:
+To skip the 30-case SDP regeneration while editing prose:
 
 ```powershell
 .\paper1\run_reproduction.ps1 -UseWorkspaceCache -SkipCertifiedGrid

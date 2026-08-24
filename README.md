@@ -1,6 +1,6 @@
 # Quantum Change Intervals
 
-Code, certified numerical data, tests, figures, and LaTeX sources accompanying
+Code, safeguarded floating-point numerical data, tests, figures, and LaTeX sources accompanying
 the manuscript *Quantum Change Intervals: Exact Asymptotic Localization with
 Collective Measurements* by Xu Chen and Xue Ma.
 
@@ -28,7 +28,7 @@ py -3.12 -m venv .venv-paper1
 .\paper1\run_reproduction.ps1
 ```
 
-For a fast test-and-figure check that skips regeneration of the full certified
+For a fast test-and-figure check that skips regeneration of the full 30-case
 SDP grid:
 
 ```powershell
@@ -37,22 +37,27 @@ SDP grid:
 
 See [REPRODUCING.md](REPRODUCING.md) and
 [paper1/NUMERICAL_REPRODUCIBILITY.md](paper1/NUMERICAL_REPRODUCIBILITY.md)
-for the full protocol, numerical grids, tolerances, and certificate semantics.
+for the full protocol, numerical grids, tolerances, and floating-point bracket
+semantics. Historical filenames and APIs containing `certified` or `certify`
+are retained for reproducibility and backward compatibility; they do not denote
+interval-arithmetic or exact-rational certification.
 
 ## Main entry points
 
 - `paper1_analytics.py`: Toeplitz limits and analytic special cases.
 - `paper1_numerics.py`: fixed/growing-length and no-anomaly calculations.
-- `interval_unknown_length_numerics.py`: certified unknown-length SDP grid.
+- `interval_unknown_length_numerics.py`: safeguarded unknown-length SDP grid.
 - `srm_scaling.py`: full dense physical-Gram SRM scaling.
-- `sdp_certification.py`: primal/dual solutions and safe feasible bounds.
+- `sdp_certification.py`: primal/dual solutions and safeguarded floating-point
+  bracket diagnostics.
 - `paper1_make_figures.py`: publication Figure 1--3 generation.
 - `verify_paper1_results.py`: tolerance-based comparison with reference data.
 - `environment_manifest.py`: environment metadata and SHA-256 manifest.
 
 ## Archived reference data
 
-- `certified_sdp_results.csv`: 30 unknown-length primal/dual SDP cases.
+- `certified_sdp_results.csv`: 30 unknown-length primal/dual SDP cases (legacy
+  filename).
 - `srm_scaling_m1.csv`: full dense physical-Gram SRM calculations through
   `n=50`.
 - `paper1/paper1_fixed_and_growing_srm.csv`: fixed and growing known lengths.

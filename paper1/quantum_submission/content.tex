@@ -159,7 +159,8 @@ is asymptotically optimal
 exterior domains equal \(\lvert0\rangle\), and the full physical Gram kernel
 requires a non-Toeplitz-to-Følner transfer \\
 Epidemic/changed-interval statistics \cite{levin1985,yao1993,walther2010,chen2015}
-& Direct classical analogue of the returning interval
+& Direct geometric analogue of the returning interval, with a different
+decision criterion
 & Scan/CUSUM detection, significance, and power guarantees for commuting data
 & The quantum problem optimizes exact Bayes localization over collective POVMs \\
 \bottomrule
@@ -1358,7 +1359,8 @@ P_{\rm joint}^*
 Theorem~\ref{thm:unknown-length} and \(\varepsilon_n,\eta_n\to0\) make the bounds coincide. If \(c=0\), all hypotheses are mutually orthogonal and the success probability is one. If \(c=1\), all hypotheses are identical and the optimum is \(\max\{\pi_0,(1-\pi_0)/M_n\}\to\pi_0\).
 \end{proof}
 
-\section{Numerical certification}\label{numerical-certification}
+\section{Numerical verification}
+\label{numerical-verification}
 
 The numerical calculations verify the finite-size Gram matrices and show how
 the asymptotic regimes are approached. None of the proofs relies on numerical
@@ -1366,7 +1368,7 @@ evidence.
 
 For small unknown-length instances, we solve the minimum-error problem in
 canonical Gram coordinates with both primal and dual semidefinite programs.
-The certification data cover \(n=3,\ldots,7\) and
+The numerical grid covers \(n=3,\ldots,7\) and
 
 \[
 c\in\{0.3,0.6,0.8,0.9,0.95,0.99\}.
@@ -1387,8 +1389,8 @@ Y_{\rm safe}=Y+(\delta_D+\zeta_D)I,\qquad
 U_{\rm safe}=\operatorname{tr}Y_{\rm safe}
 \end{equation}
 
-is rechecked against every dual PSD constraint and supplies a feasible upper
-bound.
+is rechecked against every dual PSD constraint. For exact matrices satisfying
+those constraints, it supplies a feasible upper bound.
 
 For the primal matrices, project each raw \(M_j\) onto the PSD cone, write the
 result as \(M_j^+=B_jB_j^*\), and put \(S=\sum_jM_j^+\). The normalized
@@ -1401,18 +1403,28 @@ sum \(T\) by
 \]
 
 and assigns the PSD remainder \(I-\gamma T\) to one outcome. The resulting
-POVM \(\{\widehat M_j\}\) is rechecked and gives
+POVM \(\{\widehat M_j\}\) is rechecked. In exact arithmetic, feasibility and
+weak duality give
 
 \begin{equation}\label{eq:safe-primal-bound}
 L_{\rm safe}=\sum_j\operatorname{tr}(\rho_j\widehat M_j),\qquad
 L_{\rm safe}\le P_{\rm opt}\le U_{\rm safe}.
 \end{equation}
 
+The implementation, however, uses IEEE double precision and conventional
+floating-point eigensolvers, without directed rounding, interval arithmetic,
+or exact-rational verification. We therefore report \(L_{\rm safe}\) and
+\(U_{\rm safe}\) as safeguarded floating-point bracket endpoints: the displayed
+inequality is rigorous conditional on exact feasibility of the postprocessed
+matrices, while the stored residuals quantify the numerical recheck at the
+working precision.
+
 Across the 30 unknown-length cases, the largest raw absolute primal--dual gap
-is \(6.782\times10^{-9}\), while the largest postprocessed feasible interval
+is \(6.782\times10^{-9}\), while the largest postprocessed floating-point bracket
 width \(U_{\rm safe}-L_{\rm safe}\) is \(8.854\times10^{-9}\). The largest
-safe completeness residual is \(1.38\times10^{-15}\), and every rechecked
-safe primal and dual PSD violation is zero. The smallest safe primal
+rechecked completeness residual is \(1.38\times10^{-15}\), and every rechecked
+primal and dual PSD violation is reported as zero at the evaluator's
+resolution. The smallest postprocessed primal
 eigenvalue and dual slack eigenvalue are respectively
 \(3.4103\times10^{-13}\) and \(3.4102\times10^{-13}\). Full dense
 physical-Gram SRM computations for the single-interval
@@ -1433,16 +1445,19 @@ is approximately \(99.5\) at \(c=0.99\), so even \(n=50\) has \(n/\xi\approx0.50
 \begin{figure*}[t]
   \centering
   \includegraphics[width=0.92\textwidth]{figures/figure3_finite_size.pdf}
-  \caption{\textbf{Finite-size convergence and certified SRM-gap intervals.}
+  \caption{\textbf{Finite-size convergence and safeguarded floating-point
+  SRM-gap brackets.}
   (a) SRM success for \(i=\lceil\sqrt N\rceil\) and
   \(i=\lfloor N/2\rfloor\); dotted horizontal lines are \(p_1(c^2)\).
   (b) Full dense physical-Gram SRM values through \(n=50\); dotted lines are
   \(p_1(c)^2\), with high-overlap curves retained as stress tests.
-  (c) Postprocessed feasible brackets:
-  \(L_{\rm safe}-P_{\rm SRM}\le P_{\rm opt}-P_{\rm SRM}
-  \le U_{\rm safe}-P_{\rm SRM}\) for \(n\leq7\). Plotting symbols mark only
-  the midpoint of each displayed bracket, not an estimate of
-  \(P_{\rm opt}-P_{\rm SRM}\); error bars are often smaller than the symbols.}
+  (c) Numerically rechecked endpoints
+  \(L_{\rm safe}-P_{\rm SRM}\) and \(U_{\rm safe}-P_{\rm SRM}\) for
+  \(n\leq7\). Conditional on exact feasibility, they bracket
+  \(P_{\rm opt}-P_{\rm SRM}\); here they are reported as safeguarded
+  floating-point diagnostics. Plotting symbols mark only the midpoint of each
+  displayed interval, not an estimate of \(P_{\rm opt}-P_{\rm SRM}\); error
+  bars are often smaller than the symbols.}
   \label{fig:finite-size}
 \end{figure*}
 
@@ -1455,7 +1470,7 @@ Clarabel, and SCS; the reported clean-environment rerun used Python 3.12.10.
 
 Known and unknown lengths produce different analytic laws. A long known interval is indexed by one translation coordinate. Moving it by one site changes two local factors, hence the elementary kernel parameter is \(c^2\) and the limit is \(p_1(c^2)\). An unknown interval is indexed by two endpoints. In the long intersecting regime, the symmetric-difference distance separates into the \(\ell^1\) distance of these endpoints; each endpoint contributes a kernel with parameter \(c\). The normalized square-root trace is therefore \(p_1(c)\), and the success probability is \(p_1(c)^2\). This factorized law depends on the uniform-over-intervals prior: it should not be read as a universal penalty for every prior on an unknown duration, nor as a same-prior value-of-information comparison with the known-length model.
 
-For fixed known length, Theorem~\ref{thm:fixed-length} proves the rigorous rate \(P_{\rm opt}-P_{\rm SRM}=O_{i,r}(N^{-1/2})\). Exploratory finite-size calculations in some fixed-length parameter ranges are consistent with an \(N^{-1}\) decay, but the available certified sizes do not establish a uniform exponent. Determining whether the wrap-around boundary perturbation can be exploited to prove \(O_{i,r}(N^{-1})\), or an asymptotic expansion with a nonzero \(N^{-1}\) coefficient, remains an open problem. By contrast, Theorems~\ref{thm:long-known} and \ref{thm:unknown-length} are qualitative fixed-overlap limits: their proofs give neither a finite-size rate nor bounds uniform in a local regime \(c=c_n\uparrow1\).
+For fixed known length, Theorem~\ref{thm:fixed-length} proves the rigorous rate \(P_{\rm opt}-P_{\rm SRM}=O_{i,r}(N^{-1/2})\). Exploratory finite-size calculations in some fixed-length parameter ranges are consistent with an \(N^{-1}\) decay, but the available computed sizes do not establish a uniform exponent. Determining whether the wrap-around boundary perturbation can be exploited to prove \(O_{i,r}(N^{-1})\), or an asymptotic expansion with a nonzero \(N^{-1}\) coefficient, remains an open problem. By contrast, Theorems~\ref{thm:long-known} and \ref{thm:unknown-length} are qualitative fixed-overlap limits: their proofs give neither a finite-size rate nor bounds uniform in a local regime \(c=c_n\uparrow1\).
 
 The theorems benchmark arbitrary collective POVMs; they do not provide an
 efficient physical implementation of the optimum measurement. Nor do the
@@ -1474,8 +1489,9 @@ and requires a separate analysis.
 A returning quantum change retains enough translation structure for an exact
 asymptotic analysis. With fixed known length, the localization probability is
 a Toeplitz square-root integral; a growing known length gives the
-single-change law \(p_1(c^2)\), whereas an unknown length gives the
-two-endpoint law \(p_1(c)^2\). The SRM reaches the global minimum-error limit
+one-dimensional Toeplitz (single-change) functional evaluated at the effective
+compound overlap \(c^2\), namely \(p_1(c^2)\), whereas an unknown length gives
+the two-endpoint law \(p_1(c)^2\). The SRM reaches the global minimum-error limit
 in all three regimes. A no-change hypothesis with fixed prior adds its Bayes
 contribution without altering the conditional localization law. Thus the
 contiguity constraint turns a general quantum multiple-hypothesis problem
@@ -1505,10 +1521,12 @@ revision of the manuscript.
 \section*{AI-assisted tools}
 
 The authors used OpenAI Codex as an assistive tool for literature discovery
-and bibliographic checking, LaTeX formatting, code and numerical
-cross-checks. The authors independently verified every cited source, theorem,
-derivation, numerical output, figure, and final statement and take full
-responsibility for the work.
+and bibliographic checking; manuscript drafting, structural revision, and
+language editing; exploratory mathematical derivations and proof checking;
+and software, numerical, figure, and LaTeX cross-checks. Every source,
+mathematical claim, proof, numerical output, figure, and final statement was
+independently checked by the authors, who take full responsibility for the
+work.
 
 \section*{Funding}
 

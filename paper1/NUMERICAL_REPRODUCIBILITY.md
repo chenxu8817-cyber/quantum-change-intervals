@@ -1,4 +1,4 @@
-# Paper I numerical certification
+# Paper I numerical verification and safeguarded SDP brackets
 
 ## Scope
 
@@ -6,7 +6,7 @@ Paper I retains only one-interval assets.  Multiple-interval CSV files,
 forest tests, and the Lean combinatorial proof belong to Paper II and are not
 evidence for the claims in this manuscript.
 
-## Certified unknown-length grid
+## Unknown-length SDP grid
 
 `certified_sdp_results.csv` contains 30 cases with
 
@@ -17,9 +17,9 @@ evidence for the claims in this manuscript.
 - raw and normalized completeness residuals;
 - primal/dual PSD violations;
 - complementarity residuals;
-- postprocessed feasible primal and dual objectives;
-- the feasible interval width, primal contraction, and dual safety shift;
-- rechecked safe completeness and PSD residuals.
+- postprocessed primal and dual bracket endpoints;
+- the floating-point bracket width, primal contraction, and dual safety shift;
+- rechecked completeness and PSD residuals.
 
 The completed reference verification has all 30 primal and dual statuses equal
 to optimal. Its largest absolute primal--dual gap is
@@ -27,15 +27,21 @@ to optimal. Its largest absolute primal--dual gap is
 is \(1.759\times10^{-12}\), and its largest primal and dual PSD violations are
 \(6.801\times10^{-10}\) and \(2.822\times10^{-10}\), respectively.
 
-These raw objectives are solver diagnostics, not the reported rigorous
-bracket. For the upper bound, the largest negative dual-slack eigenvalue is
+These raw objectives are solver diagnostics, not the reported safeguarded
+floating-point bracket. For the upper endpoint, the largest negative
+dual-slack eigenvalue is
 repaired by an identity shift plus a scale-aware positive roundoff margin. For
-the lower bound, every raw POVM element is projected onto the PSD cone,
+the lower endpoint, every raw POVM element is projected onto the PSD cone,
 normalized by the inverse square root of its sum, and conservatively completed
-after a final contraction. The largest resulting feasible interval width is
-\(8.854\times10^{-9}\). The largest safe completeness residual is
-\(1.377\times10^{-15}\), every safe primal and dual PSD violation is zero,
-and the smallest safe primal eigenvalue and rechecked dual slack eigenvalue
+after a final contraction. In exact arithmetic, exactly feasible endpoints
+would be lower and upper bounds by weak duality. The implementation uses IEEE
+double precision and conventional eigensolvers, without directed rounding,
+interval arithmetic, or exact-rational verification; the values below are
+therefore numerical diagnostics rather than formal certificates. The largest
+resulting floating-point bracket width is \(8.854\times10^{-9}\). The largest
+rechecked completeness residual is \(1.377\times10^{-15}\), every rechecked
+primal and dual PSD violation is reported as zero at evaluator resolution, and
+the smallest postprocessed primal eigenvalue and dual slack eigenvalue
 are \(3.4103\times10^{-13}\) and \(3.4102\times10^{-13}\), respectively.
 
 ## Fixed and growing known lengths
@@ -62,10 +68,12 @@ is \(2.149\times10^{-9}\), the largest normalized completeness residual is
 \(4.856\times10^{-13}\), and the largest dual PSD violation is
 \(6.889\times10^{-10}\).
 
-The same feasible postprocessing is applied to these weighted-prior cases. The
-largest safe interval width is \(3.883\times10^{-9}\), the largest safe
-completeness residual is \(4.014\times10^{-16}\), and every safe primal and
-dual PSD violation is zero. The smallest safe primal eigenvalue and safe dual
+The same safeguarded floating-point postprocessing is applied to these
+weighted-prior cases. The largest numerical interval width is
+\(3.883\times10^{-9}\), the largest rechecked completeness residual is
+\(4.014\times10^{-16}\), and every rechecked primal and dual PSD violation is
+reported as zero at evaluator resolution. The smallest postprocessed primal
+eigenvalue and dual
 slack eigenvalue are \(2.2726\times10^{-13}\) and
 \(2.2734\times10^{-13}\), respectively.
 
@@ -81,11 +89,12 @@ and largest-prior guessing at \(c=1\).
 
 `verify_paper1_results.py` compares regenerated and archived scientific
 columns within declared tolerances.  It ignores wall-clock and solver-iteration
-columns. It separately checks the raw residual thresholds, safe residual
-thresholds, ordering of every feasible interval, and consistency of the
+columns. It separately checks the raw residual thresholds, safeguarded
+floating-point residual thresholds, ordering of every numerical interval, and
+consistency of the
 lower/upper aliases used by Figure 3(c). A SHA256 manifest records the exact
 manuscript, code, tests, data, and environment metadata used in the run.
 
-The stored verification report has passed: true: all 30 certified SDP rows and
+The stored verification report has passed: true: all 30 SDP rows and
 all 25 SRM-scaling rows agree with their archived counterparts within the
 declared tolerances.

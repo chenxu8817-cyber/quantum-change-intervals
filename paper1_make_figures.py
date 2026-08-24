@@ -482,7 +482,7 @@ def make_figure_3(
     sdp_data_path: Path = ROOT / "certified_sdp_results.csv",
     srm_data_path: Path = ROOT / "srm_scaling_m1.csv",
 ) -> list[Path]:
-    """Plot finite-size convergence and the certified SRM-optimum gap."""
+    """Plot finite-size convergence and safeguarded SRM-gap diagnostics."""
     apply_publication_style()
     known_rows = _read_numeric_csv(
         known_data_path,
@@ -627,7 +627,7 @@ def make_figure_3(
     ax.set(
         xlabel=r"sequence length $n$",
         ylabel="bounds on Pₒₚₜ − Pₛᵣₘ",
-        title="(c) Certified gap intervals",
+        title="(c) Safeguarded gap brackets",
         xticks=[3, 4, 5, 6, 7],
         xlim=(2.8, 8.0),
     )
@@ -635,7 +635,7 @@ def make_figure_3(
     # nested script shrinkage; DejaVu Sans supplies the full subscript set.
     ax.yaxis.label.set_fontfamily("DejaVu Sans")
 
-    # Direct endpoint labels keep the certified curves identifiable without a
+    # Direct endpoint labels keep the safeguarded curves identifiable without a
     # legend covering the blue and purple intervals.  The two closest terminal
     # values (c=0.8 and c=0.99) receive opposite log-scale offsets; short,
     # low-salience leaders preserve an unambiguous curve-to-label mapping.

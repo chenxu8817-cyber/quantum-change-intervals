@@ -49,19 +49,20 @@ perfectly to \(\lvert0\rangle\). The outputs may be stored coherently and
 measured collectively. For a known interval length \(i\), the candidate-state
 Gram matrix is
 \(G_{ab}=r^{\min(\lvert a-b\rvert,i)}\), where
-\(r=\lvert\langle0\vert\psi\rangle\rvert^2\). For each fixed \(i\), its
+\(c=\lvert\langle0\vert\psi\rangle\rvert\) and \(r=c^2\). For each fixed \(i\), its
 Toeplitz symbol gives an exact integral for the asymptotic Bayes success
 probability, and the square-root measurement (SRM) attains the same limit.
 When both the known length and the number of admissible translations diverge,
-with no restriction on their ratio, the optimum approaches the
-single-change-point law \(p_1(\lvert\langle0\vert\psi\rangle\rvert^2)\).
+with no restriction on their ratio, the optimum approaches the one-dimensional
+Toeplitz (single-change) functional evaluated at the effective compound overlap
+\(c^2\), namely \(p_1(c^2)\).
 For an unknown length, the physical Gram kernel is not globally
 two-dimensional Toeplitz because separated intervals carry a gap-dependent
 correction. Under the prior uniform over all nonempty intervals, we remove a
 vanishing-prior short sector, use a triangular Følner reduction, and transfer
 the result back to both the Bayes optimum and the SRM of the full physical
-family. The resulting, prior-specific limit is \(p_1(c)^2\), where
-\(c=\lvert\langle0\vert\psi\rangle\rvert\). Adding a no-change hypothesis
+family. The resulting, prior-specific limit is \(p_1(c)^2\). Adding a
+no-change hypothesis
 with fixed prior preserves these conditional localization laws. Finite-size
 semidefinite programs and full dense physical-Gram SRM computations illustrate
 the asymptotic results.

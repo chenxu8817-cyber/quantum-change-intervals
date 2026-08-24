@@ -17,7 +17,7 @@ repository-code: "https://github.com/chenxu8817-cyber/quantum-change-intervals"
 url: "https://github.com/chenxu8817-cyber/quantum-change-intervals"
 abstract: >-
   Reproducibility package for exact asymptotic localization of a quantum
-  change interval with collective measurements, including certified SDP data,
+  change interval with collective measurements, including safeguarded floating-point SDP data,
   SRM scaling tables, tests, figures, and synchronized manuscript sources.
 keywords:
   - quantum change point

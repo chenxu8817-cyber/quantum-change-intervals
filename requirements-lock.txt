@@ -1,5 +1,5 @@
 # Python 3.12.13
-# Exact package snapshot used for the certified numerical results.
+# Exact package snapshot used for the safeguarded numerical results.
 cffi==2.1.1
 clarabel==0.11.1
 contourpy==1.3.3
