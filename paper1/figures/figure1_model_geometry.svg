@@ -321,6 +321,36 @@ L 342.064588 88.394625
     </g>
    </g>
    <g id="text_20">
+    <!-- state overlap $c=|\langle0|\psi\rangle|$ -->
+    <g style="fill: #6d7781" transform="translate(234.513676 25.30025)">
+     <text>
+      <tspan x="0" y="-0.03125" style="font-size: 6.5px; font-family: 'Arial'; fill: #6d7781">s</tspan>
+      <tspan x="3.25" y="-0.03125" style="font-size: 6.5px; font-family: 'Arial'; fill: #6d7781">t</tspan>
+      <tspan x="5.055908" y="-0.03125" style="font-size: 6.5px; font-family: 'Arial'; fill: #6d7781">a</tspan>
+      <tspan x="8.670898" y="-0.03125" style="font-size: 6.5px; font-family: 'Arial'; fill: #6d7781">t</tspan>
+      <tspan x="10.476807" y="-0.03125" style="font-size: 6.5px; font-family: 'Arial'; fill: #6d7781">e</tspan>
+      <tspan x="14.091797" y="-0.03125" style="font-size: 6.5px; font-family: 'Arial'; fill: #6d7781"> </tspan>
+      <tspan x="15.897705" y="-0.03125" style="font-size: 6.5px; font-family: 'Arial'; fill: #6d7781">o</tspan>
+      <tspan x="19.512695" y="-0.03125" style="font-size: 6.5px; font-family: 'Arial'; fill: #6d7781">v</tspan>
+      <tspan x="22.762695" y="-0.03125" style="font-size: 6.5px; font-family: 'Arial'; fill: #6d7781">e</tspan>
+      <tspan x="26.377686" y="-0.03125" style="font-size: 6.5px; font-family: 'Arial'; fill: #6d7781">r</tspan>
+      <tspan x="28.542236" y="-0.03125" style="font-size: 6.5px; font-family: 'Arial'; fill: #6d7781">l</tspan>
+      <tspan x="29.986328" y="-0.03125" style="font-size: 6.5px; font-family: 'Arial'; fill: #6d7781">a</tspan>
+      <tspan x="33.601318" y="-0.03125" style="font-size: 6.5px; font-family: 'Arial'; fill: #6d7781">p</tspan>
+      <tspan x="37.216309" y="-0.03125" style="font-size: 6.5px; font-family: 'Arial'; fill: #6d7781"> </tspan>
+      <tspan x="39.022217" y="-0.03125" style="font-style: oblique; font-size: 6.5px; font-family: 'DejaVu Sans'; fill: #6d7781">c</tspan>
+      <tspan x="61.626221" y="-0.03125" style="font-style: oblique; font-size: 6.5px; font-family: 'DejaVu Sans'; fill: #6d7781">ψ</tspan>
+      <tspan x="43.862305" y="-0.03125" style="font-size: 6.5px; font-family: 'DejaVu Sans'; fill: #6d7781">=</tspan>
+      <tspan x="50.574951" y="-0.03125" style="font-size: 6.5px; font-family: 'DejaVu Sans'; fill: #6d7781">|</tspan>
+      <tspan x="52.764893" y="-0.03125" style="font-size: 6.5px; font-family: 'DejaVu Sans'; fill: #6d7781">⟨</tspan>
+      <tspan x="55.300781" y="-0.03125" style="font-size: 6.5px; font-family: 'DejaVu Sans'; fill: #6d7781">0</tspan>
+      <tspan x="59.436279" y="-0.03125" style="font-size: 6.5px; font-family: 'DejaVu Sans'; fill: #6d7781">|</tspan>
+      <tspan x="65.914062" y="-0.03125" style="font-size: 6.5px; font-family: 'DejaVu Sans'; fill: #6d7781">⟩</tspan>
+      <tspan x="68.449951" y="-0.03125" style="font-size: 6.5px; font-family: 'DejaVu Sans'; fill: #6d7781">|</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_21">
     <!-- reference $|0\rangle$ -->
     <g style="fill: #26323d" transform="translate(408.696618 16.142625)">
      <text>
@@ -340,7 +370,7 @@ L 342.064588 88.394625
      </text>
     </g>
    </g>
-   <g id="text_21">
+   <g id="text_22">
     <!-- interval $I=[a,b]$  ·  length $i=b-a+1$ -->
     <g style="fill: #0f4d92" transform="translate(196.651765 111.231375)">
      <text>
@@ -402,7 +432,7 @@ L 376.201826 159.3205
 z
 " style="fill: #929ca5; stroke: #929ca5; stroke-width: 0.95; stroke-linecap: round"/>
    </g>
-   <g id="text_22">
+   <g id="text_23">
     <!-- collective POVM $\{M_I\}$ -->
     <g style="fill: #0f4d92" transform="translate(225.881294 155.354748)">
      <text>
@@ -429,7 +459,7 @@ z
      </text>
     </g>
    </g>
-   <g id="text_23">
+   <g id="text_24">
     <!-- jointly on all $n$ systems -->
     <g style="fill: #6d7781" transform="translate(232.756794 166.185892)">
      <text>
@@ -460,10 +490,10 @@ z
      </text>
     </g>
    </g>
-   <g id="text_24">
+   <g id="text_25">
     <text style="font-size: 6.7px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #9b5900" x="442.571294" y="154.381762" transform="rotate(-0 442.571294 154.381762)">interval estimate</text>
    </g>
-   <g id="text_25">
+   <g id="text_26">
     <!-- $\widehat I=[\widehat a,\widehat b]$ -->
     <g style="fill: #8a4e00" transform="translate(425.884294 168.131158)">
      <text>
@@ -480,7 +510,7 @@ z
      </text>
     </g>
    </g>
-   <g id="text_26">
+   <g id="text_27">
     <g id="patch_7">
      <path d="M 167.396588 31.050875 
 L 190.464588 31.050875 
@@ -502,7 +532,7 @@ z
      </text>
     </g>
    </g>
-   <g id="text_27">
+   <g id="text_28">
     <g id="patch_8">
      <path d="M 340.932265 31.050875 
 L 380.571265 31.050875 

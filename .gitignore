@@ -29,6 +29,7 @@ paper1/reproduced/
 paper1/quantum_submission/build/
 paper1/quantum_submission/tmp/
 paper1/quantum_submission/build_preview/
+tmp_*/
 
 # Operating-system files
 .DS_Store

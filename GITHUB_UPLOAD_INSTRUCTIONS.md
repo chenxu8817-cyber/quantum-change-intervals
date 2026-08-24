@@ -43,6 +43,6 @@ On a clean CPython 3.12 environment, follow `REPRODUCING.md` or run:
 ```
 
 After the public repository is verified, create and push the annotated tag
-`v1.0.0-paper1`. A Zenodo or institutional deposit of that exact tag is an
+`v1.1.0-paper1`. A Zenodo or institutional deposit of that exact tag is an
 optional follow-up; add its version DOI to `CITATION.cff` and the manuscript
 only after the DOI resolves.

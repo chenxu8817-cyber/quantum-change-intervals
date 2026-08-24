@@ -9,8 +9,9 @@ substitute for the proofs in `quantum_submission/content.tex`.
 The paper treats one contiguous returning interval
 \(|0\rangle^{\otimes(a-1)}|\psi\rangle^{\otimes i}
 |0\rangle^{\otimes(n-a-i+1)}\), a known pure \(|\psi\rangle\), exact
-localization, arbitrary collective POVMs, and uniform priors over the stated
-candidate family. It does not claim results for an unknown anomaly state,
+localization, arbitrary collective POVMs, uniform priors over the stated
+candidate family, and the explicitly stated fixed no-change priors. It does
+not claim results for an unknown anomaly state,
 restricted/local measurements, a number of intervals growing with \(n\), or
 general multi-anomaly patterns.
 
@@ -33,10 +34,12 @@ general multi-anomaly patterns.
 | Følner functional calculus | The proof uses the correct \(sR\) interior for a degree-\(s\), range-\(R\) polynomial and closes a single uniform \(\varepsilon\)-chain. |
 | Unknown length | Short intervals are truncated at vanishing prior mass; the triangular domains are proved Følner by an explicit three-boundary-strip estimate before the local square-root diagonal lemma is applied. |
 | Minimum-error upper bound | The normalized Gram-matrix upper bound is stated explicitly as Lemma 5.2 and attributed to Theorem 1 of Ref. [1]. |
+| Exceptional-sector transfer | A general theorem combines vanishing deleted prior mass, operator-norm comparison of the retained Gram family, bounded comparison spectra, and local square-root diagonal convergence to transfer both the optimum and SRM limit to the complete ensemble. |
+| Følner comparison transfer | The general theorem is specialized to compressions of positive \(\ell^1(\mathbb Z^d)\) convolution kernels on arbitrary finite Følner sequences. |
 | Full-family SRM | The interlacing argument retains the required \(|\mathcal B_n|/M_n\) factor and is closed by the optimal-success squeeze. |
-| Fixed \(H_0\) prior | A vacuum-extension argument separates the prior contribution and bounds its remaining effect through the residual ensemble; \(r=1\) is treated exactly as largest-prior guessing. |
-| Unknown-length \(H_0\) prior | Full-family, retained-family, and residual conditional optima are defined separately before the detection-localization squeeze. |
-| Stability | Optimal and SRM success probabilities are controlled under normalized Gram trace-norm perturbations. |
+| Fixed \(H_0\) prior | The complete joint prior is defined, a vacuum-extension argument separates the prior contribution and bounds its remaining effect through the residual ensemble, and \(r=1\) is treated exactly as largest-prior guessing. Only the joint Bayes optimum is claimed for the augmented ensemble. |
+| Unknown-length \(H_0\) prior | The complete joint prior and the full-family, retained-family, and residual conditional optima are defined separately before the detection-localization squeeze. Only the joint Bayes optimum is claimed for the augmented ensemble. |
+| Stability | Optimal and SRM success probabilities are controlled under operator-norm Gram perturbations through Hölder continuity of the positive square root. |
 | Endpoints | \(c=0\), \(c=1\), and \(r=1\) are handled directly; formulas using a spectral gap are restricted to the open interval. |
 
 ## Claims deliberately not promoted

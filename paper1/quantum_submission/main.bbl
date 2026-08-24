@@ -86,6 +86,12 @@ Santiago Llorens, Walther Gonz{\'a}lez, Gael Sent{\'i}s, John Calsamiglia,
 \newblock \href{https://dx.doi.org/10.22331/q-2025-04-03-1687}{Quantum {\bf 9},
   1687}~(2025).
 
+\bibitem{martinez2019}
+Esteban Mart{\'i}nez~Vargas and Ramon Mu{\~n}oz-Tapia.
+\newblock ``Certified answers for ordered quantum discrimination problems''.
+\newblock \href{https://dx.doi.org/10.1103/PhysRevA.100.042331}{Physical Review
+  A {\bf 100}, 042331}~(2019).
+
 \bibitem{levin1985}
 Bruce Levin and Jennie Kline.
 \newblock ``The {CUSUM} test of homogeneity with an application in spontaneous
