@@ -1,11 +1,11 @@
 {
-  "generated_at_utc": "2026-08-24T03:46:59.120283+00:00",
+  "generated_at_utc": "2026-08-24T04:02:20.570526+00:00",
   "command": [
     "environment_manifest.py",
     "--profile",
     "paper1",
     "--output",
-    "paper1\\reproduction_manifest.json",
+    "C:\\Users\\CX\\Downloads\\quantum change point\\tmp\\clean_release_reproduction_20260824_v3\\quantum-change-intervals\\paper1\\reproduction_manifest.json",
     "--seed",
     "1729"
   ],
@@ -13,7 +13,7 @@
   "python": {
     "version": "3.12.10",
     "implementation": "CPython",
-    "executable": "C:\\Users\\CX\\Downloads\\quantum change point\\tmp\\clean_release_reproduction_20260824_v2\\quantum-change-intervals\\.venv-paper1\\Scripts\\python.exe"
+    "executable": "C:\\Users\\CX\\Downloads\\quantum change point\\tmp\\clean_release_reproduction_20260824_v3\\quantum-change-intervals\\.venv-paper1\\Scripts\\python.exe"
   },
   "platform": {
     "system": "Windows",
@@ -73,10 +73,10 @@
     "tests/test_srm_scaling.py": "824e618bcb3f3a648d0269c9e8681435f86e2842d09b8fcc7e40719204f5595a",
     "certified_sdp_results.csv": "4084a455c66d3ee461f027b705a8b2c5299c4c4b94342f02c5b9009b39817ffd",
     "srm_scaling_m1.csv": "0696da1e22659d0cac6b4255e528c894ddda7025fdae825e88d01df719ec089e",
-    "paper1/paper1_fixed_and_growing_srm.csv": "615fdbff6a74f0b1b7cf13abf3d8e3fb454a654c912e9edc8e9bd66f9d7f2e8f",
-    "paper1/paper1_h0_certified_sdp.csv": "41c4e8a1780612cae7b2ecb339299e577c5539f4fc2e15fe0b4e33675b05f8f8",
-    "paper1/reproduced/certified_sdp_results.csv": "3dc9855887afa4347fb1304333f11c75792a55bf9411480f459316afbad01ece",
-    "paper1/reproduced/srm_scaling_m1.csv": "6e2842e8d1991accf5ee756051a285dd8797a578197fe2979f1b5a5f9c9a6593",
+    "paper1/paper1_fixed_and_growing_srm.csv": "e428832dbca3b5a93eb62d00707ec4b8e0bfc4505d6510275617506931585911",
+    "paper1/paper1_h0_certified_sdp.csv": "358986c7e36ea626b55c3a5b1191cbd81e268e9cecf6e8282d73e35d47ceb564",
+    "paper1/reproduced/certified_sdp_results.csv": "1740af9999eed74b9fb005695b17fa39e3d4456b04ec7e3b7024a2b98e359070",
+    "paper1/reproduced/srm_scaling_m1.csv": "843687c0ad3d12f780f55e612abbc2e1406d545a3c5ce10eefe1e739167d24a0",
     "paper1/figures/figure1_model_geometry.pdf": "ccf36ed78c75687f7e3d1aca13013e7f0c07f244747669dfc3aa7f54aa4e3f7b",
     "paper1/figures/figure1_model_geometry.png": "66339f4ff1faba69016f2692cc93e5a66e3b63acd2291c710fe510c6050e888a",
     "paper1/figures/figure1_model_geometry.svg": "702478ea3baab783f78728096bb56f19e5eb7281a6420b6878f5dbc9cb8c19be",
@@ -86,7 +86,7 @@
     "paper1/figures/figure3_finite_size.pdf": "3a2d9fcf0d3b23b010d8ac3511ab7e2d7f4abd982f832939d0d0122e230d80e0",
     "paper1/figures/figure3_finite_size.png": "5fbf5db9c1ab899527f518a8b6c941c21841d985903f9c44214bab1a5c19f138",
     "paper1/quantum_submission/main.tex": "e45f1baa57f62488e9df767774b2860ad25a670d1937d423baa6e4fd9ab660a4",
-    "paper1/quantum_submission/content.tex": "d7faa5bef03b3616d7425de41d297ece466a3cb245e5c13cc8cf211d705c3ecb",
+    "paper1/quantum_submission/content.tex": "e97ec4da9d104591551e5bc395c85d55829ad7bc2903da624ca4173d31e5c28d",
     "paper1/quantum_submission/references.bib": "738ee7aaf7ee775589252ca73469c92bf66b6caebf9473708aa4ba4b703d50c8",
     "paper1/quantum_submission/quantumarticle.cls": "3559fdcf5c7d0a3194d80bb5a7b1e9051643ef875f74087b8892a2f691f7b41d",
     "paper1/quantum_submission/quantum.bst": "a4639fb11246e5715a51b443a39b6e71842d3256a0ac36cd6c7926317cd3bfe2",
