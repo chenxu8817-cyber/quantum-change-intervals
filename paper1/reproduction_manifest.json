@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-08-24T10:57:27.045894+00:00",
+  "generated_at_utc": "2026-08-24T12:07:00.718345+00:00",
   "command": [
     "environment_manifest.py",
     "--profile",
@@ -86,12 +86,12 @@
     "paper1/figures/figure3_finite_size.pdf": "742b0d932197278e4be07e77357c04b26b99de3fb5422960b3dd8604af9a5ed9",
     "paper1/figures/figure3_finite_size.png": "c182ad3a7aec5407dac70d0b2a8aa6fc5aa7292ccb617f3b3e2b73df6207fe46",
     "paper1/quantum_submission/main.tex": "745e7aa89f06594df1e22bd31d220fd68ca77e5074a1a59b0a0ffd557a6191fc",
-    "paper1/quantum_submission/content.tex": "d1ca18e4f81b68be6ee25a7a422e4a74a1ce01fc6a45f15b9dc6dfe968342631",
+    "paper1/quantum_submission/content.tex": "2e1fa0df12fecffdfee3ce27694dbab61fc1859dd5601a2f760069013dd427c9",
     "paper1/quantum_submission/references.bib": "faa179cc5ce32ce80efabdf7e97c3103ee3e434a8c04989add72e84fa1b34930",
     "paper1/quantum_submission/quantumarticle.cls": "3559fdcf5c7d0a3194d80bb5a7b1e9051643ef875f74087b8892a2f691f7b41d",
     "paper1/quantum_submission/quantum.bst": "a4639fb11246e5715a51b443a39b6e71842d3256a0ac36cd6c7926317cd3bfe2",
     "paper1/quantum_submission/main.bbl": "702a3d3dbc9ca45b7ffbabc3ecce33ded7f53afcb3f9ba81187a53bc3cade2e8",
-    "paper1/quantum_submission/main.pdf": "dc2dc5be039f8067d750e3b845fa85a245f90e4376874f8b8d2544d57eab0cc2",
+    "paper1/quantum_submission/main.pdf": "98d1596dec1e952078a42b027413578730b775e2fea3bc87d321f357a6fba84b",
     "paper1/quantum_submission/README.md": "347fbaa570fafd0c1391f2d2d86974db32c840f2e920c85808ce71f6b0e77904",
     "paper1/quantum_submission/figures/figure1_model_geometry.pdf": "c83dabc865f377c08ddb3af4643f67f7f815d1a798be093e1062d5b41343ff2b",
     "paper1/quantum_submission/figures/figure1_model_geometry.png": "4b3766d0f1bca29e623dc71ca45722ec00954421f00c415d2f5bb9a8adf385db",
