@@ -46,28 +46,6 @@ HASHED_FILES = [
     ".python-version",
     "pyproject.toml",
     "requirements-lock.txt",
-    "REPRODUCING.md",
-    "NUMERICAL_REPRODUCIBILITY.md",
-    "quantum_change_interval_research.md",
-    "quantum_interval_numerics.py",
-    "sdp_certification.py",
-    "fixed_m_sdp_grid.py",
-    "interval_unknown_length_numerics.py",
-    "srm_scaling.py",
-    "tests/test_m3_forest_factorization.py",
-    "proofs/EnergyPayment.lean",
-    "certified_sdp_results.csv",
-    "certified_sdp_m2.csv",
-    "certified_sdp_m3.csv",
-    "srm_scaling_m1.csv",
-    "srm_scaling_m2.csv",
-    "srm_scaling_m3.csv",
-]
-PAPER1_HASHED_FILES = [
-    ".python-version",
-    "pyproject.toml",
-    "requirements-lock.txt",
-    "paper1/manuscript.md",
     "paper1/README.md",
     "paper1/PROOF_AUDIT.md",
     "paper1/REPRODUCING.md",
@@ -98,6 +76,8 @@ PAPER1_HASHED_FILES = [
     "paper1/reproduced/srm_scaling_m1.csv",
     "paper1/figures/figure1_model_geometry.pdf",
     "paper1/figures/figure1_model_geometry.png",
+    "paper1/figures/figure1_model_geometry.svg",
+    "paper1/figures/figure1_model_geometry.tiff",
     "paper1/figures/figure2_analytic_limits.pdf",
     "paper1/figures/figure2_analytic_limits.png",
     "paper1/figures/figure3_finite_size.pdf",
@@ -191,11 +171,11 @@ def main() -> None:
     parser.add_argument("--seed", type=int, default=1729)
     parser.add_argument(
         "--profile",
-        choices=["all", "paper1"],
-        default="all",
+        choices=["paper1"],
+        default="paper1",
     )
     args = parser.parse_args()
-    selected_files = PAPER1_HASHED_FILES if args.profile == "paper1" else None
+    selected_files = HASHED_FILES
     manifest = collect_manifest(
         random_seed=args.seed,
         hashed_files=selected_files,

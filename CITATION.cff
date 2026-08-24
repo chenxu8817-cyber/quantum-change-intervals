@@ -1,0 +1,40 @@
+cff-version: 1.2.0
+message: "If you use this code or data, please cite the accompanying manuscript and the archived software release."
+title: "Quantum Change Intervals: code and data"
+type: software
+authors:
+  - family-names: "Chen"
+    given-names: "Xu"
+    orcid: "https://orcid.org/0009-0003-8499-4080"
+    affiliation: "School of Sciences, Hebei University of Science and Technology"
+    email: "cnc@hebust.edu.cn"
+  - family-names: "Ma"
+    given-names: "Xue"
+    affiliation: "Network Management Center, China Mobile Communications Group Hebei Co., Ltd."
+version: "1.0.0-paper1"
+date-released: "2026-08-24"
+repository-code: "https://github.com/chenxu8817-cyber/quantum-change-intervals"
+url: "https://github.com/chenxu8817-cyber/quantum-change-intervals"
+abstract: >-
+  Reproducibility package for exact asymptotic localization of a quantum
+  change interval with collective measurements, including safeguarded floating-point SDP data,
+  SRM scaling tables, tests, figures, and synchronized manuscript sources.
+keywords:
+  - quantum change point
+  - quantum state discrimination
+  - change interval
+  - square-root measurement
+  - semidefinite programming
+  - Toeplitz operator
+preferred-citation:
+  type: article
+  title: "Quantum Change Intervals: Exact Asymptotic Localization with Collective Measurements"
+  authors:
+    - family-names: "Chen"
+      given-names: "Xu"
+      orcid: "https://orcid.org/0009-0003-8499-4080"
+      affiliation: "School of Sciences, Hebei University of Science and Technology"
+    - family-names: "Ma"
+      given-names: "Xue"
+      affiliation: "Network Management Center, China Mobile Communications Group Hebei Co., Ltd."
+  year: 2026

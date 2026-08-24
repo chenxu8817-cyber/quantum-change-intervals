@@ -1,0 +1,80 @@
+\documentclass[a4paper,twocolumn,10pt,unpublished]{quantumarticle}
+\pdfoutput=1
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage{microtype}
+\usepackage{hyperref}
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\newcommand{\Tr}{\operatorname{tr}}
+
+\numberwithin{equation}{section}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\begin{document}
+
+\title{Quantum Change Intervals:
+Exact Asymptotic Localization with Collective Measurements}
+
+\author{Xu~Chen}
+\orcid{0009-0003-8499-4080}
+\email{cnc@hebust.edu.cn}
+\affiliation{School of Sciences, Hebei University of Science and Technology,
+Shijiazhuang, Hebei 050018, People's Republic of China}
+\author{Xue~Ma}
+\affiliation{Network Management Center, China Mobile Communications Group
+Hebei Co., Ltd., Shijiazhuang, Hebei 050000, People's Republic of China}
+
+\maketitle
+
+\begin{abstract}
+We consider exact minimum-error localization of a transient change in a
+sequence of independent pure-state outputs. The source emits
+\(\lvert0\rangle\), switches abruptly to a calibrated state
+\(\lvert\psi\rangle\) on one nonempty contiguous interval, and then returns
+perfectly to \(\lvert0\rangle\). The outputs may be stored coherently and
+measured collectively. For a known interval length \(i\), the candidate-state
+Gram matrix is
+\(G_{ab}=r^{\min(\lvert a-b\rvert,i)}\), where
+\(c=\lvert\langle0\vert\psi\rangle\rvert\) and \(r=c^2\). For each fixed \(i\), its
+Toeplitz symbol gives an exact integral for the asymptotic Bayes success
+probability, and the square-root measurement (SRM) attains the same limit.
+When both the known length and the number of admissible translations diverge,
+with no restriction on their ratio, the optimum approaches the one-dimensional
+Toeplitz (single-change) functional evaluated at the effective compound overlap
+\(c^2\), namely \(p_1(c^2)\).
+For an unknown length, the physical Gram kernel is not globally
+two-dimensional Toeplitz because separated intervals carry a gap-dependent
+correction. Under the prior uniform over all nonempty intervals, we remove a
+vanishing-prior short sector, use a triangular Følner reduction, and transfer
+the result back to both the Bayes optimum and the SRM of the full physical
+family. The resulting, prior-specific limit is \(p_1(c)^2\). Adding a
+no-change hypothesis
+with fixed prior preserves these conditional localization laws. Finite-size
+semidefinite programs and full dense physical-Gram SRM computations illustrate
+the asymptotic results.
+\end{abstract}
+
+\noindent\textbf{Keywords:} quantum change point; quantum state
+discrimination; change interval; square-root measurement; Toeplitz operator;
+Følner sequence; Bayesian detection
+
+\input{content}
+
+\bibliographystyle{quantum}
+\bibliography{references}
+
+\end{document}

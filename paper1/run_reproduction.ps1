@@ -35,7 +35,9 @@ Push-Location $repoRoot
 try {
     & $pythonExe -m unittest discover -s tests -v
     if ($LASTEXITCODE -ne 0) { throw "unit tests failed" }
-    & $pythonExe paper1_numerics.py
+    $fixedFigureData = Join-Path $reproduced "paper1_fixed_and_growing_srm.csv"
+    $h0Data = Join-Path $reproduced "paper1_h0_certified_sdp.csv"
+    & $pythonExe paper1_numerics.py --fixed-output $fixedFigureData --h0-output $h0Data
     if ($LASTEXITCODE -ne 0) { throw "Paper I numerical grids failed" }
     $sdpFigureData = Join-Path $repoRoot "certified_sdp_results.csv"
     $srmFigureData = Join-Path $repoRoot "srm_scaling_m1.csv"
@@ -52,7 +54,7 @@ try {
         if ($LASTEXITCODE -ne 0) { throw "result verification failed" }
     }
     $figureOutput = Join-Path $PSScriptRoot "figures"
-    & $pythonExe paper1_make_figures.py --output-dir $figureOutput --sdp-data $sdpFigureData --srm-data $srmFigureData
+    & $pythonExe paper1_make_figures.py --output-dir $figureOutput --known-data $fixedFigureData --sdp-data $sdpFigureData --srm-data $srmFigureData
     if ($LASTEXITCODE -ne 0) { throw "Paper I figure generation failed" }
     $submissionFigures = Join-Path $PSScriptRoot "quantum_submission\figures"
     New-Item -ItemType Directory -Force -Path $submissionFigures | Out-Null
