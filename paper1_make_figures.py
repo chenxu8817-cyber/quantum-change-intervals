@@ -22,6 +22,8 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
+from matplotlib.colors import LogNorm
+from matplotlib.lines import Line2D
 from matplotlib.patches import FancyBboxPatch
 
 from quantum_interval_numerics import p1
@@ -500,7 +502,16 @@ def make_figure_3(
     sdp_data_path: Path = ROOT / "certified_sdp_results.csv",
     srm_data_path: Path = ROOT / "srm_scaling_m1.csv",
 ) -> list[Path]:
-    """Plot finite-size convergence and safeguarded SRM-gap diagnostics."""
+    """Plot finite-size convergence and safeguarded SRM-gap diagnostics.
+
+    Figure contract: panels (a) and (b) compare finite-size SRM values with
+    their theorem-level limits, while panel (c) uses every small-instance SDP
+    case to show a conservative upper endpoint for the SRM optimality gap.  The
+    high-overlap stress tests are concentrated in panel (b), because the
+    available ``c=0.95, i=ceil(sqrt(N))`` known-length data are visibly
+    pre-asymptotic on ``N <= 80`` and would otherwise look like a monotone-rate
+    claim that the paper does not make.
+    """
     apply_publication_style()
     known_rows = _read_numeric_csv(
         known_data_path,
@@ -522,17 +533,24 @@ def make_figure_3(
     )
 
     # Match the final two-column width instead of drawing oversized and then
-    # shrinking in LaTeX; the latter made all labels roughly 30% smaller.
-    fig, axes = plt.subplots(1, 3, figsize=(7.2, 2.75))
+    # shrinking in LaTeX.  The novel full-physical-ensemble calculation in
+    # panel (b) receives slightly more width than the two validation panels.
+    fig = plt.figure(figsize=(7.2, 2.95), layout="constrained")
+    grid = fig.add_gridspec(1, 3, width_ratios=(1.02, 1.13, 1.04))
+    axes = np.array([fig.add_subplot(grid[0, index]) for index in range(3)])
     parameter_colors = {0.5: GREEN, 0.8: BLUE, 0.95: RED, 0.99: PURPLE}
-    parameter_markers = {0.5: "o", 0.6: "v", 0.8: "s", 0.95: "^", 0.99: "D"}
+    parameter_markers = {0.5: "o", 0.8: "s", 0.95: "^", 0.99: "D"}
 
     ax = axes[0]
-    for c in (0.8, 0.95):
+    # The available c=0.95 square-root schedule is still non-monotone and
+    # pre-asymptotic at N <= 80.  The moderate-overlap traces below show the
+    # intended finite-size approach without concealing that limitation; panel
+    # (b) retains c=0.95 and 0.99 as explicit high-overlap stress tests.
+    for c in (0.5, 0.8):
         color = parameter_colors[c]
-        for schedule, marker, style in (
-            ("sqrt_growth", "o", "-"),
-            ("balanced_growth", "s", "--"),
+        for schedule, marker, style, marker_size, marker_face, zorder in (
+            ("sqrt_growth", "o", "-", 3.3, color, 4),
+            ("balanced_growth", "s", "--", 5.8, "none", 3),
         ):
             rows = sorted(
                 (row for row in known_rows
@@ -544,12 +562,15 @@ def make_figure_3(
                 [float(row["srm"]) for row in rows],
                 color=color,
                 marker=marker,
-                ms=4,
+                ms=marker_size,
+                mfc=marker_face,
+                mew=0.9,
                 ls=style,
+                zorder=zorder,
                 label=(
-                    rf"$c={c}$, $i$=⌈√$N$⌉"
+                    f"c={c}, i=⌈√N⌉"
                     if schedule == "sqrt_growth"
-                    else rf"$c={c}$, $i=\lfloor N/2\rfloor$"
+                    else f"c={c}, i=⌊N/2⌋"
                 ),
             )
         target = next(
@@ -560,18 +581,20 @@ def make_figure_3(
     ax.set(
         xlabel=r"number of translations $N$",
         ylabel=r"$P_{\rm SRM}$",
-        title="(a) Known growing length",
+        title="Growing known length",
         xticks=[10, 20, 40, 80],
+        xlim=(7, 84),
+        ylim=(0.74, 0.985),
     )
     ax.legend(
-        loc="center right",
-        bbox_to_anchor=(0.99, 0.57),
-        prop={"family": "DejaVu Sans", "size": 6.7},
-        frameon=True,
-        facecolor="white",
-        edgecolor=LIGHT_GRAY,
-        framealpha=0.96,
-        borderpad=0.35,
+        loc="center",
+        bbox_to_anchor=(0.62, 0.55),
+        prop={"family": "DejaVu Sans", "size": 6.35},
+        frameon=False,
+        borderpad=0.15,
+        labelspacing=0.28,
+        handlelength=2.25,
+        handletextpad=0.45,
     )
 
     ax = axes[1]
@@ -591,97 +614,111 @@ def make_figure_3(
         )
         ax.axhline(float(rows[0]["target_p1_power_2m"]),
                    color=color, lw=0.9, alpha=0.55, ls=":")
-    ax.set(
-        xlabel=r"sequence length $n$",
-        ylabel=r"$P_{\rm SRM}$",
-        title=r"(b) Unknown length",
-        xticks=[10, 20, 30, 40, 50],
-    )
-    ax.legend(
-        ncol=2,
-        loc="center",
-        bbox_to_anchor=(0.55, 0.61),
-        fontsize=6.7,
-        frameon=True,
-        facecolor="white",
-        edgecolor=LIGHT_GRAY,
-        framealpha=0.96,
-        borderpad=0.35,
-        columnspacing=0.9,
-        handlelength=1.8,
-    )
-
-    ax = axes[2]
-    endpoint_labels = []
-    for c in (0.6, 0.8, 0.95, 0.99):
-        rows = sorted(
-            (row for row in sdp_rows if math.isclose(float(row["c"]), c)),
-            key=lambda row: float(row["n"]),
-        )
-        lower = np.array(
-            [max(float(row["sdp_lower_minus_srm"]), 1e-14) for row in rows]
-        )
-        upper = np.array(
-            [max(float(row["sdp_upper_minus_srm"]), 1e-14) for row in rows]
-        )
-        midpoint = (lower + upper) / 2.0
-        n_values = [float(row["n"]) for row in rows]
-        ax.errorbar(
-            n_values,
-            midpoint,
-            yerr=np.vstack((midpoint - lower, upper - midpoint)),
-            color=parameter_colors.get(c, ORANGE),
-            marker=parameter_markers[c],
-            ms=3.7,
-            lw=1.0,
-            capsize=2.0,
-            elinewidth=0.8,
-            label=rf"$c={c}$",
-        )
-        endpoint_labels.append(
-            (c, n_values[-1], midpoint[-1], parameter_colors.get(c, ORANGE))
-        )
-    ax.set_yscale("log")
-    ax.set(
-        xlabel=r"sequence length $n$",
-        ylabel="bounds on Pₒₚₜ − Pₛᵣₘ",
-        title="(c) Safeguarded gap brackets",
-        xticks=[3, 4, 5, 6, 7],
-        xlim=(2.8, 8.0),
-    )
-    # Unicode subscripts keep the exact quantity visible without mathtext's
-    # nested script shrinkage; DejaVu Sans supplies the full subscript set.
-    ax.yaxis.label.set_fontfamily("DejaVu Sans")
-
-    # Direct endpoint labels keep the safeguarded curves identifiable without a
-    # legend covering the blue and purple intervals.  The two closest terminal
-    # values (c=0.8 and c=0.99) receive opposite log-scale offsets; short,
-    # low-salience leaders preserve an unambiguous curve-to-label mapping.
-    label_scale = {0.6: 1.16, 0.8: 0.78, 0.95: 1.10, 0.99: 1.24}
-    for c, x_end, y_end, color in endpoint_labels:
         ax.annotate(
             rf"$c={c}$",
-            xy=(x_end, y_end),
-            xytext=(7.28, y_end * label_scale[c]),
+            xy=(float(rows[-1]["n"]), float(rows[-1]["srm"])),
+            xytext=(6, 0),
+            textcoords="offset points",
             color=color,
-            fontsize=6.7,
+            fontsize=6.8,
             fontweight="bold",
             ha="left",
             va="center",
             annotation_clip=False,
-            arrowprops={
-                "arrowstyle": "-",
-                "color": color,
-                "lw": 0.75,
-                "alpha": 0.82,
-                "shrinkA": 1.5,
-                "shrinkB": 2.0,
-            },
+        )
+    ax.set(
+        xlabel=r"sequence length $n$",
+        ylabel=r"$P_{\rm SRM}$",
+        title=r"Unknown length",
+        xticks=[10, 20, 30, 40, 50],
+        xlim=(8, 58),
+        ylim=(-0.01, 0.82),
+    )
+    ax.legend(
+        handles=(
+            Line2D([0], [0], color=GRAY, marker="o", ms=3.5, lw=1.5,
+                   label="Finite-n SRM"),
+            Line2D([0], [0], color=GRAY, lw=1.0, ls=":",
+                   label="Asymptotic limit"),
+        ),
+        loc="center",
+        bbox_to_anchor=(0.48, 0.71),
+        fontsize=6.35,
+        frameon=False,
+        handlelength=2.0,
+        labelspacing=0.3,
+    )
+
+    ax = axes[2]
+    n_values = sorted({int(float(row["n"])) for row in sdp_rows})
+    c_values = sorted({float(row["c"]) for row in sdp_rows})
+    upper_gap = np.full((len(c_values), len(n_values)), np.nan, dtype=float)
+    seen_pairs: set[tuple[int, float]] = set()
+    for row in sdp_rows:
+        n_value = int(float(row["n"]))
+        c_value = float(row["c"])
+        key = (n_value, c_value)
+        if key in seen_pairs:
+            raise ValueError(f"duplicate SDP grid point n={n_value}, c={c_value}")
+        seen_pairs.add(key)
+        value = float(row["sdp_upper_minus_srm"])
+        if not math.isfinite(value) or value <= 0.0:
+            raise ValueError("SDP upper-gap endpoints must be finite and positive")
+        upper_gap[c_values.index(c_value), n_values.index(n_value)] = value
+    expected_pairs = len(n_values) * len(c_values)
+    if len(seen_pairs) != expected_pairs or np.isnan(upper_gap).any():
+        raise ValueError(
+            "SDP data must form a complete rectangular (n,c) grid; "
+            f"found {len(seen_pairs)} of {expected_pairs} points"
         )
 
-    for ax in axes:
-        ax.grid(axis="y", color=LIGHT_GRAY, lw=0.6)
-    fig.tight_layout(pad=0.45, w_pad=0.8)
+    image = ax.imshow(
+        upper_gap,
+        origin="lower",
+        aspect="auto",
+        interpolation="nearest",
+        cmap="viridis",
+        norm=LogNorm(vmin=1e-6, vmax=2e-3),
+    )
+    ax.set(
+        xlabel=r"sequence length $n$",
+        ylabel=r"state overlap $c$",
+        title="SDP endpoint above SRM",
+        xticks=np.arange(len(n_values)),
+        yticks=np.arange(len(c_values)),
+    )
+    ax.set_xticklabels([str(value) for value in n_values])
+    ax.set_yticklabels([f"{value:g}" for value in c_values])
+    ax.set_xticks(np.arange(-0.5, len(n_values), 1), minor=True)
+    ax.set_yticks(np.arange(-0.5, len(c_values), 1), minor=True)
+    ax.grid(which="minor", color="white", lw=0.65, alpha=0.85)
+    ax.tick_params(which="minor", bottom=False, left=False)
+    for spine in ax.spines.values():
+        spine.set_visible(False)
+    colorbar = fig.colorbar(image, ax=ax, fraction=0.055, pad=0.035)
+    colorbar.set_label(
+        r"$U_{\mathrm{safe}}-P_{\mathrm{SRM}}$",
+        fontsize=9.4,
+        labelpad=2.5,
+    )
+    colorbar.ax.tick_params(labelsize=7.4, width=0.65, length=2.5)
+    colorbar.ax.minorticks_off()
+    colorbar.outline.set_linewidth(0.65)
+
+    for axis in axes[:2]:
+        axis.grid(axis="y", color=LIGHT_GRAY, lw=0.55, alpha=0.85)
+        axis.set_axisbelow(True)
+    for label, axis in zip("abc", axes):
+        axis.text(
+            -0.16,
+            1.04,
+            label,
+            transform=axis.transAxes,
+            fontsize=10.0,
+            fontweight="bold",
+            ha="left",
+            va="bottom",
+        )
     return _save(fig, output_dir, "figure3_finite_size")
 
 

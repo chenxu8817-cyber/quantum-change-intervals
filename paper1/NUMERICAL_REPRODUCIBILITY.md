@@ -31,18 +31,20 @@ These raw objectives are solver diagnostics, not the reported safeguarded
 floating-point bracket. For the upper endpoint, the largest negative
 dual-slack eigenvalue is
 repaired by an identity shift plus a scale-aware positive roundoff margin. For
-the lower endpoint, every raw POVM element is projected onto the PSD cone,
-normalized by the inverse square root of its sum, and conservatively completed
-after a final contraction. In exact arithmetic, exactly feasible endpoints
-would be lower and upper bounds by weak duality. The implementation uses IEEE
+the lower endpoint, every raw POVM element is projected onto the PSD cone. A
+singular-safe spectral contraction makes the projected sum no larger than the
+identity, the PSD remainder completes one outcome, and a scale-aware mixture
+with the uniform POVM makes every effect positive definite. In exact
+arithmetic, exactly feasible endpoints would be lower and upper bounds by weak
+duality. The implementation uses IEEE
 double precision and conventional eigensolvers, without directed rounding,
 interval arithmetic, or exact-rational verification; the values below are
 therefore numerical diagnostics rather than formal certificates. The largest
-resulting floating-point bracket width is \(8.854\times10^{-9}\). The largest
-rechecked completeness residual is \(1.377\times10^{-15}\), every rechecked
+resulting floating-point bracket width is \(1.025\times10^{-8}\). The largest
+rechecked completeness residual is \(1.408\times10^{-15}\), every rechecked
 primal and dual PSD violation is reported as zero at evaluator resolution, and
 the smallest postprocessed primal eigenvalue and dual slack eigenvalue
-are \(3.4103\times10^{-13}\) and \(3.4102\times10^{-13}\), respectively.
+are \(3.4104\times10^{-13}\) and \(3.4102\times10^{-13}\), respectively.
 
 ## Fixed and growing known lengths
 
@@ -54,7 +56,7 @@ are \(3.4103\times10^{-13}\) and \(3.4102\times10^{-13}\), respectively.
 
 for \(N=10,20,40,80\) and \(c=0.5,0.8,0.95\).
 
-## No-anomaly hypothesis
+## No-change hypothesis
 
 `paper1_h0_certified_sdp.csv` solves weighted-prior primal and dual SDPs for
 
@@ -70,11 +72,11 @@ is \(2.149\times10^{-9}\), the largest normalized completeness residual is
 
 The same safeguarded floating-point postprocessing is applied to these
 weighted-prior cases. The largest numerical interval width is
-\(3.883\times10^{-9}\), the largest rechecked completeness residual is
-\(4.014\times10^{-16}\), and every rechecked primal and dual PSD violation is
+\(4.393\times10^{-9}\), the largest rechecked completeness residual is
+\(4.108\times10^{-16}\), and every rechecked primal and dual PSD violation is
 reported as zero at evaluator resolution. The smallest postprocessed primal
 eigenvalue and dual
-slack eigenvalue are \(2.2726\times10^{-13}\) and
+slack eigenvalue are \(2.2724\times10^{-13}\) and
 \(2.2734\times10^{-13}\), respectively.
 
 The endpoint unit tests additionally verify perfect discrimination at \(c=0\)

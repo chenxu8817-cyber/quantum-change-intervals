@@ -1,3 +1,27 @@
+# v1.3.0-paper1
+
+This reproducible release accompanies the revised manuscript *Quantum Change
+Intervals: Exact Asymptotic Localization with Collective Measurements*.
+It closes the moving-overlap analysis with a unified sufficient condition:
+for the uniform prior on all nonempty intervals, if (c_n\to1), (c_n<1)
+eventually, and (n p_1(c_n)\to\infty), then the trace benchmark, SRM, and
+collective optimum all satisfy (P_X(G_n(c_n))\sim p_1(c_n)^2).  The result
+joins the inner, compact-continuum, and moving-outer regimes without assuming
+monotonicity.
+
+The release also includes:
+
+- the final 20-page article and separate 23-page Supplemental Material;
+- the exact weighted-hull identity, reusable block-tail certificate, and the
+  global and local proof routes used for the unified theorem;
+- the singular-safe dual certificate and the no-change weighted-PGM results,
+  including the exact (c=1) counterexample and MAP repair;
+- all numerical tables and Figures 1--3 regenerated under CPython 3.12.10;
+- residual-checked floating-point SDP diagnostics, without claiming formal
+  finite-dimensional enclosures; and
+- deterministic arXiv, Quantum, source, and GitHub release packaging with
+  SHA-256 inventories.
+
 # v1.2.0-paper1
 
 This submission-ready manuscript release adds the exceptional-sector Gram

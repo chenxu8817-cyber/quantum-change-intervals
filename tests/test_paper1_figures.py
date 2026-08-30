@@ -7,7 +7,14 @@ from pathlib import Path
 import numpy as np
 
 from paper1_analytics import fixed_length_limit_quadrature
-from paper1_make_figures import fixed_length_limit_curve, make_all_figures
+from paper1_make_figures import (
+    fixed_length_limit_curve,
+    make_all_figures,
+    make_figure_3,
+)
+
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
 class Paper1FigureTests(unittest.TestCase):
@@ -38,6 +45,19 @@ class Paper1FigureTests(unittest.TestCase):
             for path in outputs:
                 self.assertTrue(path.exists())
                 self.assertGreater(path.stat().st_size, 1000)
+
+    def test_figure3_rejects_an_incomplete_sdp_grid(self) -> None:
+        source = ROOT / "certified_sdp_results.csv"
+        lines = source.read_text(encoding="utf-8-sig").splitlines()
+        with tempfile.TemporaryDirectory() as directory:
+            temporary = Path(directory)
+            incomplete = temporary / "incomplete_sdp.csv"
+            incomplete.write_text("\n".join(lines[:-1]) + "\n", encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "complete rectangular"):
+                make_figure_3(
+                    temporary / "output",
+                    sdp_data_path=incomplete,
+                )
 
 
 if __name__ == "__main__":

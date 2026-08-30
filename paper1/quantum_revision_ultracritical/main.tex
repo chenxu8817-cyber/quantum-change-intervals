@@ -1,0 +1,98 @@
+\documentclass[a4paper,twocolumn,10pt,unpublished]{quantumarticle}
+\pdfoutput=1
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage{microtype}
+\usepackage{placeins}
+\usepackage{hyperref}
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\newcommand{\Tr}{\operatorname{tr}}
+
+\numberwithin{equation}{section}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\begin{document}
+
+\title{Quantum Change Intervals: Exact Asymptotic Localization with Collective Measurements}
+
+\author{Xu~Chen}
+\orcid{0009-0003-8499-4080}
+\email{cnc@hebust.edu.cn}
+\affiliation{School of Sciences, Hebei University of Science and Technology,
+Shijiazhuang, Hebei 050018, People's Republic of China}
+\author{Xue~Ma}
+\email{maxue@he.chinamobile.com}
+\affiliation{Network Management Center, China Mobile Communications Group
+Hebei Co., Ltd., Shijiazhuang, Hebei 050000, People's Republic of China}
+
+\maketitle
+
+\begin{abstract}
+We study exact-label minimum-error localization of a transient change in
+independent quantum outputs. The source emits a known pure state
+\(\lvert\psi\rangle\) on one nonempty contiguous interval and the reference
+state \(\lvert0\rangle\) elsewhere, while the receiver may measure the full
+sequence collectively. Write
+\(c=\lvert\langle0\vert\psi\rangle\rvert\) and let \(p_1(x)\) denote the
+one-dimensional Poisson-kernel Toeplitz functional. For fixed \(c\), the
+corresponding Toeplitz symbol gives an exact square-root integral for every
+fixed known interval length, and the square-root measurement (SRM) and the
+Bayes optimum converge to the same limit. If the known length and the number
+of translations both diverge, their common limit is \(p_1(c^2)\). Under the
+prior uniform over all \(M_n=n(n+1)/2\) nonempty intervals, a triangular
+F{\o}lner reduction and a transfer to the physical Gram matrix instead give
+the common limit \(p_1(c)^2\).
+
+We also resolve moving overlaps near the indistinguishable limit at \(c_n=1\),
+where the exact-label baseline is \(1/M_n\). With
+\(\tau_n=n(1-c_n)(\log n)^2\), uniformly for \(\tau_n\) in every fixed compact
+interval, the trace benchmark, SRM, and optimum obey
+\[
+ \begin{aligned}
+ M_nP_X&=
+ \left(1+\frac{2\sqrt{\tau_n}}{\pi}
+ +\frac{\sqrt2\,\tau_n}{\pi^2}\right)^2\\
+ &\quad+O\!\left(\frac{\log\log n}{\log n}\right),
+ \end{aligned}
+\]
+for \(X\in\{\mathrm{tr},\mathrm{SRM},\mathrm{opt}\}\).
+On this scale, \(n p_1(c_n)\) remains bounded. In the complementary regime
+\[
+ c_n\to1,\qquad c_n<1\ \text{eventually},\qquad
+ n p_1(c_n)\to\infty,
+\]
+all three criteria satisfy \(P_X\sim p_1(c_n)^2\), without a monotonicity
+assumption. This includes \(c_n=1-\lambda/n\), for which
+\(M_nP_X/(\log n)^4\to2\lambda^2/\pi^4\) uniformly when \(\lambda\) ranges
+over compact subsets of \((0,\infty)\). Finally, we add a no-change hypothesis
+with fixed prior \(\pi_0\), retaining the stated uniform interval prior
+conditional on an anomaly. If \(\Lambda\) denotes the corresponding
+asymptotic conditional localization limit, then the joint Bayes detection and
+exact localization limit is \(\pi_0+(1-\pi_0)\Lambda\). For fixed \(c<1\),
+the prior-weighted SRM attains this
+limit for growing known and unknown interval lengths. At \(c=1\), however,
+the raw weighted SRM tends to \(\pi_0^2\), whereas the optimum tends to
+\(\pi_0\); maximum-a-posteriori relabeling restores the optimal limit.
+\end{abstract}
+
+
+
+\input{content}
+
+\bibliographystyle{quantum}
+\bibliography{references}
+
+\end{document}

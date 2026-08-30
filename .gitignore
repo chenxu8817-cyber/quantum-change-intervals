@@ -16,6 +16,7 @@ __pycache__/
 
 # Generated reproduction outputs
 paper1/reproduced/
+paper1/release/
 
 # LaTeX build products
 *.aux
@@ -26,9 +27,8 @@ paper1/reproduced/
 *.xdv
 *.fls
 *.fdb_latexmk
-paper1/quantum_submission/build/
-paper1/quantum_submission/tmp/
-paper1/quantum_submission/build_preview/
+paper1/quantum_revision_ultracritical/build*/
+tmp/
 tmp_*/
 
 # Operating-system files

@@ -1,6 +1,14 @@
 # Reproducible cross-platform checkouts.
 * text=auto eol=lf
 
+# Preserve the exact bytes of frozen tables, manifests, and the two generated
+# text artifacts whose published SHA-256 values include their release line
+# endings.  Keep ordinary text diffs enabled.
+*.csv -text diff
+*.json -text diff
+*.svg -text diff
+paper1/quantum_revision_ultracritical/content.tex -text diff
+
 # Publication and raster assets are binary.
 *.pdf binary
 *.png binary

@@ -7,6 +7,7 @@ interval arithmetic or exact-rational certification.
 
 from __future__ import annotations
 
+import hashlib
 import math
 import os
 import sys
@@ -225,49 +226,75 @@ def _safe_primal_bound(
 ) -> tuple[list[np.ndarray], dict[str, float]]:
     """Repair numerical POVM matrices into a feasible finite-precision POVM.
 
-    The raw matrices are projected onto the PSD cone.  With
-    ``S = sum_j M_j^+``, congruence by ``S^{-1/2}`` gives a POVM in exact
-    arithmetic.  We retain Gram factors throughout so that each normalized
-    element is manifestly PSD.  A final common contraction plus a PSD remainder
-    assigned to the first outcome makes the floating-point completeness check
-    conservative as well.
+    The raw matrices are projected onto the PSD cone.  If
+    ``S = sum_j M_j^+`` and ``alpha = max(1, lambda_max(S))``, then every
+    ``M_j^+/alpha`` is PSD and their sum is bounded by the identity.  The PSD
+    remainder is assigned to the first outcome.  A final convex mixture with
+    the uniform POVM makes every effect positive definite while preserving
+    completeness.  This construction does not infer feasibility from a small
+    completeness residual and never inverts ``S``.
     """
     rank = measurements[0].shape[0]
     factors = [_psd_factor(measurement) for measurement in measurements]
-    projected = [factor @ factor.T for factor in factors]
+    projected = [_symmetric(factor @ factor.T) for factor in factors]
     total = _symmetric(sum(projected, np.zeros((rank, rank), dtype=float)))
-    total_eigenvalues, total_eigenvectors = np.linalg.eigh(total)
     margin = _roundoff_margin([total, *projected, *rhos])
-    if float(total_eigenvalues[0]) <= margin:
-        raise RuntimeError(
-            "PSD-projected primal sum is not numerically positive definite; "
-            "the solver output cannot be safely normalized"
-        )
-    inverse_square_root = (
-        total_eigenvectors
-        * (1.0 / np.sqrt(total_eigenvalues))[None, :]
-    ) @ total_eigenvectors.T
-
-    normalized_factors = [inverse_square_root @ factor for factor in factors]
-    normalized = [factor @ factor.T for factor in normalized_factors]
     identity = np.eye(rank)
-    # A positive floor converts the theoretical PSD Gram products into
-    # matrices whose rechecked floating-point eigenvalues are strictly
-    # positive as well.  The subsequent common normalization absorbs it.
-    normalized = [_symmetric(matrix) + margin * identity for matrix in normalized]
-    normalized_total = _symmetric(
-        sum(normalized, np.zeros((rank, rank), dtype=float))
+    spectral_radius = float(np.linalg.eigvalsh(total)[-1])
+    alpha = max(1.0, spectral_radius)
+    # One outward representable step makes the spectral contraction
+    # conservative in ordinary IEEE-double arithmetic.  If the subsequent
+    # diagnostic recheck still sees a negative remainder, enlarge alpha by a
+    # scale-aware correction and recompute.
+    alpha = float(np.nextafter(alpha, math.inf))
+    repaired = [_symmetric(matrix / alpha) for matrix in projected]
+    repaired_total = _symmetric(
+        sum(repaired, np.zeros((rank, rank), dtype=float))
     )
-
-    # gamma * normalized_total <= I with a strict roundoff margin.  Hence the
-    # remainder is PSD and may be assigned to any outcome without lowering
-    # feasibility.  The first outcome is used deterministically.
-    spectral_radius = float(np.linalg.eigvalsh(normalized_total)[-1])
-    denominator = max(1.0, spectral_radius) + margin
-    contraction = 1.0 / denominator
-    remainder = _symmetric(identity - contraction * normalized_total)
-    repaired = [contraction * matrix for matrix in normalized]
+    remainder = _symmetric(identity - repaired_total)
+    minimum_remainder = float(np.linalg.eigvalsh(remainder)[0])
+    if minimum_remainder < 0.0:
+        alpha = float(
+            np.nextafter(
+                alpha + (-minimum_remainder + margin) * max(1.0, alpha),
+                math.inf,
+            )
+        )
+        repaired = [_symmetric(matrix / alpha) for matrix in projected]
+        repaired_total = _symmetric(
+            sum(repaired, np.zeros((rank, rank), dtype=float))
+        )
+        remainder = _symmetric(identity - repaired_total)
     repaired[0] = _symmetric(repaired[0] + remainder)
+
+    # Strictly regularize without assuming that the projected sum is
+    # invertible.  If q is the number of outcomes and f is the identity floor,
+    # then
+    #
+    #   M_j -> (1 - q f) M_j + f I
+    #
+    # is a convex mixture with the uniform POVM and still sums to I.  The
+    # scale-aware correction dominates any negative eigenvalue seen in the
+    # floating-point recheck of the nominally PSD repaired effects.
+    hypothesis_count = len(repaired)
+    base_minimum_eigenvalue = min(
+        float(np.linalg.eigvalsh(_symmetric(measurement))[0])
+        for measurement in repaired
+    )
+    regularization_floor = margin + max(0.0, -base_minimum_eigenvalue)
+    mixing_weight = hypothesis_count * regularization_floor
+    if not 0.0 < mixing_weight < 0.5:
+        raise RuntimeError(
+            "scale-aware primal regularization is unexpectedly large; "
+            "the solver output cannot be safely repaired"
+        )
+    repaired = [
+        _symmetric(
+            (1.0 - mixing_weight) * measurement
+            + regularization_floor * identity
+        )
+        for measurement in repaired
+    ]
 
     completeness = sum(repaired, np.zeros((rank, rank), dtype=float)) - np.eye(rank)
     equality_fro = float(np.linalg.norm(completeness, ord="fro"))
@@ -287,8 +314,8 @@ def _safe_primal_bound(
     )
     return repaired, {
         "objective": objective,
-        "contraction": contraction,
-        "regularization_floor": margin,
+        "contraction": (1.0 - mixing_weight) / alpha,
+        "regularization_floor": regularization_floor,
         "equality_fro": equality_fro,
         "equality_op": equality_op,
         "psd_violation": psd_violation,
@@ -296,17 +323,36 @@ def _safe_primal_bound(
     }
 
 
-def certify_minimum_error(
-    gram: np.ndarray,
-    solver: str = "CLARABEL",
-    rank_tolerance: float = 1e-12,
-    verbose: bool = False,
-    priors: np.ndarray | None = None,
-) -> dict[str, float | int | str]:
-    """Solve both SDPs and independently recompute floating-point residuals."""
-    states, metadata = canonical_weighted_states(
-        gram, rank_tolerance=rank_tolerance, priors=priors
-    )
+def _validated_weighted_states(source_states: np.ndarray) -> np.ndarray:
+    """Return the sole real float64 source factor consumed by both SDPs."""
+    raw = np.asarray(source_states)
+    if np.iscomplexobj(raw):
+        raise ValueError("source_states must be real")
+    states = np.array(raw, dtype=float, copy=True, order="C")
+    if states.ndim != 2 or states.shape[0] < 1 or states.shape[1] < 1:
+        raise ValueError("source_states must be a nonempty rank-by-count matrix")
+    if states.shape[0] > states.shape[1]:
+        raise ValueError("source_states cannot have more rows than hypotheses")
+    if not np.all(np.isfinite(states)):
+        raise ValueError("source_states must be finite")
+    return states
+
+
+def _array_sha256(array: np.ndarray) -> str:
+    """Fingerprint a float64 artifact with its shape and byte order bound."""
+    contiguous = np.ascontiguousarray(array, dtype=np.dtype("<f8"))
+    shape = ",".join(str(value) for value in contiguous.shape)
+    prefix = f"float64-le|{contiguous.ndim}|{shape}|".encode("ascii")
+    return hashlib.sha256(prefix + contiguous.tobytes(order="C")).hexdigest()
+
+
+def _certify_weighted_states_core(
+    states: np.ndarray,
+    *,
+    solver: str,
+    verbose: bool,
+) -> dict[str, object]:
+    """Solve and repair both SDPs on exactly the supplied source factor."""
     rank, hypothesis_count = states.shape
     measurements, primal_status, primal_iterations, primal_time = (
         _solve_primal(states, solver=solver, verbose=verbose)
@@ -385,8 +431,22 @@ def certify_minimum_error(
         * (abs(primal_feasible_objective) + abs(dual_feasible_objective)),
     )
 
+    source_gram = _symmetric(states.T @ states)
+    weighted_eigenvalues = np.linalg.eigvalsh(source_gram)
+    source_states_artifact = np.array(states, copy=True, order="C")
+    source_gram_artifact = np.array(source_gram, copy=True, order="C")
+    repaired_artifacts = tuple(
+        np.array(measurement, copy=True, order="C")
+        for measurement in repaired_measurements
+    )
+    dual_artifact = np.array(dual_safe, copy=True, order="C")
+
     return {
-        **metadata,
+        "rank": rank,
+        "hypothesis_count": hypothesis_count,
+        "rank_threshold": 0.0,
+        "weighted_gram_lambda_min": float(weighted_eigenvalues[0]),
+        "weighted_gram_lambda_max": float(weighted_eigenvalues[-1]),
         "solver": solver.upper(),
         "cvxpy_version": cp.__version__,
         "primal_status": primal_status,
@@ -423,4 +483,62 @@ def certify_minimum_error(
         "dual_iterations": dual_iterations,
         "primal_solve_time_seconds": primal_time,
         "dual_solve_time_seconds": dual_time,
+        "certificate_artifact_schema": "weighted_state_certificate_v1",
+        "source_weighted_states": source_states_artifact,
+        "source_weighted_gram": source_gram_artifact,
+        "source_weighted_states_sha256": _array_sha256(
+            source_states_artifact
+        ),
+        "source_weighted_gram_sha256": _array_sha256(source_gram_artifact),
+        "repaired_primal_povm": repaired_artifacts,
+        "safe_dual_operator": dual_artifact,
     }
+
+
+def certify_minimum_error_from_weighted_states(
+    source_states: np.ndarray,
+    solver: str = "CLARABEL",
+    verbose: bool = False,
+) -> dict[str, object]:
+    """Solve directly on one retained weighted-state factor.
+
+    This entry point performs no Gram reconstruction, canonicalization, rank
+    truncation, or normalization.  The copied factor returned in the artifact
+    payload is the same copied factor consumed by both solver problems.
+    """
+    states = _validated_weighted_states(source_states)
+    return _certify_weighted_states_core(
+        states,
+        solver=solver,
+        verbose=verbose,
+    )
+
+
+def certify_minimum_error(
+    gram: np.ndarray,
+    solver: str = "CLARABEL",
+    rank_tolerance: float = 1e-12,
+    verbose: bool = False,
+    priors: np.ndarray | None = None,
+) -> dict[str, object]:
+    """Backward-compatible Gram entry point for the floating-point SDP."""
+    states, metadata = canonical_weighted_states(
+        gram, rank_tolerance=rank_tolerance, priors=priors
+    )
+    certificate = _certify_weighted_states_core(
+        _validated_weighted_states(states),
+        solver=solver,
+        verbose=verbose,
+    )
+    certificate.update(metadata)
+    for artifact_field in (
+        "certificate_artifact_schema",
+        "source_weighted_states",
+        "source_weighted_gram",
+        "source_weighted_states_sha256",
+        "source_weighted_gram_sha256",
+        "repaired_primal_povm",
+        "safe_dual_operator",
+    ):
+        certificate.pop(artifact_field, None)
+    return certificate

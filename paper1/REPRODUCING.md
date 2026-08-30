@@ -1,8 +1,8 @@
 # Reproducing Paper I
 
-The pinned numerical environment uses CPython 3.12.x. The current audited rerun used
-3.12.10; the earlier archived runtime record used 3.12.13. Do not run these
-commands with the workspace default Python 3.14.
+The pinned numerical environment uses CPython 3.12.x. The final release rerun
+uses CPython 3.12.10. Do not run these commands with the workspace default
+Python 3.14.
 
 ## Clean environment
 
@@ -18,6 +18,13 @@ py -3.12 -m venv .venv-paper1
 The default workflow uses only the activated `.venv-paper1`; repository code
 does not silently prepend `.local_pydeps`.
 
+An existing clean Python 3.12 environment can instead be selected explicitly:
+
+```powershell
+.\paper1\run_reproduction.ps1 `
+  -PythonExe .\.venv-paper1-release-py312\Scripts\python.exe
+```
+
 ## Audited workspace cache
 
 The existing `.local_pydeps` directory is a CPython 3.12 convenience cache.
@@ -32,15 +39,30 @@ The script rejects a non-3.12 interpreter before importing compiled packages.
 
 ## Outputs
 
-The workflow:
+The release workflow:
 
-1. runs the complete unit-test suite;
+1. runs the Paper-I release-test allowlist with all BLAS thread counts fixed to
+   one;
 2. regenerates fixed- and growing-length SRM checks;
 3. regenerates the fixed-\(H_0\) primal/dual SDP grid;
 4. regenerates the 30-case unknown-length primal/dual grid;
 5. regenerates the exact dense \(m=1\) SRM scaling table through \(n=50\);
 6. compares scientific columns with archived tables using explicit tolerances;
-7. records a Paper-I-only environment and SHA256 manifest.
+7. regenerates the weighted-hull and critical-SRM diagnostic tables;
+8. writes Figures 1--3 directly to
+   `quantum_revision_ultracritical/figures`;
+9. records a Paper-I-only environment and SHA256 manifest bound to the current
+   main text, Supplemental Material, code, data, and figures.
+
+The default allowlist excludes the two Paper-II modules
+`test_fixed_m_sdp_grid.py` and `test_m3_forest_factorization.py`. To add the
+complete workspace suite as a stronger, optional gate, run
+
+```powershell
+.\paper1\run_reproduction.ps1 `
+  -PythonExe .\.venv-paper1-release-py312\Scripts\python.exe `
+  -FullWorkspaceTests
+```
 
 Timing and iteration-count columns are reported but excluded from numerical
 identity checks.  They are machine-dependent diagnostics, not scientific

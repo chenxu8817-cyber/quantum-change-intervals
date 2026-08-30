@@ -10,8 +10,12 @@ The public Paper-I evidence consists of:
   `srm_scaling_m1.csv`;
 - fixed- and growing-known-length checks in
   `paper1/paper1_fixed_and_growing_srm.csv`;
-- 24 fixed-prior no-anomaly SDP cases in
+- 24 fixed-prior no-change SDP cases in
   `paper1/paper1_h0_certified_sdp.csv`;
+- weighted-hull continuum and outer-regime diagnostics in
+  `proofs/weighted_hull_diagnostics.csv`;
+- critical-overlap dense-Gram diagnostics in
+  `paper1/quantum_revision_ultracritical/data/critical_srm_diagnostics.csv`;
 - a machine-readable verification report and environment/hash manifest under
   `paper1/`.
 

@@ -44,15 +44,47 @@ THREAD_VARIABLES = [
 ]
 HASHED_FILES = [
     ".python-version",
+    "LICENSE",
     "pyproject.toml",
     "requirements-lock.txt",
+    "REPRODUCING.md",
+    "NUMERICAL_REPRODUCIBILITY.md",
+    "quantum_change_interval_research.md",
+    "quantum_interval_numerics.py",
+    "sdp_certification.py",
+    "fixed_m_sdp_grid.py",
+    "interval_unknown_length_numerics.py",
+    "srm_scaling.py",
+    "tests/test_m3_forest_factorization.py",
+    "proofs/EnergyPayment.lean",
+    "certified_sdp_results.csv",
+    "certified_sdp_m2.csv",
+    "certified_sdp_m3.csv",
+    "srm_scaling_m1.csv",
+    "srm_scaling_m2.csv",
+    "srm_scaling_m3.csv",
+]
+PAPER1_HASHED_FILES = [
+    ".python-version",
+    "LICENSE",
+    "pyproject.toml",
+    "requirements-lock.txt",
+    "environment_manifest.py",
+    "CITATION.cff",
+    "README.md",
+    "REPRODUCING.md",
+    "NUMERICAL_REPRODUCIBILITY.md",
     "paper1/README.md",
-    "paper1/PROOF_AUDIT.md",
     "paper1/REPRODUCING.md",
     "paper1/NUMERICAL_REPRODUCIBILITY.md",
     "paper1/PUBLIC_RELEASE_CHECKLIST.md",
+    "paper1/PAPER1_RELEASE_MANIFEST.md",
+    "paper1/ARXIV_V2_METADATA.md",
+    "paper1/QUANTUM_COVER_LETTER.md",
+    "paper1/build_release.py",
     "paper1/run_reproduction.ps1",
     "paper1/verification_report.json",
+    "paper1/verification_report.audit.json",
     "paper1_analytics.py",
     "paper1_numerics.py",
     "paper1_make_figures.py",
@@ -64,38 +96,51 @@ HASHED_FILES = [
     "tests/test_environment_manifest.py",
     "tests/test_paper1_analytics.py",
     "tests/test_paper1_numerics.py",
+    "tests/test_paper1_release_packaging.py",
     "tests/test_paper1_figures.py",
     "tests/test_quantum_interval_numerics.py",
     "tests/test_sdp_certification.py",
     "tests/test_srm_scaling.py",
+    "tests/test_unknown_length_full_srm_probe.py",
+    "tests/test_weighted_block_tail.py",
+    "tests/test_weighted_hull_adaptive_blocks.py",
+    "tests/test_weighted_hull_asymptotics.py",
+    "tests/test_weighted_hull_continuum_certificate.py",
+    "tests/test_weighted_hull_exact.py",
+    "tests/test_weighted_hull_outer_ledger.py",
+    "tests/test_weighted_hull_regimes.py",
+    "tests/test_weighted_hull_sdp.py",
     "certified_sdp_results.csv",
     "srm_scaling_m1.csv",
     "paper1/paper1_fixed_and_growing_srm.csv",
     "paper1/paper1_h0_certified_sdp.csv",
+    "paper1/reproduced/paper1_fixed_and_growing_srm.csv",
+    "paper1/reproduced/paper1_h0_certified_sdp.csv",
     "paper1/reproduced/certified_sdp_results.csv",
     "paper1/reproduced/srm_scaling_m1.csv",
-    "paper1/figures/figure1_model_geometry.pdf",
-    "paper1/figures/figure1_model_geometry.png",
-    "paper1/figures/figure1_model_geometry.svg",
-    "paper1/figures/figure1_model_geometry.tiff",
-    "paper1/figures/figure2_analytic_limits.pdf",
-    "paper1/figures/figure2_analytic_limits.png",
-    "paper1/figures/figure3_finite_size.pdf",
-    "paper1/figures/figure3_finite_size.png",
-    "paper1/quantum_submission/main.tex",
-    "paper1/quantum_submission/content.tex",
-    "paper1/quantum_submission/references.bib",
-    "paper1/quantum_submission/quantumarticle.cls",
-    "paper1/quantum_submission/quantum.bst",
-    "paper1/quantum_submission/main.bbl",
-    "paper1/quantum_submission/main.pdf",
-    "paper1/quantum_submission/README.md",
-    "paper1/quantum_submission/figures/figure1_model_geometry.pdf",
-    "paper1/quantum_submission/figures/figure1_model_geometry.png",
-    "paper1/quantum_submission/figures/figure2_analytic_limits.pdf",
-    "paper1/quantum_submission/figures/figure2_analytic_limits.png",
-    "paper1/quantum_submission/figures/figure3_finite_size.pdf",
-    "paper1/quantum_submission/figures/figure3_finite_size.png",
+    "proofs/weighted_hull_finite_audit.py",
+    "proofs/weighted_block_tail_probe.py",
+    "proofs/weighted_hull_asymptotic_probe.py",
+    "proofs/weighted_hull_continuum_outer_probe.py",
+    "proofs/weighted_hull_diagnostics.csv",
+    "proofs/plot_task8_candidate_figure3.py",
+    "paper1/quantum_revision_ultracritical/main.tex",
+    "paper1/quantum_revision_ultracritical/content.tex",
+    "paper1/quantum_revision_ultracritical/supplement.tex",
+    "paper1/quantum_revision_ultracritical/supplement_content.tex",
+    "paper1/quantum_revision_ultracritical/references.bib",
+    "paper1/quantum_revision_ultracritical/quantumarticle.cls",
+    "paper1/quantum_revision_ultracritical/quantum.bst",
+    "paper1/quantum_revision_ultracritical/code/unknown_length_full_srm_probe.py",
+    "paper1/quantum_revision_ultracritical/data/critical_srm_diagnostics.csv",
+    "paper1/quantum_revision_ultracritical/figures/figure1_model_geometry.pdf",
+    "paper1/quantum_revision_ultracritical/figures/figure1_model_geometry.png",
+    "paper1/quantum_revision_ultracritical/figures/figure1_model_geometry.svg",
+    "paper1/quantum_revision_ultracritical/figures/figure1_model_geometry.tiff",
+    "paper1/quantum_revision_ultracritical/figures/figure2_analytic_limits.pdf",
+    "paper1/quantum_revision_ultracritical/figures/figure2_analytic_limits.png",
+    "paper1/quantum_revision_ultracritical/figures/figure3_finite_size.pdf",
+    "paper1/quantum_revision_ultracritical/figures/figure3_finite_size.png",
 ]
 
 
@@ -105,6 +150,22 @@ def _file_sha256(path: Path) -> str:
         for block in iter(lambda: handle.read(1024 * 1024), b""):
             digest.update(block)
     return digest.hexdigest()
+
+
+def _portable_command(command: list[str]) -> list[str]:
+    """Remove host-specific absolute paths from the public manifest."""
+
+    portable: list[str] = []
+    for token in command:
+        candidate = Path(token)
+        if not candidate.is_absolute():
+            portable.append(token)
+            continue
+        try:
+            portable.append(candidate.resolve().relative_to(ROOT).as_posix())
+        except ValueError:
+            portable.append(candidate.name)
+    return portable
 
 
 def collect_manifest(
@@ -136,12 +197,12 @@ def collect_manifest(
     }
     return {
         "generated_at_utc": datetime.now(timezone.utc).isoformat(),
-        "command": command if command is not None else sys.argv,
+        "command": _portable_command(command if command is not None else sys.argv),
         "random_seed": random_seed,
         "python": {
             "version": platform.python_version(),
             "implementation": platform.python_implementation(),
-            "executable": sys.executable,
+            "executable": Path(sys.executable).name,
         },
         "platform": {
             "system": platform.system(),
@@ -171,11 +232,11 @@ def main() -> None:
     parser.add_argument("--seed", type=int, default=1729)
     parser.add_argument(
         "--profile",
-        choices=["paper1"],
-        default="paper1",
+        choices=["all", "paper1"],
+        default="all",
     )
     args = parser.parse_args()
-    selected_files = HASHED_FILES
+    selected_files = PAPER1_HASHED_FILES if args.profile == "paper1" else None
     manifest = collect_manifest(
         random_seed=args.seed,
         hashed_files=selected_files,

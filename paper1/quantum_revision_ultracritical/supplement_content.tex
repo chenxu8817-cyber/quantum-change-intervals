@@ -1,0 +1,2370 @@
+\section{Conventions and exact excitation compression}
+\label{supp:conventions}
+
+Let
+
+\begin{equation}\label{eq:supp-labels}
+ \mathcal I_n=\{[a,b]:1\le a\le b\le n\},
+ \qquad M_n=|\mathcal I_n|=\frac{n(n+1)}2,
+\end{equation}
+
+with physical prior \(1/M_n\).  For an overlap \(0\le c_n\le1\), choose
+the phase convention
+
+\begin{equation}\label{eq:supp-state-gauge}
+ |\psi_n\rangle=c_n|0\rangle+s_n|1\rangle,
+ \qquad s_n=\sqrt{1-c_n^2}.
+\end{equation}
+
+The interval states have Gram matrix
+
+\begin{equation}\label{eq:supp-physical-gram}
+ (G_n)_{I,J}=c_n^{|I\triangle J|}.
+\end{equation}
+
+We write
+
+\begin{equation}\label{eq:supp-critical-functions}
+ L_n=\log n,
+ \qquad
+ A(t)=1+\frac{2\sqrt t}{\pi}+\frac{\sqrt2\,t}{\pi^2},
+ \qquad F(t)=A(t)^2.
+\end{equation}
+
+For a generic overlap \(0\le c<1\), we shall also use
+
+\[
+ s(c)=\sqrt{1-c^2},\qquad
+ J(c)=\frac1{2\pi}\int_0^{2\pi}
+ \frac{d\theta}{|1-ce^{i\theta}|},\qquad
+ \ell(c)=\pi J(c),
+\]
+
+and
+
+\[
+ p_1(c)=(1-c^2)J(c)^2
+ =\frac{1-c^2}{\pi^2}\ell(c)^2,
+ \qquad p_1(1)=0.
+\]
+
+For a moving overlap, \(s_n=s(c_n)\) as in
+\eqref{eq:supp-state-gauge}, and we put
+
+\[
+ \ell_n=\ell(c_n),\qquad
+ \lambda_n=n(1-c_n),\qquad
+ \tau_n=\lambda_nL_n^2,qquad
+ h_n=np_1(c_n).
+\]
+
+For a compact critical parameter \(t\ge0\), set
+
+\begin{equation}\label{eq:supp-critical-family-definition}
+ c_n(t)=1-\frac{t}{nL_n^2}.
+\end{equation}
+
+Thus \(L_n=\log n\) remains the logarithmic dimension variable, whereas
+\(\ell_n\) is the elliptic integral scale.  The functions \(J\) and
+\(\ell\) are used only for \(c<1\); the endpoint \(c=1\) is always handled
+directly.
+
+For a full \(M_n\)-label Gram matrix, \(P_{\rm tr}\), \(P_{\rm SRM}\), and
+\(P_{\rm opt}\) denote the trace benchmark, the square-root-measurement
+success probability, and the Bayes optimum with external prior \(1/M_n\).
+For \(k\in\{0,1,\ge2\}\), \(P_{\rm opt}^{(k)}\) is the optimum for the
+subnormalized vectors in excitation sector \(k\), retaining the same external
+prior. Singleton interval labels therefore remain present even when their
+vectors vanish in the strict-hull sector.
+
+The common asymptotic success laws follow from the sectorwise dual certificates
+in Section~\ref{supp:dual-certificates} and the global trace theorem in
+Section~\ref{supp:trace-laws}. Section~\ref{supp:direct-srm} proves the stronger
+labelwise square-root-diagonal law; only its retained-orthogonality lemma is
+reused in the global trace argument. Section~\ref{supp:matching} extends the
+analysis to moving overlaps through weighted hull compression and adaptive
+endpoint blocks.
+
+When \(c_n>0\), put \(q_n=s_n/c_n\) and
+\((D_n)_{I,I}=c_n^{|I|}\).  The state matrix, with rows indexed by interval
+labels and columns by excitation subsets, is
+
+\begin{equation}\label{eq:supp-state-matrix}
+ (A_n)_{I,S}=c_n^{|I|}q_n^{|S|}\mathbf1_{\{S\subseteq I\}},
+ \qquad G_n=A_nA_n^*.
+\end{equation}
+
+Thus \(\operatorname{tr}\sqrt{G_n}=\|A_n\|_{S_1}\).  In every bounded
+critical window, \(c_n\to1\); hence \(c_n=0\) can occur only in a finite
+prefix.  Indices with \(c_n=1\) are handled directly, since
+\(G_n=J_{M_n}\) and
+\(P_{\rm tr}=P_{\rm SRM}=P_{\rm opt}=M_n^{-1}\).
+
+\begin{proposition}[Exact weighted hull compression]
+\label{prop:supp-hull-compression}
+Let \(Z_n\) be the proper-interval containment matrix
+
+\begin{equation}\label{eq:supp-zeta}
+ (Z_n)_{I,(s,t)}=\mathbf1_{\{s<t,\,[s,t]\subseteq I\}}.
+\end{equation}
+
+For \(0<c<1\), set
+
+\[
+ |e_c\rangle=\frac{|\psi\rangle-c|0\rangle}{s(c)}
+\]
+
+and, for \(1\le u<v\le n\),
+
+\[
+ |\eta_{u,v}\rangle
+ =|0\rangle^{\otimes(u-1)}|e_c\rangle_u
+  |\psi\rangle^{\otimes(v-u-1)}|e_c\rangle_v
+  |0\rangle^{\otimes(n-v)}.
+\]
+
+These vectors form an orthonormal family, and the exact coordinate state
+matrix of the depth-at-least-two sector is
+
+\begin{equation}\label{eq:supp-weighted-hull-identity}
+ [A_{\ge2,n}(c)]_{(a,b),(u,v)}
+ =(1-c^2)c^{(u-a)+(b-v)}
+ \mathbf1_{\{a\le u<v\le b\}}.
+\end{equation}
+
+In particular, all \(M_n\) physical rows are retained, while the column set
+has the strict cardinality \(n(n-1)/2\).  If
+
+\[
+ [V_n(c)]_{a,u}=c^{u-a}\mathbf1_{\{a\le u\}},
+\]
+
+if \(R_{\mathcal I}\) restricts ordered row pairs to \(a\le b\), and if
+\(C_{<}\) includes strict column pairs \(u<v\), then
+
+\[
+ A_{\ge2,n}(c)
+ =(1-c^2)R_{\mathcal I}
+ [V_n(c)\otimes V_n(c)^{\mathsf T}]C_{<}.
+\]
+
+Equivalently, with
+
+\[
+ u^+_{a,c}(x)=s(c)c^{x-a}\mathbf1_{\{x\ge a\}},\qquad
+ u^-_{b,c}(y)=s(c)c^{b-y}\mathbf1_{\{y\le b\}},
+\]
+
+the row belonging to \(I=[a,b]\) is
+\(P_{\{x<y\}}(u^+_{a,c}\otimes u^-_{b,c})\).
+
+For the moving critical notation \(0<c_n<1\), the same matrix is, exactly,
+
+\begin{equation}\label{eq:supp-exact-hull}
+ A_{\ge2,n}=q_n^2D_nZ_nW_n,
+ \qquad (W_n)_{(s,t),(s,t)}=c_n^{-(t-s-1)}.
+\end{equation}
+
+Consequently,
+
+\begin{equation}\label{eq:supp-hull-order}
+ I\preceq W_n\preceq\rho_n I,
+ \qquad \rho_n=c_n^{-(n-2)}.
+\end{equation}
+
+Define the comparison Gram matrix by
+
+\begin{equation}\label{eq:supp-unweighted-comparison-gram}
+ \widetilde G_n
+ =D_n\bigl(J_{M_n}+q_n^2B_{1,n}B_{1,n}^*
+ +q_n^4Z_nZ_n^*\bigr)D_n,
+\end{equation}
+
+where \(B_{1,n}\) is the interval-site incidence matrix. This retains the
+physical length factor \(D_n\) while replacing the strict-hull depth weights
+by one. Then
+
+\begin{equation}\label{eq:supp-full-hull-sandwich}
+ \widetilde G_n\preceq G_n\preceq\rho_n^2\widetilde G_n.
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+First suppose \(0<c<1\).  Expanding
+\(|\psi\rangle=c|0\rangle+s(c)|e_c\rangle\), every excitation subset
+\(S\subseteq[a,b]\) with \(|S|\ge2\) has unique first and last sites
+\(u=\min S<v=\max S\).  Write
+\(S=\{u,v\}\cup T\), where
+\(T\subseteq\{u+1,\ldots,v-1\}\).  For a fixed hull \(u<v\), summing the
+unrestricted interior sites back to
+\(|\psi\rangle^{\otimes(v-u-1)}\) leaves the scalar
+
+\[
+ s(c)^2c^{|[a,b]|-(v-u-1)-2}
+ =s(c)^2c^{(u-a)+(b-v)}.
+\]
+
+This proves \eqref{eq:supp-weighted-hull-identity} and also proves that the
+whole projected state lies in the displayed hull span.  If two strict pairs
+have different first sites, the smaller first site carries \(|e_c\rangle\)
+in one vector and \(|0\rangle\) in the other.  If their first sites agree
+but their last sites differ, the larger last site gives the same
+\(|e_c\rangle\)-versus-\(|0\rangle\) distinction.  Hence the hull vectors
+are orthonormal.  The projected tensor formula now follows entrywise from
+
+\[
+ [V_n(c)]_{a,u}[V_n(c)]_{v,b}
+ =c^{(u-a)+(b-v)}
+  \mathbf1_{\{a\le u\}}\mathbf1_{\{v\le b\}}.
+\]
+
+For \(c=c_n\in(0,1)\), direct simplification gives
+
+\[
+ q_n^2c_n^{|I|}c_n^{-(v-u-1)}
+ =s_n^2c_n^{(u-a)+(b-v)},
+\]
+
+Hence \eqref{eq:supp-exact-hull} is the exact entrywise representation of the
+physical hull sector in \eqref{eq:supp-weighted-hull-identity}.
+The bounds \eqref{eq:supp-hull-order} and
+\eqref{eq:supp-full-hull-sandwich} then follow as before, because the
+vacuum and one-excitation contributions are unchanged.
+
+For a complex original overlap
+\(\langle0|\psi\rangle=ce^{i\varphi}\), replacing
+\(|\psi\rangle\) by \(e^{-i\varphi}|\psi\rangle\) multiplies the interval
+vector \(I\) by \(e^{-i|I|\varphi}\).  The Gram matrix changes only by
+diagonal-unitary congruence, and the physical rank-one hypotheses are
+unchanged.  This justifies the nonnegative phase gauge used above.
+
+At \(c=1\), every hypothesis is the vacuum and the hull sector vanishes, so
+neither \(|e_c\rangle\) nor \(q_n\) is needed. At \(c=0\), set
+\(|e_0\rangle=|\psi\rangle\). A proper interval then has the single hull column
+\((u,v)=(a,b)\), while singleton rows vanish; equation
+\eqref{eq:supp-weighted-hull-identity} remains valid with \(0^0=1\) at zero
+boundary depth. In both endpoint cases, all \(M_n\) physical labels, including
+singleton intervals, retain the external prior \(1/M_n\).
+\end{proof}
+
+\begin{lemma}[Subnormalized PGM and dual bounds]
+\label{lem:supp-subnormalized-pgm}
+For possibly subnormalized equal-prior vectors \(v_1,\ldots,v_M\) with Gram
+matrix \(X\),
+
+\begin{equation}\label{eq:supp-subnormalized-pgm}
+ \left(\frac{\operatorname{tr}\sqrt X}{M}\right)^2
+ \le P_{\rm PGM}(v)\le P_{\rm opt}(v).
+\end{equation}
+
+Moreover, if \(K\succeq|v_j\rangle\langle v_j|\) for all \(j\), then
+\(MP_{\rm opt}(v)\le\operatorname{tr}K\).
+\end{lemma}
+
+\begin{proof}
+The polar measurement gives
+\(P_{\rm PGM}=M^{-1}\sum_j(\sqrt X)_{jj}^2\), including singular \(X\) by
+support restriction.  Cauchy--Schwarz proves the first inequality.  The
+operator \(K/M\) satisfies every equal-prior Bayes-dual constraint, proving
+the last assertion.
+\end{proof}
+
+\section{Cyclic and Volterra dual certificates}
+\label{supp:dual-certificates}
+
+For vectors \(v_1,\ldots,v_R\), define the geometric dual value
+
+\begin{equation}\label{eq:supp-geometric-dual}
+ \kappa(v_1,\ldots,v_R)=
+ \inf\{\operatorname{tr}K:K\succeq0,\ K\succeq|v_j\rangle\langle v_j|
+ \text{ for every }j\}.
+\end{equation}
+
+The singular-safe rank-one criterion used below is
+
+\begin{equation}\label{eq:supp-rank-one-criterion}
+ |v\rangle\langle v|\preceq K
+ \quad\Longleftrightarrow\quad
+ v\in\operatorname{ran}K\ \text{ and }\
+ \langle v,K^+v\rangle\le1.
+\end{equation}
+
+\subsection{The cyclic one-excitation certificate}
+
+Let \(u_{a,L}\) be the indicator of the oriented length-\(L\) arc beginning
+at \(a\) on the cycle \(\mathbb Z_n\), and set
+
+\begin{equation}\label{eq:supp-cyclic-frame}
+ \Sigma_n=\sum_{a\in\mathbb Z_n}\sum_{L=1}^n
+ |u_{a,L}\rangle\langle u_{a,L}|.
+\end{equation}
+
+\begin{lemma}[Cyclic spectrum and leverage]
+\label{lem:supp-cyclic-spectrum}
+In the normalized Fourier basis, the eigenvalues of \(\Sigma_n\) are
+
+\begin{equation}\label{eq:supp-cyclic-eigenvalues}
+ \lambda_0=\frac{n(n+1)(2n+1)}6,
+ \qquad
+ \lambda_k=\frac{n}{2\sin^2(\pi k/n)},\quad1\le k<n.
+\end{equation}
+
+Consequently,
+
+\begin{align}
+ \operatorname{tr}\sqrt{\Sigma_n}
+ &=\frac{\sqrt2}{\pi}n^{3/2}\log n+O(n^{3/2}),
+ \label{eq:supp-cyclic-root-trace}\\
+ \max_{1\le L\le n}
+ \langle u_{0,L},\Sigma_n^{-1/2}u_{0,L}\rangle
+ &\le\frac{\sqrt2}{\pi}\frac{\log n}{\sqrt n}
+ +O(n^{-1/2}).
+ \label{eq:supp-cyclic-leverage}
+\end{align}
+\end{lemma}
+
+\begin{proof}
+Translation invariance diagonalizes \(\Sigma_n\).  For \(k\ne0\),
+
+\[
+ \sum_{L=1}^n\left|\sum_{x=0}^{L-1}e^{2\pi ikx/n}\right|^2
+ =\frac1{\sin^2(\pi k/n)}
+ \sum_{L=1}^n\sin^2(\pi kL/n)
+ =\frac{n}{2\sin^2(\pi k/n)},
+\]
+
+while the zero mode gives \(\sum_LL^2\).  Endpoint harmonic summation proves
+\eqref{eq:supp-cyclic-root-trace}.  The leverage is
+
+\[
+ \frac{L^2}{n\sqrt{\lambda_0}}
+ +\frac{\sqrt2}{n^{3/2}}
+ \sum_{k=1}^{n-1}
+ \frac{\sin^2(\pi kL/n)}{\sin(\pi k/n)}.
+\]
+
+Use \(\sin^2x=(1-\cos2x)/2\), the endpoint expansion of the cosecant, and
+the uniform lower bound for partial cosine-harmonic sums
+\(\inf_{N,x}\sum_{k=1}^N\cos(kx)/k> -\infty\).  The sum is at most
+\((n/\pi)\log n+O(n)\), uniformly in \(L\), proving
+\eqref{eq:supp-cyclic-leverage}.
+\end{proof}
+
+Let \(t_n\) denote the maximum leverage in
+\eqref{eq:supp-cyclic-leverage}.  By
+\eqref{eq:supp-rank-one-criterion},
+
+\begin{equation}\label{eq:supp-cyclic-certificate}
+ K_n^{\rm cyc}=t_n\sqrt{\Sigma_n}
+ \succeq|u_{a,L}\rangle\langle u_{a,L}|,
+ \qquad
+ \operatorname{tr}K_n^{\rm cyc}
+ \le\frac{2}{\pi^2}n(\log n)^2+Cn\log n.
+\end{equation}
+
+Every linear interval is a cyclic arc.  Its physical one-excitation vector is
+\(s_nc_n^{L-1}u_{a,L}\), whose scalar factor is at most \(s_n\).  Thus the
+physical one-excitation dual is \(s_n^2K_n^{\rm cyc}\).
+
+\subsection{Endpoint odd-cosine estimates and the boundary repair}
+
+Let \(r_{m,j}=\mathbf1_{\{j,\ldots,m\}}\), let \(U_m\) have these row
+vectors, and set
+
+\begin{equation}\label{eq:supp-volterra-definitions}
+ S_m=U_m^{\mathsf T}U_m,
+ \qquad C_m=S_m^{1/2},
+ \qquad
+ \gamma_{m,j}=\langle r_{m,j},S_m^{-1/2}r_{m,j}\rangle.
+\end{equation}
+
+\begin{lemma}[Odd-cosine endpoint bounds]
+\label{lem:supp-odd-cosine}
+There is an absolute \(C\) such that
+
+\begin{equation}\label{eq:supp-leverage-profile}
+ \gamma_{m,j}\le\frac1\pi
+ \left(\log m+\log_+\frac mj\right)+C,
+ \qquad1\le j\le m,
+\end{equation}
+
+and
+
+\begin{align}
+ \operatorname{tr}C_m&=\frac m\pi\log m+O(m),
+ \label{eq:supp-cm-trace}\\
+ \sum_{x=1}^m\left|(C_m)_{xx}
+ -\frac{\operatorname{tr}C_m}{m}\right|&=O(m).
+ \label{eq:supp-cm-flatness}
+\end{align}
+\end{lemma}
+
+\begin{proof}
+Reversing coordinates turns \(U_mU_m^{\mathsf T}\) into the Brownian
+covariance matrix.  With
+
+\[
+ \theta_k=\frac{(2k-1)\pi}{2m+1},
+ \qquad
+ \lambda_k=\frac1{4\sin^2(\theta_k/2)},
+ \qquad
+ v_k(p)=\frac{2}{\sqrt{2m+1}}\sin(p\theta_k),
+\]
+
+the rectangular polar identity gives
+
+\begin{equation}\label{eq:supp-leverage-cosine-formula}
+ \gamma_{m,j}=\frac1{2m+1}\sum_{k=1}^m
+ \frac{1+\cos[(2j-1)\theta_k]}{\sin(\theta_k/2)}.
+\end{equation}
+
+Uniformly in \(k\),
+\(\csc(\theta_k/2)=2(2m+1)/[\pi(2k-1)]+O(1)\).  The identity
+
+\[
+ \sum_{k\ge1}\frac{\cos[(2k-1)x]}{2k-1}
+ =\frac12\log\cot(x/2),\qquad0<x<\pi,
+\]
+
+together with summation by parts gives \eqref{eq:supp-leverage-profile},
+including \(j=1,m\).  Summing the singular values gives
+\eqref{eq:supp-cm-trace}.
+
+For the physical-coordinate diagonal, the exact expansion is
+
+\begin{equation}\label{eq:supp-cm-diagonal-expansion}
+ (C_m)_{xx}=\frac1{2m+1}\sum_{k=1}^m
+ \frac{1-\cos(2x\theta_k)}{\sin(\theta_k/2)}.
+\end{equation}
+
+Let \(\mathsf D_{xk}=\cos(2x\theta_k)\).  Discrete odd-cosine
+orthogonality gives
+
+\begin{equation}\label{eq:supp-odd-cosine-gram}
+ \mathsf D^{\mathsf T}\mathsf D
+ =\frac{2m+1}{4}I-\frac12J.
+\end{equation}
+
+Since \(\sum_k\csc^2(\theta_k/2)=O(m^2)\), equations
+\eqref{eq:supp-cm-diagonal-expansion}--\eqref{eq:supp-odd-cosine-gram}
+show that the empirical variance of the diagonal is bounded.  Cauchy--
+Schwarz proves \eqref{eq:supp-cm-flatness}.
+\end{proof}
+
+\begin{proposition}[Quantitative Volterra certificate]
+\label{prop:supp-quantitative-volterra}
+For all sufficiently large \(m\), set
+
+\begin{equation}\label{eq:supp-moving-boundary}
+ \delta_m=\frac{3\log\log m}{\log m},
+ \qquad h_m=\lceil m^{1-\delta_m}\rceil.
+\end{equation}
+
+There is \(K_m\succeq0\) dominating every suffix projector and satisfying
+
+\begin{align}
+ \operatorname{tr}K_m
+ &\le\frac{m(\log m)^2}{\pi^2}
+ \left[1+C\frac{\log\log m}{\log m}\right],
+ \label{eq:supp-quantitative-volterra-trace}\\
+ \frac1{\operatorname{tr}K_m}\sum_x
+ \left|(K_m)_{xx}-\frac{\operatorname{tr}K_m}{m}\right|
+ &\le\frac C{\log m}.
+ \label{eq:supp-quantitative-volterra-flat}
+\end{align}
+\end{proposition}
+
+\begin{proof}
+Let \(t_m=\max_{j\ge h_m}\gamma_{m,j}\).  Lemma
+\ref{lem:supp-odd-cosine} gives
+\(t_m\le(1+\delta_m)\log m/\pi+C\), and
+\(t_mC_m\) dominates all suffixes beginning at \(j\ge h_m\).
+For \(j<h_m\), decompose
+
+\[
+ r_{m,j}=w_m+\ell_{m,j},
+ \qquad
+ w_m=\mathbf1_{\{h_m,\ldots,m\}},
+ \quad
+ \ell_{m,j}=\mathbf1_{\{j,\ldots,h_m-1\}}.
+\]
+
+The cyclic certificate \eqref{eq:supp-cyclic-certificate}, embedded in the
+first \(h_m-1\) coordinates, supplies \(K_{h_m}\) with
+\(\operatorname{tr}K_{h_m}=O(h_m\log^2h_m)\).  Therefore
+
+\begin{equation}\label{eq:supp-volterra-construction}
+ K_m=t_mC_m+2\left(|w_m\rangle\langle w_m|+K_{h_m}\right)
+\end{equation}
+
+dominates every suffix.  The chosen boundary scale obeys
+
+\[
+ m^{-\delta_m}=O((\log m)^{-3}).
+\]
+
+Thus the repair has relative trace cost \(O((\log m)^{-2})\).
+Equation~\eqref{eq:supp-cm-trace} proves
+\eqref{eq:supp-quantitative-volterra-trace}.  The diagonal estimate
+\eqref{eq:supp-cm-flatness} then proves
+\eqref{eq:supp-quantitative-volterra-flat}.  Feasibility and
+Lemma~\ref{lem:supp-subnormalized-pgm} provide the lower estimate
+\(\operatorname{tr}K_m\ge c_0m\log^2m\), for an absolute constant
+\(c_0>0\), used in the relative bound.
+\end{proof}
+
+\begin{corollary}[Fixed-boundary Volterra certificate]
+\label{cor:supp-fixed-delta-volterra}
+Fix \(0<\delta<1\) and put
+\(h_{m,\delta}=\lceil m^{1-\delta}\rceil\).  The same construction gives
+a certificate \(K_{m,\delta}\) dominating every suffix projector and
+satisfying
+
+\begin{align}
+ \operatorname{tr}K_{m,\delta}
+ &\le\left[\frac{1+\delta}{\pi^2}+o_\delta(1)\right]
+ m(\log m)^2,
+ \label{eq:supp-fixed-delta-trace}\\
+ \sum_x\left|(K_{m,\delta})_{xx}
+ -\frac{\operatorname{tr}K_{m,\delta}}m\right|
+ &=o_\delta(\operatorname{tr}K_{m,\delta}).
+ \label{eq:supp-fixed-delta-flatness}
+\end{align}
+
+Here \(o_\delta(1)\to0\) as \(m\to\infty\) with \(\delta\) fixed.
+\end{corollary}
+
+\begin{proof}
+Use \eqref{eq:supp-volterra-construction} with
+\(h_m=h_{m,\delta}\).  The leverage bound becomes
+\(t_m\le(1+\delta)\log m/\pi+C\).  The repair trace is
+\(O(m)+O(m^{1-\delta}\log^2m)=o_\delta(m\log^2m)\).  The odd-cosine
+diagonal deviation of \(t_mC_m\) is
+\(t_mO(m)=O_\delta(m\log m)=o_\delta(m\log^2m)\), and the repair has
+diagonal deviation at most twice its trace.  The lower bound
+\(\operatorname{tr}K_{m,\delta}\ge c_0m\log^2m\), for an absolute constant
+\(c_0>0\), converts both additive remainders into the stated relative
+remainder.
+\end{proof}
+
+\begin{lemma}[Singular-safe weighted block--tail extension]
+\label{lem:supp-weighted-block-tail}
+Let \(Q\succeq0\) on a finite-dimensional Hilbert space and suppose
+
+\[
+ Q\succeq|x_a\rangle\langle x_a|,\qquad
+ \operatorname{tr}Q\le L,\qquad
+ u_a=x_a+\gamma_aw,
+ \qquad |\gamma_a|\le1,\quad\|w\|\le1
+\]
+
+for every label \(a\).  If \(L>0\), then
+
+\[
+ \mathcal K_L=(1+L^{-1/2})Q+(1+\sqrt L)|w\rangle\langle w|
+\]
+
+dominates every \(|u_a\rangle\langle u_a|\) and satisfies
+
+\[
+ \operatorname{tr}\mathcal K_L\le(\sqrt L+1)^2.
+\]
+
+If \(L=0\), then \(Q=0\), every \(x_a=0\), and
+\(\mathcal K_0=|w\rangle\langle w|\) is feasible with trace at most one.
+
+For the physical right suffix
+
+\[
+ u^+_{a,c}(k)=s(c)c^{k-a}\mathbf1_{\{k\ge a\}}
+\]
+
+and a consecutive block \(E=[A,B]\) containing \(a\), the decomposition
+
+\[
+ u^+_{a,c}=x^+_{E,a}+c^{B+1-a}w_E^+
+\]
+
+is exact, where \(x^+_{E,a}\) is the restriction to \(k\le B\) and
+
+\[
+ w_E^+(k)=s(c)c^{k-B-1}\mathbf1_{\{k\ge B+1\}}.
+\]
+
+Here \(0\le c^{B+1-a}\le1\) and \(\|w_E^+\|\le1\).  Reflection gives the
+left suffix decomposition
+
+\[
+ u^-_{b,c}=x^-_{E,b}+c^{b-A+1}w_E^-.
+\]
+\end{lemma}
+
+\begin{proof}
+For arbitrary vectors \(x,y\) and \(\alpha>0\),
+
+\[
+ \alpha|x\rangle\langle x|+\alpha^{-1}|y\rangle\langle y|
+ -|x\rangle\langle y|-|y\rangle\langle x|
+ =
+ |\sqrt\alpha\,x-\alpha^{-1/2}y\rangle
+ \langle\sqrt\alpha\,x-\alpha^{-1/2}y|\succeq0.
+\]
+
+Apply this identity with \(y=\gamma_aw\).  Since
+\(|w\rangle\langle w|\succeq|\gamma_aw\rangle
+\langle\gamma_aw|\), choosing \(\alpha=L^{-1/2}\) proves feasibility for
+\(L>0\), and
+
+\[
+ \operatorname{tr}\mathcal K_L
+ \le(1+L^{-1/2})L+(1+\sqrt L)=(\sqrt L+1)^2.
+\]
+
+If \(L=0\), positivity and trace zero imply \(Q=0\), hence every \(x_a=0\);
+the stated direct branch follows.  In particular, no positive \(L\), however
+small, is sent to the zero branch.
+
+The suffix identity is checked coordinatewise.  For \(k\ge B+1\), its tail
+term is
+\(s(c)c^{B+1-a}c^{k-B-1}=s(c)c^{k-a}\), and the block-supported
+coordinates agree by definition.  Moreover,
+
+\[
+ \|w_E^+\|^2=(1-c^2)\sum_{j=0}^{n-B-1}c^{2j}\le1.
+\]
+
+Reflection about the midpoint of the site set gives the left formula.  At
+\(c=0\), the suffix is a coordinate vector and the decomposition is read
+directly; at \(c=1\), every physical suffix is zero.
+\end{proof}
+
+\begin{proposition}[Weighted local Volterra certificate]
+\label{prop:supp-weighted-volterra-certificate}
+Let \(K_m^{(0)}\) denote the unweighted certificate supplied by
+Proposition~\ref{prop:supp-quantitative-volterra}, and let
+
+\[
+ E_{m,c}=\operatorname{diag}(1,c,\ldots,c^{m-1}).
+\]
+
+For \(0<c<1\), the operator
+
+\[
+ Q_{m,c}=s(c)^2c^{-2(m-1)}
+ E_{m,c}K_m^{(0)}E_{m,c}
+\]
+
+dominates every block-supported physical suffix.  For all sufficiently large
+\(m\), it has the explicit upper budget
+
+\[
+ \operatorname{tr}Q_{m,c}\le\Lambda_{m,c}:=
+ \frac{s(c)^2c^{-2(m-1)}}{\pi^2}
+ m(\log m)^2
+ \left[1+C\frac{\log\log m}{\log m}\right].
+\]
+
+For any sequence of pairs \((m_j,c_j)\) satisfying
+
+\[
+ m_j\to\infty,\qquad 0<c_j<1,\qquad c_j\to1,
+ \qquad m_j(1-c_j)\to0,
+ \qquad \frac{\log m_j}{\ell(c_j)}\to1,
+\]
+
+one has
+
+\[
+ \Lambda_{m_j,c_j}=m_jp_1(c_j)[1+o(1)].
+\]
+The same conclusion holds uniformly for triangular families whenever all four
+displayed limiting conditions hold uniformly over the auxiliary index.
+
+At \(c=0\), the identity operator is a direct local certificate; at \(c=1\),
+the zero operator is the direct certificate.  Finitely many block sizes not
+covered by the quantitative estimate are handled by the finite frame sum,
+with its actual trace used as the budget.
+\end{proposition}
+
+\begin{proof}
+In local coordinates \(j=1,\ldots,m\), let
+\(r_{m,j}=\mathbf1_{\{j,\ldots,m\}}\).  The block-supported physical
+suffix is
+
+\[
+ x_j=s(c)c^{-(j-1)}E_{m,c}r_{m,j}.
+\]
+
+Congruence of
+\(K_m^{(0)}\succeq|r_{m,j}\rangle\langle r_{m,j}|\) by \(E_{m,c}\),
+together with
+\(c^{-2(m-1)}\ge c^{-2(j-1)}\), proves the domination.  Because
+\(0\preceq E_{m,c}^2\preceq I\),
+
+\[
+ \operatorname{tr}(E_{m,c}K_m^{(0)}E_{m,c})
+ =\operatorname{tr}(K_m^{(0)}E_{m,c}^2)
+ \le\operatorname{tr}K_m^{(0)}.
+\]
+
+This proves the displayed budget.  The exact ratio is
+
+\[
+ c^{-2(m-1)}
+ \left(\frac{\log m}{\ell(c)}\right)^2
+ \left[1+C\frac{\log\log m}{\log m}\right],
+\]
+
+For the stated sequences this tends to one, since
+\(c_j^{-2(m_j-1)}\to1\); the same calculation is uniform for every triangular
+family on which the four errors in the proposition tend to zero uniformly.
+No monotonicity of \(c_j\) is used.  The endpoint constructions contain no
+inverse power of \(c\).
+\end{proof}
+
+\begin{corollary}[Weighted endpoint-cell certificate]
+\label{cor:supp-weighted-cell-certificate}
+Partition the sites into consecutive endpoint blocks \(E_1,\ldots,E_B\).
+For each block, extend the local operators of
+Proposition~\ref{prop:supp-weighted-volterra-certificate} by zero and apply
+Lemma~\ref{lem:supp-weighted-block-tail}.  This gives right and left suffix
+certificates \(\mathcal K_p^+\) and \(\mathcal K_p^-\) satisfying
+
+\[
+ \operatorname{tr}\mathcal K_p^\pm
+ \le T_p:=(\sqrt{\Lambda_p}+1)^2.
+\]
+
+Let \(P_\Delta\) restrict ordered site pairs to
+\(\Delta_n=\{(u,v):u<v\}\), and define
+
+\[
+ \mathcal C_{p,q}
+ =P_\Delta(\mathcal K_p^+\otimes\mathcal K_q^-)P_\Delta^*,
+ \qquad
+ \mathcal K_{\ge2,n}=\sum_{p\le q}\mathcal C_{p,q}.
+\]
+
+Then \(\mathcal K_{\ge2,n}\) dominates the physical hull projector of every
+interval and
+
+\[
+ \operatorname{tr}\mathcal K_{\ge2,n}
+ \le\sum_{p\le q}T_pT_q.
+\]
+
+The operator \(\mathcal K_{\ge2,n}\) is the unscaled geometric certificate;
+the equiprior Bayes dual is
+\(\mathcal K_{\ge2,n}/M_n\).
+\end{corollary}
+
+\begin{proof}
+If \(A\succeq|x\rangle\langle x|\) and
+\(B\succeq|y\rangle\langle y|\), with \(A,B\succeq0\), then
+
+\[
+ A\otimes B-|x\otimes y\rangle\langle x\otimes y|
+ =(A-|x\rangle\langle x|)\otimes B
+ +|x\rangle\langle x|\otimes
+  (B-|y\rangle\langle y|)\succeq0.
+\]
+
+Compression preserves this order.  Every interval has its endpoints in a
+unique cell \(p\le q\); the exact hull identity then proves feasibility, and
+adding the remaining positive cells cannot weaken it.  The diagonal cells
+are also compressed to \(u<v\), never replaced by square cells.  Compression
+decreases the trace of a positive operator, giving the trace bound and the
+stated normalization.
+\end{proof}
+
+\subsection{Tensorization, triangular compression, and the sector optimum}
+
+Let \(m=n-1\) and
+
+\[
+ \Lambda_m=\{(x,y)\in\{1,\ldots,m\}^2:x+y\le m+1\}.
+\]
+
+The excitation pair \(s<t\) maps to \((s,n+1-t)\), while an interval
+\([a,b]\), \(a<b\), maps to \((a,n+1-b)\).  The corresponding unweighted
+containment vector is
+
+\begin{equation}\label{eq:supp-triangular-vector}
+ z_{u,v}=P_{\Lambda_m}(r_{m,u}\otimes r_{m,v}).
+\end{equation}
+
+\begin{lemma}[Flat-diagonal triangular trace]
+\label{lem:supp-triangular-trace}
+If \(K_m\succeq0\), \(T_m=\operatorname{tr}K_m\), and
+\(\sum_x|(K_m)_{xx}-T_m/m|\le\epsilon_mT_m\), then
+
+\begin{equation}\label{eq:supp-triangular-trace}
+ \operatorname{tr}\!\left[
+ P_{\Lambda_m}(K_m\otimes K_m)P_{\Lambda_m}\right]
+ =\frac12T_m^2[1+O(\epsilon_m+m^{-1})].
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+For \(k_x=(K_m)_{xx}\) and \(\bar k=T_m/m\),
+\(\sum_{x,y}|k_xk_y-\bar k^2|\le2\epsilon_mT_m^2\).  Sum over
+\(\Lambda_m\) and use \(|\Lambda_m|/m^2=1/2+O(m^{-1})\).
+\end{proof}
+
+With \(K_m\) from Proposition~\ref{prop:supp-quantitative-volterra}, define
+
+\begin{equation}\label{eq:supp-triangular-dual}
+ \mathcal L_n=P_{\Lambda_m}(K_m\otimes K_m)P_{\Lambda_m}.
+\end{equation}
+
+Tensor order and compression give \(\mathcal L_n\succeq|z_{u,v}\rangle\langle
+z_{u,v}|\), and
+
+\begin{equation}\label{eq:supp-triangular-dual-trace}
+ \operatorname{tr}\mathcal L_n
+ \le\frac{n^2(\log n)^4}{2\pi^4}
+ \left[1+C\frac{\log\log n}{\log n}\right].
+\end{equation}
+
+The exact physical hull vector is
+\(q_n^2c_n^{|I|}W_nz_I\).  Hence
+
+\begin{equation}\label{eq:supp-physical-hull-dual}
+ \widehat{\mathcal L}_n=q_n^4W_n\mathcal L_nW_n
+\end{equation}
+
+is feasible for every depth-\(\ge2\) sector label, because
+\(c_n^{|I|}\le1\).  Moreover,
+\(\operatorname{tr}\widehat{\mathcal L}_n
+\le q_n^4\rho_n^2\operatorname{tr}\mathcal L_n\).
+
+\begin{theorem}[Quantitative sector-oracle upper bound]
+\label{thm:supp-sector-upper}
+Uniformly for \(0\le\tau_n\le T\),
+
+\begin{align}
+ M_nP_{\rm opt}^{(0)}&=c_n^2,\label{eq:supp-vacuum-optimum}\\
+ M_nP_{\rm opt}^{(1)}
+ &\le\frac{4\tau_n}{\pi^2}
+ \left[1+O_T((\log n)^{-1})\right],
+ \label{eq:supp-one-optimum}\\
+ M_nP_{\rm opt}^{(\ge2)}
+ &\le\frac{2\tau_n^2}{\pi^4}
+ \left[1+O_T\!\left(\frac{\log\log n}{\log n}\right)\right].
+ \label{eq:supp-two-optimum}
+\end{align}
+
+Consequently,
+
+\begin{equation}\label{eq:supp-full-optimum-upper}
+ \sqrt{M_nP_{\rm opt}(G_n)}
+ \le A(\tau_n)+C_T\frac{\log\log n}{\log n}.
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+The vacuum vectors are collinear, proving \eqref{eq:supp-vacuum-optimum}.
+Equation \eqref{eq:supp-cyclic-certificate}, multiplied by \(s_n^2\), and
+\[
+ s_n^2n(\log n)^2
+ =2\tau_n\left[1+O_T\!\left((n(\log n)^2)^{-1}\right)\right],
+\]
+prove
+\eqref{eq:supp-one-optimum}.  Equations
+\eqref{eq:supp-triangular-dual-trace}--
+\eqref{eq:supp-physical-hull-dual}, together with
+\[
+ q_n^2n(\log n)^2
+ =2\tau_n\left[1+O_T\!\left((n(\log n)^2)^{-1}\right)\right],
+\]
+and
+\(\rho_n=1+O_T((\log n)^{-2})\), prove
+\eqref{eq:supp-two-optimum}.  Finally apply the orthogonal-sector Minkowski
+inequality from the main text to the sectors \(0,1,\ge2\).
+\end{proof}
+
+Combining Theorems~\ref{thm:supp-global-trace} and
+\ref{thm:supp-sector-upper} with
+\(P_{\rm tr}\le P_{\rm SRM}\le P_{\rm opt}\) proves the common rate on compact
+parameter windows. The lower estimate comes from retained rectangular
+pinching, while the upper estimate comes from dual feasibility.
+
+\section{Local SRM refinement and Kac--Murdock--Szeg{\H o} uniform integrability}
+\label{supp:direct-srm}
+
+This section proves the compact-uniform local statement quoted in the main
+text. It strengthens the common success probability law by resolving the SRM
+contribution label by label. The retained-orthogonality lemma below is also
+used in the global trace argument.
+
+\subsection{One- and two-excitation local laws}
+
+We first record the finite-codimension estimate used when the three
+excitation strata are made row-orthogonal.  Let
+\((U_m)_{ij}=\mathbf1_{\{i\le j\}}\).
+
+\begin{lemma}[Finite-codimension Volterra stability]
+\label{lem:supp-finite-codimension}
+Let \(Q_m\) be an orthogonal projection with
+\(\operatorname{rank}(I-Q_m)\le r\), where \(r\) is fixed, and put
+
+\[
+ h_m^{(Q)}(j)=
+ \left[(U_mQ_mU_m^*)^{1/2}\right]_{jj}.
+\]
+
+Uniformly over all such projections,
+
+\begin{equation}\label{eq:supp-finite-codimension-local}
+ \frac1m\sum_{j=1}^m
+ \left(\frac{h_m^{(Q)}(j)}{\log m}-\frac1\pi\right)^2
+ \longrightarrow0,
+ \qquad
+ \max_jh_m^{(Q)}(j)\le\frac2\pi\log m+O(1).
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Write \(h_m=h_m^{(I)}\).  Operator monotonicity gives
+\(0\le h_m^{(Q)}(j)\le h_m(j)\), while
+
+\begin{align*}
+ 0&\le \|U_m\|_{S_1}-\|U_mQ_m\|_{S_1}\\
+ &\le \|U_m(I-Q_m)\|_{S_1}
+ \le \sqrt r\,\|U_m\|_{S_2}=O_r(m).
+\end{align*}
+
+Thus the nonnegative deficit
+\((h_m-h_m^{(Q)})/\log m\) has empirical mean
+\(O_r((\log m)^{-1})\).  The odd-cosine expansion in
+Lemma~\ref{lem:supp-odd-cosine} gives
+
+\[
+ \frac1m\sum_j
+ \left(\frac{h_m(j)}{\log m}-\frac1\pi\right)^2\to0,
+ \qquad
+ \max_jh_m(j)\le\frac2\pi\log m+O(1).
+\]
+
+The normalized deficit is therefore uniformly bounded; its empirical
+second moment is bounded by a constant times its empirical first moment.
+This proves both assertions.
+\end{proof}
+
+Let
+\(H_{1,n}=(B_{1,n}B_{1,n}^*)^{1/2}\) and
+\(h_{1,n}(I)=(H_{1,n})_{I,I}\).
+
+\begin{lemma}[One-excitation empirical law]
+\label{lem:supp-b1-local}
+With \(N=n+1\),
+
+\begin{equation}\label{eq:supp-b1-local}
+ \frac1{M_n}\sum_{I\in\mathcal I_n}
+ \left[\frac{\sqrt N}{\log N}h_{1,n}(I)-\frac2\pi\right]^2
+ \longrightarrow0.
+\end{equation}
+
+Moreover,
+
+\begin{equation}\label{eq:supp-b1-local-maximum}
+ \max_{I\in\mathcal I_n}h_{1,n}(I)
+ \le C\frac{\log N}{\sqrt N}.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+The Dirichlet eigenbasis in \eqref{eq:supp-b1-normal} gives, for
+\(I=[a,b]\) and \(L=b-a+1\),
+
+\begin{equation}\label{eq:supp-b1-exact-diagonal}
+ h_{1,n}([a,b])=\frac4{N^{3/2}}\sum_{k=1}^{N-1}
+ \frac{\sin^2(L\theta_k/2)\sin^2[(a+b)\theta_k/2]}
+ {\sin(\theta_k/2)},
+ \qquad \theta_k=\frac{\pi k}{N}.
+\end{equation}
+
+Set
+\(T_N(m)=\sum_{k=1}^{N-1}\cos(m\theta_k)/\sin(\theta_k/2)\).
+Expanding the product of sine squares expresses the bracket in
+\eqref{eq:supp-b1-exact-diagonal} as
+
+\[
+ \frac14T_N(0)-\frac14T_N(L)-\frac14T_N(a+b)
+ +\frac18T_N(2a-1)+\frac18T_N(2b+1).
+\]
+
+The zero frequency is
+\(T_N(0)=(2N/\pi)\log N+O(N)\).  Discrete cosine orthogonality gives
+
+\begin{equation}\label{eq:supp-b1-parseval}
+ \sum_{m=0}^{2N-1}T_N(m)^2
+ =N\sum_{k=1}^{N-1}\csc^2\!\left(\frac{\pi k}{2N}\right)
+ =\frac{2N(N^2-1)}3.
+\end{equation}
+
+Each of the four nonzero frequency maps has at most \(n\) interval
+preimages.  Equation \eqref{eq:supp-b1-parseval} therefore makes their
+normalized empirical square contribution \(O((\log N)^{-2})\), proving
+\eqref{eq:supp-b1-local}.  Since
+\(\lvert T_N(m)\rvert\le T_N(0)\) for every integer \(m\), the same exact
+diagonal formula also proves \eqref{eq:supp-b1-local-maximum}.
+\end{proof}
+
+If \(H_{1,n}^{(D)}=(D_nB_{1,n}B_{1,n}^*D_n)^{1/2}\) and
+\(\epsilon_n=1-c_n^n\), the rectangular polar formula gives the pointwise
+comparison
+
+\begin{equation}\label{eq:supp-b1-weight-transfer}
+ (1-\epsilon_n)^2h_{1,n}(I)
+ \le(H_{1,n}^{(D)})_{I,I}
+ \le(1-\epsilon_n)^{-1}h_{1,n}(I).
+\end{equation}
+
+Indeed, compare \(B_{1,n}^*D_n^2B_{1,n}\) with
+\(B_{1,n}^*B_{1,n}\), invert, and apply square-root monotonicity before
+taking the polar diagonal.  In a compact critical window,
+\(\epsilon_n=O_T((\log n)^{-2})\).  Thus
+
+\begin{equation}\label{eq:supp-physical-b1-local}
+ \sup_{0\le t\le T}\frac1{M_n}\sum_I
+ \left|\sqrt{M_n}q_n(H_{1,n}^{(D)})_{I,I}
+ -\frac{2\sqrt t}{\pi}\right|^2\longrightarrow0.
+\end{equation}
+
+For the two-endpoint law, restrict \(Z_n\) to its nonzero proper-interval
+rows and write \(H_{2,n}=(Z_nZ_n^*)^{1/2}\).  Map
+\((a,b)\) to \((u,v)=(a,n+1-b)\) in \(\Lambda_{n-1}\).
+
+\begin{lemma}[Two-excitation empirical law]
+\label{lem:supp-b2-local}
+For \(N_n=\binom n2\),
+
+\begin{equation}\label{eq:supp-b2-local}
+ \frac1{N_n}\sum_{a<b}
+ \left[\frac{(H_{2,n})_{(a,b),(a,b)}}{(\log n)^2}
+ -\frac1{\pi^2}\right]^2\longrightarrow0.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+The interval-poset zeta matrix is invertible; its inverse is the mixed
+first-difference operator
+
+\[
+ x(a,b)=y(a,b)-y(a+1,b)-y(a,b-1)+y(a+1,b-1).
+\]
+
+Let \(D_m=U_m^{-1}\), \(m=n-1\), and let \(V_m\) extend functions on
+\(\Lambda_m\) by zero to the full square.  Forward differences preserve the
+triangular support, so
+\((D_m\otimes D_m)V_m=V_mZ_n^{-1}\).  Since \(x\mapsto x^{-1/2}\) is
+operator convex, compression Jensen gives the pointwise comparison
+
+\begin{equation}\label{eq:supp-b2-square-majorant}
+ (H_{2,n})_{(a,b),(a,b)}
+ \le d_{m,u}d_{m,v},
+ \qquad
+ d_{m,x}=((U_mU_m^*)^{1/2})_{xx}.
+\end{equation}
+
+The sine expansion used in Lemma~\ref{lem:supp-odd-cosine} gives
+
+\[
+ \frac1m\sum_x\left(\frac{d_{m,x}}{\log m}-\frac1\pi\right)^2\to0,
+ \qquad
+ \max_xd_{m,x}\le\frac2\pi\log m+O(1).
+\]
+
+Products therefore make the right-hand side of
+\eqref{eq:supp-b2-square-majorant} converge to \(1/\pi^2\) in empirical
+\(L^2\) over the triangle.  Proposition~\ref{prop:supp-b2-trace} says the
+left-hand side has the same empirical mean.  The normalized deficit is
+nonnegative and uniformly bounded, hence converges to zero in empirical
+\(L^2\).  This proves \eqref{eq:supp-b2-local}.
+\end{proof}
+
+The same polar comparison as in \eqref{eq:supp-b1-weight-transfer}, followed
+by the hull order \eqref{eq:supp-hull-order}, transfers
+\eqref{eq:supp-b2-local} to all depths \(\ge2\):
+
+\begin{equation}\label{eq:supp-physical-b2-local}
+ \sup_{0\le t\le T}\frac1{M_n}\sum_I
+ \left|\sqrt{M_n}(\sqrt{A_{\ge2,n}A_{\ge2,n}^*})_{I,I}
+ -\frac{\sqrt2\,t}{\pi^2}\right|^2\longrightarrow0.
+\end{equation}
+
+\subsection{A Kac--Murdock--Szeg{\H o} diagonal bound}
+
+Let \(T_m(c)=(c^{|j-k|})_{j,k=1}^m\).
+
+\begin{lemma}[Uniform KMS square-root diagonal]
+\label{lem:supp-kms-diagonal}
+Fix \(C_0<\infty\) and \(\kappa>0\).  There is
+\(C=C(C_0,\kappa)\) such that, whenever
+
+\[
+ 0<c\le1,
+ \qquad m(1-c)\le C_0,
+ \qquad c^m\ge\kappa,
+\]
+
+one has
+
+\begin{equation}\label{eq:supp-kms-bound}
+ \max_j(\sqrt{T_m(c)})_{jj}
+ \le C\left[m^{-1/2}+\sqrt{1-c}\,\log(m+1)\right].
+\end{equation}
+
+For \(c=c_n(t)=1-t/[n(\log n)^2]\), uniformly in
+\(0\le t\le T\) and \(1\le m\le n\),
+
+\begin{equation}\label{eq:supp-kms-critical}
+ \max_j(\sqrt{T_m(c_n(t))})_{jj}\le\frac{C_T}{\sqrt m}.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+The cases \(c=1\) and \(m=1\) are immediate.  For \(0<c<1\),
+
+\begin{equation}\label{eq:supp-kms-inverse}
+ T_m(c)^{-1}=\frac1{1-c^2}
+ \begin{pmatrix}
+ 1&-c\\
+ -c&1+c^2&-c\\
+ &\ddots&\ddots&\ddots\\
+ &&-c&1
+ \end{pmatrix}.
+\end{equation}
+
+An eigenvector of the tridiagonal numerator has the form
+
+\begin{equation}\label{eq:supp-kms-eigenvector}
+ v_j=A[\sin(j\theta)-c\sin((j-1)\theta)],
+ \qquad0<\theta<\pi,
+\end{equation}
+
+with \(\theta\) selected by the second endpoint equation.  Every nonzero
+sequence \(y_j=\sin(j\theta+\phi)\), \(1\le j\le m\), satisfies the uniform
+sampling inequality
+
+\begin{equation}\label{eq:supp-sampling-inequality}
+ \max_j|y_j|^2\le\frac{C_s}{m}\sum_{j=1}^m|y_j|^2.
+\end{equation}
+
+To verify it, reduce \(\theta\) to its distance \(d\in[0,\pi/2]\) from
+\(\pi\mathbb Z\).  If \(md>2\), the two eigenvalues of the sampling Gram
+matrix with rows \((\cos jd,\sin jd)\) are
+
+\[
+ \frac m2\mathbin{\pm}\frac{|\sin(md)|}{2\sin d};
+\]
+
+the smaller is at least a fixed positive multiple of \(m\).  If \(md\le2\),
+write \(u=md\) and use the uniformly nondegenerate basis
+\(\cos(ut)\) and \(\sin(ut)/u\), with its continuous limit \(t\) at
+\(u=0\).  Its normalized Riemann-sum Gram matrix has a uniformly positive
+smallest eigenvalue for \(u\in[0,2]\).  This proves
+\eqref{eq:supp-sampling-inequality}, including the finitely many small values
+of \(m\) by compactness.  Applied to \eqref{eq:supp-kms-eigenvector}, it gives
+
+\begin{equation}\label{eq:supp-kms-delocalization}
+ \max_j|v_j|^2\le C/m
+\end{equation}
+
+for every normalized eigenvector.
+
+The standard Cholesky factor of \(T_m(c)\) has first column
+\((1,c,\ldots,c^{m-1})^{\mathsf T}\) and lower-right block
+\(\sqrt{1-c^2}\,V_{m-1}(c)\), where
+
+\[
+ V_s(c)=D_{c,s}U_s^{\mathsf T}D_{c,s}^{-1},
+ \qquad D_{c,s}=\operatorname{diag}(1,c,\ldots,c^{s-1}).
+\]
+
+The assumption \(c^m\ge\kappa\) bounds the condition number of
+\(D_{c,s}\), so \(\|V_s(c)\|_{S_1}\le C\|U_s\|_{S_1}\).  Consequently,
+
+\begin{equation}\label{eq:supp-kms-root-trace}
+ \operatorname{tr}\sqrt{T_m(c)}
+ \le\sqrt m+C\sqrt{1-c}\,m\log(m+1).
+\end{equation}
+
+The spectral resolution, \eqref{eq:supp-kms-delocalization}, and
+\eqref{eq:supp-kms-root-trace} prove \eqref{eq:supp-kms-bound}.  In the
+critical family, \(c_n(t)^m\ge c_n(t)^n\ge1/2\) for large \(n\), while
+
+\[
+ \sqrt{1-c_n(t)}\log(m+1)
+ \le\frac{\sqrt T}{\sqrt n}\le\frac{\sqrt T}{\sqrt m\,}.
+\]
+
+This proves \eqref{eq:supp-kms-critical} uniformly on \([0,T]\).
+\end{proof}
+
+\subsection{Retained orthogonality and completion of the local law}
+
+Define the unweighted three-stratum comparison
+
+\begin{equation}\label{eq:supp-unweighted-three-stratum}
+ \widehat G_n=J_{M_n}+q_n^2B_{1,n}B_{1,n}^*
+ +q_n^4Z_nZ_n^*,
+\end{equation}
+
+where \(Z_n\) retains its zero singleton rows.  Let
+\(z_n=B_{1,n}^*\mathbf1\), and let \(Q_{1,n}\) project onto \(z_n^\perp\).
+Then \(\operatorname{ran}(B_{1,n}Q_{1,n})\perp\mathbf1\).
+
+Partition the sites into
+\(r_n=\lfloor\sqrt{\log(n+1)}\rfloor\) balanced consecutive blocks
+\(E_1,\ldots,E_{r_n}\).  For a left block \(E_p\), set
+
+\[
+ F_p(a,s)=\mathbf1_{\{a\le s\}},\qquad s\in E_p,
+\]
+
+and let \(Q_p^L\) project onto the orthogonal complement of
+\(\operatorname{span}\{\mathbf1_{E_p},F_p^*\mathbf1_n\}\).  For a right
+block \(E_r\), define
+\(R_r(b,t)=\mathbf1_{\{t\le b\}}\) and let \(Q_r^R\) project onto the
+orthogonal complement of
+\(\operatorname{span}\{\mathbf1_{E_r},R_r^*\mathbf1_n\}\).  On pair
+columns \(E_p\times E_r\) with \(p<r\), retain
+\(Q_p^L\otimes Q_r^R\); retain zero when both sites lie in one block.  Their
+direct sum is denoted by \(Q_{2,n}\).
+
+\begin{lemma}[Exact retained support and row orthogonality]
+\label{lem:supp-retained-orthogonality}
+For every \(p<r\), the \((p,r)\) column block of \(Z_nQ_{2,n}\) is
+supported on interval rows whose endpoint pair belongs to
+\(E_p\times E_r\).  On that cell it factorizes, up to reversal of the right
+coordinate, as
+
+\begin{equation}\label{eq:supp-retained-cell-factorization}
+ (U_{|E_p|}Q_p^L)\otimes(U_{|E_r|}Q_r^R).
+\end{equation}
+
+Different cells have orthogonal row and column supports, and the full
+retained row range is orthogonal to every endpoint-additive function
+\(f(a)+g(b)\).
+\end{lemma}
+
+\begin{proof}
+If \(a\) lies before \(E_p\), its row in \(F_p\) is constant and is killed
+by \(Q_p^L\); if it lies after \(E_p\), that row is zero.  Thus
+\(F_pQ_p^L\) is supported on \(a\in E_p\).  Moreover,
+\(\mathbf1_n^*F_pQ_p^L=0\) by the definition of \(Q_p^L\).  The analogous
+statements hold for \(R_rQ_r^R\).  Since \(p<r\), the Cartesian support cell
+lies entirely in \(a<b\), where containment factorizes, proving
+\eqref{eq:supp-retained-cell-factorization}.  Every tensor output has zero
+sum in each endpoint coordinate, so it is orthogonal to \(f(a)+g(b)\).
+Distinct block pairs have disjoint row and column supports.
+\end{proof}
+
+Every column of \(B_{1,n}\) is endpoint-additive, because
+
+\[
+ \mathbf1_{\{a\le s\le b\}}
+ =\mathbf1_{\{a\le s\}}+\mathbf1_{\{s\le b\}}-1.
+\]
+
+Lemma~\ref{lem:supp-retained-orthogonality} therefore shows that the three
+terms in
+
+\begin{equation}\label{eq:supp-retained-operator}
+ K_n=J_{M_n}+q_n^2B_{1,n}Q_{1,n}B_{1,n}^*
+ +q_n^4Z_nQ_{2,n}Z_n^*
+\end{equation}
+
+have mutually orthogonal row ranges and \(0\preceq K_n\preceq\widehat G_n\).
+The projection \(Q_{1,n}\) removes one direction.  Operator monotonicity,
+Lemma~\ref{lem:supp-b1-local}, and
+
+\[
+ 0\le\|B_{1,n}\|_{S_1}-\|B_{1,n}Q_{1,n}\|_{S_1}
+ \le\|B_{1,n}\|_{\rm op}=O(n^{3/2})
+\]
+
+give the same empirical law for its retained one-excitation diagonal.  In
+each two-endpoint cell, the factors in
+\eqref{eq:supp-retained-cell-factorization} lose at most two directions.
+Lemma~\ref{lem:supp-finite-codimension} applies uniformly because every
+block size tends to infinity and
+\(\log|E_p|/\log n\to1\).  Products preserve bounded empirical
+\(L^2\) convergence.  The omitted same-block cells occupy
+\(O(r_n^{-1})\) of the interval triangle.  Hence, with
+
+\[
+ \ell_{n,I}=\sqrt{M_n}(\sqrt{K_n})_{I,I},
+\]
+
+the compact-uniform statements
+
+\begin{align}
+ \sup_{0\le t\le T}\frac1{M_n}\sum_I
+ |\ell_{n,I}-A(t)|^2&\longrightarrow0,
+ \label{eq:supp-retained-local}\\
+ \sup_{0\le t\le T}\left|
+ \frac{\operatorname{tr}\sqrt{K_n}}{\sqrt{M_n}}-A(t)
+ \right|&\longrightarrow0.
+ \label{eq:supp-retained-trace}
+\end{align}
+
+The maximum estimates in Lemmas~\ref{lem:supp-b1-local} and
+\ref{lem:supp-finite-codimension}, together with the critical factors
+\(q_n\) and \(q_n^2\), also give
+\(\sup_{n,t,I}\ell_{n,I}<\infty\) on every compact \(t\)-window.
+
+It remains to show that the nonnegative diagonal excess of
+\(\sqrt{\widehat G_n}\) cannot concentrate.  Fix a site \(x\) and consider
+all intervals containing it.  Their physical principal Gram matrix is exactly
+
+\begin{equation}\label{eq:supp-anchor-kms-product}
+ T_x(c_n)\otimes T_{n+1-x}(c_n).
+\end{equation}
+
+Compression Jensen for the operator-concave square root and
+Lemma~\ref{lem:supp-kms-diagonal} imply, for every \(I\ni x\),
+
+\begin{equation}\label{eq:supp-anchor-diagonal-bound}
+ (\sqrt{G_n})_{I,I}
+ \le\frac{C_T}{\sqrt{x(n+1-x)}}.
+\end{equation}
+
+Let \(\chi_n(I)=\max_{x\in I}x(n+1-x)\).  Choosing the best anchor gives
+
+\begin{equation}\label{eq:supp-ui-majorant}
+ M_n(\sqrt{G_n})_{I,I}^2
+ \le C_T\frac{M_n}{\chi_n(I)}.
+\end{equation}
+
+The right-hand side is uniformly integrable under the interval prior.  For
+large \(K\), only the two edge triangles can satisfy
+\(M_n/\chi_n(I)>K\); on the left edge this forces \(b<n/K\), and hence
+
+\begin{equation}\label{eq:supp-ui-tail}
+ \frac1{M_n}\sum_I\frac{M_n}{\chi_n(I)}
+ \mathbf1_{\{M_n/\chi_n(I)>K\}}
+ \le2\sum_{b<n/K}\frac1{n+1-b}
+ \le\frac CK.
+\end{equation}
+
+Let
+\(\widehat\eta_{n,I}=\sqrt{M_n}(\sqrt{\widehat G_n})_{I,I}\).  Operator
+monotonicity and the trace laws give
+
+\[
+ e_{n,I}:=\widehat\eta_{n,I}-\ell_{n,I}\ge0,
+ \qquad \frac1{M_n}\sum_Ie_{n,I}\to0.
+\]
+
+Put \(\alpha_n=c_n^n\) and
+\(\widetilde G_n=D_n\widehat G_nD_n\).  If \(c_n<1\), the interval-zeta
+minor makes \(\widehat G_n\) positive definite.  For an invertible square
+factor \(\mathsf A_n\mathsf A_n^*=\widehat G_n\),
+
+\[
+ \alpha_n^2\mathsf A_n^*\mathsf A_n
+ \preceq \mathsf A_n^*D_n^2\mathsf A_n
+ \preceq \mathsf A_n^*\mathsf A_n.
+\]
+
+Order reversal under inversion, square-root monotonicity, and the polar
+formula give the pointwise diagonal inequalities
+
+\begin{equation}\label{eq:supp-physical-diagonal-sandwich}
+ \alpha_n^2(\sqrt{\widehat G_n})_{I,I}
+ \le(\sqrt{\widetilde G_n})_{I,I}
+ \le\alpha_n^{-1}(\sqrt{\widehat G_n})_{I,I}.
+\end{equation}
+
+Indeed,
+
+\begin{align*}
+ \sqrt{\widehat G_n}
+ &=\mathsf A_n(\mathsf A_n^*\mathsf A_n)^{-1/2}\mathsf A_n^*,\\
+ \sqrt{\widetilde G_n}
+ &=D_n\mathsf A_n
+ (\mathsf A_n^*D_n^2\mathsf A_n)^{-1/2}
+ \mathsf A_n^*D_n,
+\end{align*}
+
+and \(\alpha_n\le(D_n)_{I,I}\le1\).  Since
+\(\widetilde G_n\preceq G_n\), equation
+\eqref{eq:supp-physical-diagonal-sandwich} yields
+
+\[
+ (\sqrt{\widehat G_n})_{I,I}
+ \le\alpha_n^{-2}(\sqrt{G_n})_{I,I}.
+\]
+
+Thus \eqref{eq:supp-ui-majorant}--\eqref{eq:supp-ui-tail} transfer uniform
+integrability to \(\widehat\eta_{n,I}^2\).  If \(c_n=1\), all matrices in
+this comparison equal \(J_{M_n}\), so the conclusion is direct.  Splitting
+at a fixed level \(R\), using \(e^2\le Re\) below that level and the
+uniform-integrability tail above it, yields
+
+\begin{equation}\label{eq:supp-excess-l2}
+ \frac1{M_n}\sum_Ie_{n,I}^2\longrightarrow0.
+\end{equation}
+
+Combining \eqref{eq:supp-retained-local} and
+\eqref{eq:supp-excess-l2} first proves the local law for \(\widehat G_n\).
+Because \(\alpha_n=1+O_T((\log n)^{-2})\),
+\eqref{eq:supp-physical-diagonal-sandwich} and the bounded empirical second
+moments transfer it to \(\widetilde G_n\).  Finally,
+Proposition~\ref{prop:supp-hull-compression} gives
+
+\[
+ \sqrt{\widetilde G_n}\preceq\sqrt{G_n}
+ \preceq\rho_n\sqrt{\widetilde G_n},
+ \qquad \rho_n=1+O_T((\log n)^{-2}),
+\]
+
+so the same argument transfers the law to the exact physical matrix.
+
+\begin{theorem}[Compact-uniform physical local law]
+\label{thm:supp-full-local-law}
+For every \(T<\infty\), with
+\(c_n(t)=1-t/[n(\log n)^2]\),
+
+\begin{equation}\label{eq:supp-full-local-law}
+ \sup_{0\le t\le T}\frac1{M_n}\sum_{I\in\mathcal I_n}
+ \left|\sqrt{M_n}(\sqrt{G_n(c_n(t))})_{I,I}-A(t)\right|^2
+ \longrightarrow0.
+\end{equation}
+\end{theorem}
+
+The Kac--Murdock--Szeg{\H o} truncation yields the local law uniformly on
+compact \(t\)-windows through the sequential compactness criterion; this local
+law is qualitative. The global trace and dual bounds in
+Sections~\ref{supp:trace-laws} and \ref{supp:dual-certificates} instead give the
+explicit rate \(O_T(\log\log n/\log n)\) for the three success criteria.
+
+\section{Uniform matching and hull dominance}
+\label{supp:matching}
+
+We next connect the compact critical window to the large-\(\tau\) regime at
+leading relative order.
+
+\begin{theorem}[Inner matching below the continuum scale]
+\label{thm:supp-inner-matching}
+Suppose
+
+\begin{equation}\label{eq:supp-inner-assumptions}
+ \tau_n=n(1-c_n)(\log n)^2\longrightarrow\infty,
+ \qquad
+ \lambda_n=n(1-c_n)=\frac{\tau_n}{(\log n)^2}\longrightarrow0.
+\end{equation}
+
+Then, for \(X\in\{\mathrm{tr},\mathrm{SRM},\mathrm{opt}\}\),
+
+\begin{equation}\label{eq:supp-inner-conclusion}
+ M_nP_X(G_n)\sim\frac{2\tau_n^2}{\pi^4}
+ \sim A(\tau_n)^2.
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Equations \eqref{eq:supp-inner-assumptions} imply
+\(c_n^n\to1\) and \(\rho_n=c_n^{-(n-2)}\to1\).  Schatten ideal
+inequalities applied to the exact hull factorization give
+
+\begin{equation}\label{eq:supp-inner-schatten-sandwich}
+ c_n^n\|Z_n\|_{S_1}
+ \le\|D_nZ_nW_n\|_{S_1}
+ \le\rho_n\|Z_n\|_{S_1}.
+\end{equation}
+
+For example, the lower inequality follows by writing
+\(Z_n=D_n^{-1}(D_nZ_nW_n)W_n^{-1}\) and using
+\(\|D_n^{-1}\|_{\rm op}=c_n^{-n}\) and
+\(\|W_n^{-1}\|_{\rm op}\le1\).  Proposition
+\ref{prop:supp-b2-trace} and
+
+\[
+ q_n^2n(\log n)^2=2\tau_n[1+o(1)]
+\]
+
+therefore give the full physical \(\ge2\)-sector trace amplitude
+
+\begin{equation}\label{eq:supp-inner-sector-amplitude}
+ \frac{\|A_{\ge2,n}\|_{S_1}}{\sqrt{M_n}}
+ \sim\frac{\sqrt2\,\tau_n}{\pi^2}.
+\end{equation}
+
+For the reverse sector bound, use
+Corollary~\ref{cor:supp-fixed-delta-volterra} with any fixed
+\(0<\delta<1\), rather than the moving choice in
+\eqref{eq:supp-moving-boundary}.  Its triangular tensor trace is at most
+
+\[
+ \left[\frac{(1+\delta)^2}{2\pi^4}+o_\delta(1)\right]
+ n^2(\log n)^4.
+\]
+
+where \(o_\delta(1)\to0\) as \(n\to\infty\) with \(\delta\) fixed.
+Congruence by
+\(q_n^2W_n\) gives the explicit physical bound
+
+\[
+ M_nP_{\rm opt}^{(\ge2)}
+ \le q_n^4\rho_n^2
+ \left[\frac{(1+\delta)^2}{2\pi^4}+o_\delta(1)\right]
+ n^2(\log n)^4.
+\]
+
+Moreover,
+
+\[
+ \frac{q_n^4n^2(\log n)^4}{4\tau_n^2}\longrightarrow1,
+ \qquad \rho_n\longrightarrow1.
+\]
+
+Therefore
+
+\[
+ \limsup_n
+ \frac{M_nP_{\rm opt}^{(\ge2)}}{2\tau_n^2/\pi^4}
+ \le(1+\delta)^2.
+\]
+
+First take \(n\to\infty\), then \(\delta\downarrow0\), and combine with
+the subnormalized trace lower bound to obtain equality at leading order.
+The vacuum sector is \(O(1)\), while the cyclic certificate makes the
+one-excitation sector amplitude \(O(\sqrt{\tau_n})\).  They are negligible
+relative to \(\tau_n\).  Orthogonal-sector Minkowski and
+\(P_{\rm tr}\le P_{\rm SRM}\le P_{\rm opt}\) prove
+\eqref{eq:supp-inner-conclusion}.
+\end{proof}
+
+To compare with the fixed-overlap expression, the complete elliptic-integral
+form of the one-dimensional functional gives, for
+\(\varepsilon=1-c\downarrow0\),
+
+\begin{align}
+ p_1(c)
+ &=\frac{2\varepsilon}{\pi^2}
+ \log^2\!\frac8\varepsilon\,[1+o(1)],
+ \label{eq:supp-p1-endpoint}\\
+ p_1(c)^2
+ &=\frac{4\varepsilon^2}{\pi^4}
+ \log^4\!\frac8\varepsilon\,[1+o(1)].
+ \label{eq:supp-p1-square-endpoint}
+\end{align}
+
+Under \eqref{eq:supp-inner-assumptions}, one has
+\(0<\varepsilon_n=1-c_n=\tau_n/[n(\log n)^2]\to0\), and hence
+
+\begin{equation}\label{eq:supp-outer-formula}
+ M_np_1(c_n)^2
+ \sim\frac{2\tau_n^2}{\pi^4}
+ \left[\frac{\log(8n(\log n)^2/\tau_n)}{\log n}\right]^4.
+\end{equation}
+
+More generally, for sequences with \(0<1-c_n\to0\), the formulas match the
+inner coefficient precisely when
+\(\log[n(1-c_n)]=o(\log n)\).  This condition holds automatically under
+\eqref{eq:supp-inner-assumptions}.  Equation
+\eqref{eq:supp-outer-formula} is a comparison of asymptotic formulas; it is
+not obtained by inserting a moving \(c_n\) into the pointwise fixed-overlap
+theorem.
+
+\subsection{Weighted continuum interface and hull dominance}
+
+When \(\lambda_n=n(1-c_n)\) stays away from zero, the physical length and hull
+weights are no longer close to the identity. The following argument therefore
+retains these weights within each block through the exact hull coordinates,
+local block-and-tail certificates, and matched rectangular pinching, instead
+of using \eqref{eq:supp-inner-schatten-sandwich}.
+
+\begin{lemma}[Matched rectangular pinching]
+\label{lem:supp-weighted-rectangular-pinching}
+Let \(A:\mathbb C^d\to\mathbb C^r\).  Let
+\(\{P_j\}_{j=1}^J\) and \(\{Q_j\}_{j=1}^J\) be pairwise orthogonal
+families of row and column projections.  Then
+
+\[
+ \left\|\sum_{j=1}^J P_jAQ_j\right\|_{S_1}
+ \le\|A\|_{S_1}.
+\]
+\end{lemma}
+
+\begin{proof}
+Use the Hermitian dilation
+
+\[
+ \mathcal H(A)=
+ \begin{pmatrix}0&A\\A^*&0\end{pmatrix},
+ \qquad \|\mathcal H(A)\|_{S_1}=2\|A\|_{S_1}.
+\]
+
+The projections \(R_j=P_j\oplus Q_j\), together with the complementary
+projection, form an orthogonal resolution of the dilation space.  Ordinary
+block pinching is Schatten--1 contractive, and compression to
+\(\sum_jR_j\) leaves the dilation of \(\sum_jP_jAQ_j\).  Dividing the
+resulting inequality by two proves the claim.  This argument is specific to
+  matched row-column blocks; arbitrary entry deletion need not be contractive.
+\end{proof}
+
+\begin{theorem}[Compact continuum interface]
+\label{thm:supp-continuum-interface}
+Let \(K=[\lambda_-,\lambda_+]\Subset(0,\infty)\) and
+\(c_{n,\lambda}=1-\lambda/n\).  For
+\(X\in\{\mathrm{tr},\mathrm{SRM},\mathrm{opt}\}\),
+
+\[
+ \sup_{\lambda\in K}
+ \left|
+ \frac{P_X(G_n(c_{n,\lambda}))}
+      {p_1(c_{n,\lambda})^2}-1
+ \right|\longrightarrow0.
+\]
+
+Equivalently,
+
+\[
+ \sup_{\lambda\in K}
+ \left|
+ \frac{M_nP_X(G_n(c_{n,\lambda}))}{(\log n)^4}
+ -\frac{2\lambda^2}{\pi^4}
+ \right|\longrightarrow0.
+\]
+\end{theorem}
+
+\begin{proof}
+Write \(c=1-\lambda/n\), \(s=s(c)\), and
+\(B=\lceil\ell(c)\rceil\).  Partition the sites into \(B\) balanced
+consecutive blocks of sizes \(m_p\in\{\lfloor n/B\rfloor,
+\lceil n/B\rceil\}\).  The elliptic endpoint expansion gives, uniformly
+for \(\lambda\in K\),
+
+\[
+ \ell(1-\lambda/n)=\log n+\log(8/\lambda)+o_K(1).
+\]
+
+Consequently,
+
+\[
+ B\to\infty,\quad B/n\to0,\quad
+ \min_pm_p\to\infty,\quad
+ \max_pm_p(1-c)\to0,\quad
+ \max_p\left|\frac{\log m_p}{\ell(c)}-1\right|\to0.
+\]
+
+The finite-dimensional Volterra law
+\eqref{eq:supp-volterra-trace} and the exact similarity
+
+\[
+ V_m(c)=E_{m,c}^{-1}U_mE_{m,c}
+\]
+
+therefore imply, uniformly over all blocks,
+
+\[
+ s\|V_{m_p}(c)\|_{S_1}
+ =m_p\sqrt{p_1(c)}[1+o_K(1)].
+\]
+
+Indeed, the two ideal-norm comparisons differ from one by at most
+\(\exp\{O(m_p(1-c))\}\), and
+\(\sqrt{p_1(c)}=s\ell(c)/\pi\).
+
+For each \(p<q\), retain rows with endpoints in
+\(E_p\times E_q\) and strict hull columns in the same rectangle.  By
+\eqref{eq:supp-weighted-hull-identity}, the retained matrix is exactly
+
+\[
+ s^2V_{m_p}(c)\otimes V_{m_q}(c)^{\mathsf T}.
+\]
+
+Lemma~\ref{lem:supp-weighted-rectangular-pinching} and tensor
+multiplicativity give
+
+\[
+ \|A_{\ge2,n}(c)\|_{S_1}
+ \ge p_1(c)[1-o_K(1)]\sum_{p<q}m_pm_q.
+\]
+
+The strict triangle supplies the exact identity
+
+\[
+ \sum_{p<q}m_pm_q
+ =\frac12\left(n^2-\sum_pm_p^2\right)
+ =M_n[1-o_K(1)],
+\]
+
+because \(\sum_pm_p^2\le n(n/B+1)\).  Thus
+
+\[
+ \|A_{\ge2,n}(c)\|_{S_1}
+ \ge M_np_1(c)[1-o_K(1)].
+\]
+
+The full Gram matrix dominates
+\(A_{\ge2,n}A_{\ge2,n}^*\).  Operator monotonicity of the square root,
+followed by the full external normalization \(1/M_n\), yields
+
+\[
+ P_{\rm tr}(G_n(c))
+ \ge\left(\frac{\|A_{\ge2,n}(c)\|_{S_1}}{M_n}\right)^2
+ \ge p_1(c)^2[1-o_K(1)].
+\]
+
+For the matching upper bound, Proposition
+\ref{prop:supp-weighted-volterra-certificate} gives local budgets
+
+\[
+ \Lambda_{p,n}=m_pp_1(c)[1+o_K(1)].
+\]
+
+Their minimum diverges: uniformly on \(K\),
+\(m_pp_1(c)\asymp_K\ell(c)\to\infty\).  Lemma
+\ref{lem:supp-weighted-block-tail} therefore gives full one-sided suffix
+certificates with
+
+\[
+ T_{p,n}:=(\sqrt{\Lambda_{p,n}}+1)^2
+ =m_pp_1(c)[1+o_K(1)].
+\]
+
+Corollary~\ref{cor:supp-weighted-cell-certificate}, including all diagonal
+cells, supplies an unscaled geometric hull certificate satisfying
+
+\[
+ \operatorname{tr}\mathcal K_{\ge2,n}
+ \le\sum_{p\le q}T_{p,n}T_{q,n}
+ \le M_np_1(c)^2[1+o_K(1)].
+\]
+
+Dividing this geometric certificate by \(M_n\) yields
+\(P_{\rm opt}^{(\ge2)}\le p_1(c)^2[1+o_K(1)]\).
+
+The vacuum sector is exact:
+\(P_{\rm opt}^{(0)}=c^2/M_n\).  The cyclic certificate
+\eqref{eq:supp-cyclic-certificate} gives
+
+\[
+ \kappa_{1,n}\le C s^2n(\log n)^2.
+\]
+
+The compact scalar normalization then yields, uniformly on \(K\),
+
+\[
+ \frac{\sqrt{P_{\rm opt}^{(0)}}}{p_1(c)}
+ =O_K((\log n)^{-2}),\qquad
+ \frac{\sqrt{P_{\rm opt}^{(1)}}}{p_1(c)}
+ =O_K((\log n)^{-1}).
+\]
+
+Orthogonal-sector Minkowski, the hull certificate, and
+\(P_{\rm tr}\le P_{\rm SRM}\le P_{\rm opt}\) squeeze all three relative
+ratios to one.
+
+Finally, the exact scalar identity
+
+\[
+ \frac{M_np_1(1-\lambda/n)^2}{(\log n)^4}
+ =\frac{\lambda^2}{2\pi^4}
+ \left(1+\frac1n\right)
+ \left(2-\frac{\lambda}{n}\right)^2
+ \left(\frac{\ell(1-\lambda/n)}{\log n}\right)^4
+\]
+
+converges uniformly to \(2\lambda^2/\pi^4\), and is uniformly bounded
+away from zero on \(K\).  This proves the scaled formulation without
+dividing through a vanishing compact endpoint.
+\end{proof}
+
+The following table summarizes the normalization conventions used here and
+below.
+
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}lXl@{}}
+\toprule
+Object & Constraint or definition & Prior status\\
+\midrule
+\(A_{\ge2,n}\) & Exact physical strict-hull state matrix; all \(M_n\)
+rows, including zero singleton rows & no prior\\
+\(\mathcal K_{\ge2,n}\) &
+\(\mathcal K_{\ge2,n}\succeq
+ |\phi_I^{(\ge2)}\rangle\langle\phi_I^{(\ge2)}|\) for every
+physical interval & geometric, unscaled\\
+\(\mathcal K_{\ge2,n}/M_n\) & Feasible Bayes dual for the hull sector &
+external \(1/M_n\)\\
+\(P_{\rm opt}^{(k)}\) & \(\kappa_{k,n}/M_n\), for
+\(k\in\{0,1,\ge2\}\) & same \(1/M_n\) in every sector\\
+\(P_{\rm tr}(G_n)\) &
+\((\operatorname{tr}\sqrt{G_n}/M_n)^2\) for the full physical Gram &
+full ensemble\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\begin{lemma}[Adaptive macroblock parameters]
+\label{lem:supp-adaptive-block-parameters}
+Suppose \(c_n\to1\), \(c_n<1\) eventually, and
+\(h_n=np_1(c_n)\to\infty\).  Set
+
+\[
+ B_n=\left\lceil\sqrt{h_n}+\lambda_n\sqrt{\ell_n}\right\rceil,
+ \qquad m_n=\left\lfloor\frac n{B_n}\right\rfloor.
+\]
+
+Then
+
+\[
+ B_n\to\infty,\qquad
+ \frac{B_n}{h_n}\to0,\qquad
+ \frac{B_n}{n}\to0,\qquad
+ \frac{\lambda_n}{B_n}\to0,
+\]
+
+and a balanced \(B_n\)-block partition exists eventually.  Its minimum
+block size satisfies
+
+\[
+ m_n(1-c_n)\to0,\qquad
+ m_np_1(c_n)\to\infty,\qquad
+ \frac{\log m_n}{\ell_n}\to1.
+\]
+No monotonicity of \(c_n\) or \(\lambda_n\) is required.
+\end{lemma}
+
+\begin{proof}
+Cauchy--Schwarz and the Poisson-kernel integral give
+\(J(c)^2\le(1-c^2)^{-1}\), hence \(p_1(c)\le1\) and \(h_n\le n\).
+The exact identity
+
+\[
+ h_n=\frac{\lambda_n(1+c_n)}{\pi^2}\ell_n^2
+\]
+
+implies, with the ceiling retained,
+
+\[
+ \frac{B_n}{h_n}
+ \le \frac{1}{\sqrt{h_n}}
+ +\frac{\pi^2}{(1+c_n)\ell_n^{3/2}}
+ +\frac{1}{h_n}\longrightarrow0.
+\]
+
+Also \(B_n\ge\sqrt{h_n}\to\infty\),
+\(\lambda_n/B_n\le\ell_n^{-1/2}\to0\), and
+\(B_n/n\le B_n/h_n\to0\).  Thus \(B_n\le n\) eventually and
+
+\[
+ m_n=\frac n{B_n}[1+O(B_n/n)].
+\]
+
+Multiplication by \(1-c_n=\lambda_n/n\) and by
+\(p_1(c_n)=h_n/n\) proves the first two block limits.
+
+It remains to match logarithms.  The endpoint expansion is
+
+\[
+ \ell_n=\log n-\log\lambda_n+\log8+o(1).
+\]
+
+On indices with \(\lambda_n\le1\), the identity for \(h_n\) and
+\(h_n\to\infty\) imply
+\(-\log\lambda_n\le2\log\ell_n\) eventually.  Hence
+\(\ell_n=\log n+O(\log\ell_n)\), while the block definition gives
+\(\log B_n=O(\log\ell_n)\).  On indices with \(\lambda_n\ge1\),
+
+\[
+ \lambda_n\sqrt{\ell_n}\le B_n
+ \le C\lambda_n\ell_n
+\]
+
+eventually, so
+\(\log B_n=\log\lambda_n+O(\log\ell_n)\).  In both cases,
+
+\[
+ \log(n/B_n)=\ell_n+O(\log\ell_n).
+\]
+
+The floor changes this by \(o(1)\), and \(\ell_n\to\infty\), proving
+\(\log m_n/\ell_n\to1\).  The two index sets cover an arbitrarily
+oscillating sequence.
+\end{proof}
+
+\begin{theorem}[Moving outer regime]
+\label{thm:supp-moving-outer}
+If \(c_n\to1\), \(c_n<1\) eventually, and
+\(\lambda_n=n(1-c_n)\to\infty\), then, for
+\(X\in\{\mathrm{tr},\mathrm{SRM},\mathrm{opt}\}\),
+
+\[
+ \frac{P_X(G_n(c_n))}{p_1(c_n)^2}\longrightarrow1.
+\]
+\end{theorem}
+
+\begin{proof}
+The exact identity in the preceding lemma gives \(h_n\to\infty\), so use its
+adaptive balanced blocks.  For either possible block size
+\(m_{p,n}\in\{m_n,m_n+1\}\),
+
+\[
+ m_{p,n}(1-c_n)\to0,\quad
+ \frac{\log m_{p,n}}{\ell_n}\to1,\quad
+ m_{p,n}p_1(c_n)\to\infty.
+\]
+
+The same weighted similarity, matched pinching, and strict-cell count as in
+Theorem~\ref{thm:supp-continuum-interface} give
+
+\[
+ \|A_{\ge2,n}(c_n)\|_{S_1}
+ \ge M_np_1(c_n)[1-o(1)]
+\]
+
+and hence \(P_{\rm tr}(G_n)\ge p_1(c_n)^2[1-o(1)]\).
+Proposition~\ref{prop:supp-weighted-volterra-certificate} and
+Lemma~\ref{lem:supp-weighted-block-tail} give one-sided certificate traces
+\(T_{p,n}=m_{p,n}p_1(c_n)[1+o(1)]\), uniformly in \(p\).  The cell
+corollary, including every diagonal and terminal cell, then gives
+
+\[
+ \operatorname{tr}\mathcal K_{\ge2,n}
+ \le M_np_1(c_n)^2[1+o(1)].
+\]
+
+The vacuum relative amplitude is \(O(h_n^{-1})\).  For one excitation,
+\eqref{eq:supp-cyclic-certificate} gives
+
+\[
+ \frac{\sqrt{P_{\rm opt}^{(1)}}}{p_1(c_n)}
+ =O\!\left(
+ \frac{\log n}{\sqrt{\lambda_n}\,\ell_n^2}
+ \right)=o(1).
+\]
+
+For the last implication, put
+\(q_n^{\rm sc}=n/\lambda_n=(1-c_n)^{-1}\to\infty\).
+Then \(\ell_n=\log q_n^{\rm sc}+O(1)\), while
+\(\log n=\log\lambda_n+\log q_n^{\rm sc}\).  Both
+\(\log\lambda_n/\sqrt{\lambda_n}\) and
+\((\sqrt{\lambda_n}\log q_n^{\rm sc})^{-1}\) tend to zero.
+Sector Minkowski and the usual trace--SRM--optimum ordering complete the
+squeeze.
+
+The proof is quantitative. One sufficient relative error bound for the
+amplitude is controlled by
+
+\[
+ \frac{\lambda_n}{B_n}
+ +\frac{\log\log m_n}{\log m_n}
+ +\left|\frac{\log m_n}{\ell_n}-1\right|
+ +\sqrt{\frac{B_n}{h_n}}
+ +\frac1{B_n}
+ +\frac{\log n}{\sqrt{\lambda_n}\ell_n^2}
+ +\frac1{h_n}.
+\]
+
+The terms arise, respectively, from local diagonal similarity, the Volterra
+boundary repair, logarithmic matching, the common rank-one tail, diagonal
+cells, one excitation, and the vacuum. Lemma
+\ref{lem:supp-adaptive-block-parameters} and the scalar estimate above make
+every term vanish.
+\end{proof}
+
+\begin{theorem}[Unified hull-dominance criterion]
+\label{thm:supp-hull-dominance}
+Suppose
+
+\[
+ c_n\to1,\qquad c_n<1\ \text{eventually},\qquad
+ h_n=np_1(c_n)\to\infty.
+\]
+
+Then, without a monotonicity assumption and simultaneously for
+\(X\in\{\mathrm{tr},\mathrm{SRM},\mathrm{opt}\}\),
+
+\[
+ \frac{P_X(G_n(c_n))}{p_1(c_n)^2}\longrightarrow1.
+\]
+\end{theorem}
+
+\begin{proof}
+Fix an arbitrary subsequence and pass to a further subsequence on which
+\(\lambda_n=n(1-c_n)\) converges in the compactified half-line
+\([0,\infty]\).
+
+If \(\lambda_n\to0\), then the exact identity
+
+\[
+ \lambda_n\ell_n^2=\frac{\pi^2h_n}{1+c_n}\longrightarrow\infty
+\]
+
+implies \(-\log\lambda_n\le2\log\ell_n\) eventually.  Bootstrapping this
+bound in
+\(\ell_n=\log n-\log\lambda_n+\log8+o(1)\) gives
+\(\ell_n/\log n\to1\).  Therefore
+
+\[
+ \tau_n=\lambda_n(\log n)^2
+ =\frac{\pi^2h_n}
+ {(1+c_n)(\ell_n/\log n)^2}\longrightarrow\infty.
+\]
+
+The hypotheses of Theorem~\ref{thm:supp-inner-matching} now hold.  Its
+normalization agrees with the present one because
+
+\[
+ \frac{M_np_1(c_n)^2}{2\tau_n^2/\pi^4}
+ =\frac{M_n}{n^2}\frac{(1+c_n)^2}{2}
+  \left(\frac{\ell_n}{\log n}\right)^4
+ \longrightarrow1.
+\]
+
+If \(\lambda_n\to\lambda_*\in(0,\infty)\), choose one compact
+\(K\Subset(0,\infty)\) containing the values eventually and evaluate the
+uniform bound in Theorem~\ref{thm:supp-continuum-interface} at the moving
+point \(\lambda_n\).  If \(\lambda_n\to\infty\), apply
+Theorem~\ref{thm:supp-moving-outer}.
+
+For literal application of sequence-wise inner and outer theorems on sparse
+dimension subsequences, fill omitted inner dimensions with
+\(\lambda_n=1/\log n\), and omitted outer dimensions with
+\(\lambda_n=\sqrt n\).  The selected Gram matrices are unchanged and the
+filled sequences obey the required regime hypotheses.  The compact theorem
+is already uniform and needs no filling.
+
+Thus every subsequence has a further subsequence on which the displayed
+ratio tends to one.  The standard subsequence criterion proves the full
+limit.  The argument uses neither monotonicity nor regular variation.
+\end{proof}
+
+The following table summarizes the regimes, their proof inputs, and their
+common limits.
+
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}l
+ >{\raggedright\arraybackslash}X
+ >{\raggedright\arraybackslash}X
+ >{\raggedright\arraybackslash}X@{}}
+\toprule
+Regime & Scale assumptions & Proof input & Common conclusion\\
+\midrule
+Ultra-critical &
+\(\tau_n=n(1-c_n)(\log n)^2\) in a fixed compact window &
+global trace theorem plus sector duals &
+\(M_nP_X=A(\tau_n)^2+o(1)\)\\
+Inner hull dominance &
+\(\lambda_n\to0,\ h_n\to\infty\) &
+inner bridge and Theorem~\ref{thm:supp-inner-matching} &
+\(P_X\sim p_1(c_n)^2\)\\
+Continuum &
+\(\lambda_n\) in a fixed compact subset of \((0,\infty)\) &
+weighted cells and compact-uniform squeeze &
+\(P_X\sim p_1(c_n)^2\), with coefficient
+\(2\lambda_n^2/\pi^4\) after \(M_n/(\log n)^4\) scaling\\
+Moving outer &
+\(c_n\to1,\ c_n<1\) eventually, \(\lambda_n\to\infty\) &
+adaptive blocks and weighted block--tail certificates &
+\(P_X\sim p_1(c_n)^2\)\\
+Unified &
+\(c_n\to1,\ c_n<1\) eventually, \(h_n\to\infty\), with arbitrary
+oscillation &
+compactified subsequence closure &
+\(P_X\sim p_1(c_n)^2\)\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+Every row uses the physical Gram matrix
+\eqref{eq:supp-physical-gram}, the same \(M_n\), and the same external uniform
+prior. On the canonical fixed-\(\tau\) scale, \(h_n\) remains bounded; the
+hull-dominance theorem instead assumes \(h_n\to\infty\).
+
+\section{Incidence trace laws and the global trace theorem}
+\label{supp:trace-laws}
+
+Let \(B_{1,n}\) be the interval--site incidence matrix.  A direct count gives
+
+\begin{equation}\label{eq:supp-b1-normal}
+ B_{1,n}^*B_{1,n}=(n+1)L_D^{-1},
+\end{equation}
+
+where \(L_D\) is the Dirichlet path Laplacian.  Therefore
+
+\begin{equation}\label{eq:supp-b1-singular-values}
+ \sigma_k(B_{1,n})=
+ \frac{\sqrt{n+1}}{2\sin[\pi k/(2(n+1))]},
+ \qquad1\le k\le n,
+\end{equation}
+
+and endpoint harmonic summation yields
+
+\begin{equation}\label{eq:supp-b1-trace-law}
+ \|B_{1,n}\|_{S_1}
+ =\frac{n^{3/2}}\pi\log n+O(n^{3/2}),
+ \qquad \|B_{1,n}\|_{\rm op}=O(n^{3/2}).
+\end{equation}
+
+The corresponding two-endpoint incidence operator is compressed to a
+triangular domain rather than a square one.
+
+\begin{proposition}[Triangular Volterra trace law]
+\label{prop:supp-b2-trace}
+For the matrix \(Z_n\) in \eqref{eq:supp-zeta},
+
+\begin{equation}\label{eq:supp-b2-trace-law}
+ \|Z_n\|_{S_1}
+ \sim\frac{n^2(\log n)^2}{2\pi^2}.
+\end{equation}
+
+More quantitatively, partition the sites into \(R\) balanced consecutive
+blocks of sizes \(\ell_p\), retain only matched row--column cells with
+\(p<r\), and project each one-dimensional column factor off the constant
+and incidence-sum directions used in
+Lemma~\ref{lem:supp-retained-orthogonality}.  The resulting rectangular
+pinching \(Z_{n,R}^{\rm ret}\)
+satisfies
+
+\begin{align}
+ \|Z_{n,R}^{\rm ret}\|_{S_1}
+ &\ge\frac{n^2(\log n)^2}{2\pi^2}
+ \left[1-C\left(
+ \frac1R+\frac{\log R}{\log n}
+ +\frac1{\log n}+\frac Rn\right)\right].
+ \label{eq:supp-b2-retained-rate}
+\end{align}
+\end{proposition}
+
+\begin{proof}
+For \(U_m(i,j)=\mathbf1_{\{i\le j\}}\),
+
+\begin{equation}\label{eq:supp-volterra-trace}
+ \|U_m\|_{S_1}=\frac m\pi\log m+O(m).
+\end{equation}
+
+On a matched off-diagonal cell \((p,r)\), the unprojected block is
+\(U_{\ell_p}\otimes U_{\ell_r}^{\mathsf T}\).  Each projection removes at
+most two column directions, and therefore
+
+\[
+ \|U_\ell(I-Q)\|_{S_1}
+ \le\sqrt2\,\|U_\ell\|_{S_2}=O(\ell).
+\]
+
+Thus each one-dimensional trace norm changes by at most \(O(\ell_p)\) or
+\(O(\ell_r)\).  The retained row and column cells are mutually orthogonal,
+so rectangular pinching and \eqref{eq:supp-volterra-trace} give
+
+\[
+ \|Z_{n,R}^{\rm ret}\|_{S_1}
+ \ge\frac1{\pi^2}\sum_{p<r}\ell_p\ell_r
+ (\log\ell_p-C)(\log\ell_r-C).
+\]
+
+Using
+\(\sum_{p<r}\ell_p\ell_r=(n^2-\sum_p\ell_p^2)/2\) and balancedness proves
+\eqref{eq:supp-b2-retained-rate}.
+
+For the full upper bound, fix \(R\) and decompose both endpoint triangles
+into all macroblocks.  Blocks with two matching endpoint indices are
+compressions of \(U\otimes U\); blocks with one matching index are
+compressions of \(U\otimes J\); and blocks with no matching index have rank
+one.  For a balanced side length \(\ell\),
+\[
+ \|U_\ell\otimes J_\ell\|_{S_1}
+ =O(\ell^2\log\ell),
+ \qquad
+ \|J_\ell\otimes J_\ell\|_{S_1}=O(\ell^2).
+\]
+Thus, after summing the finitely many macroblocks for fixed \(R\), the one-
+and zero-match blocks are
+\(o(n^2\log^2n)\) for fixed \(R\).  The diagonal cells are rescaled copies of
+\(Z_{n/R}\).  Before taking a limsup, note that, up to the fixed reversal of
+the right-endpoint coordinate,
+\[
+ Z_n=P_{\Lambda_{n-1}}
+ (U_{n-1}\otimes U_{n-1})P_{\Lambda_{n-1}}.
+\]
+The ideal property and \eqref{eq:supp-volterra-trace} therefore give
+\[
+ \|Z_n\|_{S_1}
+ \le\|U_{n-1}\|_{S_1}^2
+ =O(n^2\log^2n).
+\]
+Hence, if
+\(C^*=\limsup_n\|Z_n\|_{S_1}/[n^2\log^2n]\), the block triangle inequality
+gives
+
+\[
+ C^*\le\frac{1-R^{-1}}{2\pi^2}+\frac{C^*}{R}.
+\]
+
+Thus \(C^*\le1/(2\pi^2)\).  The retained lower bound followed by
+\(R\to\infty\) gives the reverse inequality and proves
+\eqref{eq:supp-b2-trace-law}.
+\end{proof}
+
+These sector estimates yield a global trace law without assuming local
+square-root additivity.
+
+\begin{theorem}[Critical global square-root trace]
+\label{thm:supp-global-trace}
+Let \(0\le\tau_n=n(1-c_n)(\log n)^2\le T\).  Then
+
+\begin{equation}\label{eq:supp-global-trace-rate}
+ \frac{\operatorname{tr}\sqrt{G_n}}{\sqrt{M_n}}
+ \ge A(\tau_n)-C_T\frac{\log\log n}{\log n},
+\end{equation}
+
+and, uniformly for \(\tau_n\in[0,T]\),
+
+\begin{equation}\label{eq:supp-global-trace-limit}
+ \frac{\operatorname{tr}\sqrt{G_n}}{\sqrt{M_n}}
+ -A(\tau_n)\longrightarrow0.
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Choose
+\(R_n=\lfloor\log n/\log\log n\rfloor\).  Work first with the unweighted
+state matrix
+
+\[
+ \widehat A_n=[\,\mathbf1,\ q_nB_{1,n},\ q_n^2Z_n\,].
+\]
+
+Project the one-excitation columns by \(Q_{1,n}\), and use the block
+projections of Lemma~\ref{lem:supp-retained-orthogonality} in the
+two-endpoint sector.  The three retained row ranges are mutually orthogonal,
+so the trace norm of their concatenation is the sum of their trace norms.
+The one-excitation loss is explicitly bounded by
+
+\begin{equation}\label{eq:supp-b1-retained-loss}
+ \frac{q_n}{\sqrt{M_n}}
+ \bigl(\|B_{1,n}\|_{S_1}-\|B_{1,n}Q_{1,n}\|_{S_1}\bigr)
+ \le\frac{q_n\|B_{1,n}\|_{\rm op}}{\sqrt{M_n}}
+ =O_T((\log n)^{-1}).
+\end{equation}
+
+For the two-endpoint blocks, the finite-codimension bound in the proof of
+Proposition~\ref{prop:supp-b2-trace} is \(O(\ell)\) per Volterra factor,
+hence a relative \(O(1/\log\ell)=O(1/\log n)\) loss.  Consequently,
+\eqref{eq:supp-b2-retained-rate} applies to these same projections.
+
+Equations \eqref{eq:supp-b1-trace-law} and
+\eqref{eq:supp-b2-retained-rate}, together with
+
+\begin{align*}
+ q_n\sqrt n\log n
+ &=\sqrt{2\tau_n}\left[
+ 1+O_T\!\left((n(\log n)^2)^{-1}\right)\right],\\
+ q_n^2n(\log n)^2
+ &=2\tau_n\left[
+ 1+O_T\!\left((n(\log n)^2)^{-1}\right)\right]
+\end{align*}
+
+give the unweighted version of \eqref{eq:supp-global-trace-rate}.  Indeed,
+the error in \eqref{eq:supp-b2-retained-rate} is
+
+\[
+ O\!\left(R_n^{-1}+\frac{\log R_n}{\log n}
+ +\frac1{\log n}+\frac{R_n}{n}\right)
+ =O\!\left(\frac{\log\log n}{\log n}\right).
+\]
+
+To restore the physical weights, note that
+\(\|D_n-I\|_{\rm op}=O_T((\log n)^{-2})\) and
+\(\|W_n-I\|_{\rm op}=O_T((\log n)^{-2})\), the ideal property gives
+
+\begin{align*}
+ \|(D_n-I)\widehat A_n\|_{S_1}
+ &\le\|D_n-I\|_{\rm op}\|\widehat A_n\|_{S_1},\\
+ q_n^2\|D_nZ_n(W_n-I)\|_{S_1}
+ &\le q_n^2\|W_n-I\|_{\rm op}\|Z_n\|_{S_1}.
+\end{align*}
+
+After division by \(\sqrt{M_n}\), both errors are
+\(O_T((\log n)^{-2})\).  The trace norm is Lipschitz under these state-matrix
+perturbations, so the physical matrix obeys
+\eqref{eq:supp-global-trace-rate}.
+
+For the matching upper limit, apply the Schatten--1 triangle inequality to
+the vacuum, one-excitation, and exact hull sectors, then use
+\eqref{eq:supp-b1-trace-law}, \eqref{eq:supp-b2-trace-law}, and
+Proposition~\ref{prop:supp-hull-compression}.  This gives
+uniformly on compact parameter windows,
+\[
+ \limsup_{n\to\infty}
+ \left[
+  \frac{\operatorname{tr}\sqrt{G_n}}{\sqrt{M_n}}-A(\tau_n)
+ \right]
+ \le 0.
+\]
+Combined with the retained lower bound, this proves
+\eqref{eq:supp-global-trace-limit}.
+\end{proof}
+
+\section{Finite-size numerical diagnostics}
+\label{supp:numerics}
+
+The numerical checks in this section are diagnostics, not inputs to any
+proof.  For each \((n,\tau)\), we set
+\(c=1-\tau/[n(\log n)^2]\), form the full dense physical Gram matrix, and
+diagonalize it.  Table~\ref{tab:supp-critical-diagnostics} reports the scaled
+trace amplitude, the target \(A(\tau)\), the empirical root-mean-square error
+of the scaled diagonal, and the trace loss of the row-orthogonal retained
+comparison.  The slow finite-size drift, especially at \(\tau=4\), is
+consistent with the logarithmic theorem and explains why a finite-size
+polar/SRM gap can initially appear to grow.
+
+\begin{table}[ht]
+\centering
+\caption{Dense physical-Gram diagnostics.  The retained trace gap is
+\((\operatorname{tr}\sqrt G-\operatorname{tr}\sqrt K)/\sqrt{M_n}\).}
+\label{tab:supp-critical-diagnostics}
+\begin{tabular}{rrrrrr}
+\toprule
+\(\tau\)&\(n\)&\(A(\tau)\)&trace amplitude&local RMS&retained gap\\
+\midrule
+0.25&12&1.354132&1.442930&0.105208&0.136272\\
+0.25&24&1.354132&1.417693&0.084748&0.107393\\
+0.25&32&1.354132&1.410576&0.079250&0.099183\\
+1.00&12&1.779910&1.965364&0.221155&0.410377\\
+1.00&24&1.779910&1.919312&0.186629&0.320009\\
+1.00&32&1.779910&1.905585&0.176503&0.295459\\
+4.00&12&2.846399&3.165847&0.395940&1.490082\\
+4.00&24&2.846399&3.124405&0.388835&1.105722\\
+4.00&32&2.846399&3.107347&0.381736&1.012978\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+At \(n=32\), the differences between the full square-root diagonal and the
+sum of the sectorwise square-root diagonals have the ranges
+
+\[
+\begin{array}{c|ccc}
+\tau&0.25&1&4\\ \hline
+\text{range}&[-0.2175,0.1660]&[-0.5349,0.4288]&[-1.0370,1.1270].
+\end{array}
+\]
+
+Both signs occur in these finite-precision calculations, so the computed
+diagonals are inconsistent with coordinatewise square-root additivity. In the
+same runs, the minimum eigenvalue of \(\widehat G_n-K_n\) lay between
+\(-2.9\times10^{-15}\) and \(-2.2\times10^{-15}\), consistent with positive
+semidefiniteness at the working precision; the retained row-orthogonality
+residuals were below \(1.8\times10^{-13}\).
+
+The complete twelve-case CSV, from which the displayed rows are selected, is
+reproduced by
+
+\begin{verbatim}
+python code/unknown_length_full_srm_probe.py \
+  --n 12 18 24 32 --tau 0.25 1 4 --retained \
+  --output data/critical_srm_diagnostics.csv
+\end{verbatim}
+
+The machine-readable output used for the displayed rows is included as
+\path{data/critical_srm_diagnostics.csv}.
