@@ -51,10 +51,18 @@ def _fixture(root: Path) -> tuple[Path, Path]:
     _write(manuscript / "figures" / "figure3_finite_size.pdf", b"%PDF-figure-3")
     _write(manuscript / "code" / "unknown_length_full_srm_probe.py", "print('probe')\n")
     _write(manuscript / "data" / "critical_srm_diagnostics.csv", "n,value\n3,0.5\n")
+    _write(manuscript / "FINAL_PDF_QA_20260901.md", "current PDF QA\n")
+    _write(manuscript / "FINAL_QUANTUM_REVIEW_20260901.md", "current review\n")
+    _write(manuscript / "FINAL_PDF_QA_20260831.md", "stale PDF QA\n")
+    _write(manuscript / "FINAL_QUANTUM_REVIEW_20260831.md", "stale review\n")
 
     for name in (
         ".python-version",
+        "CITATION.cff",
         "LICENSE",
+        "NUMERICAL_REPRODUCIBILITY.md",
+        "README.md",
+        "REPRODUCING.md",
         "pyproject.toml",
         "requirements-lock.txt",
         "paper1_analytics.py",
@@ -66,12 +74,31 @@ def _fixture(root: Path) -> tuple[Path, Path]:
         "verify_paper1_results.py",
         "environment_manifest.py",
         "interval_unknown_length_numerics.py",
+        "certified_sdp_results.csv",
+        "srm_scaling_m1.csv",
     ):
         _write(root / name, f"fixture {name}\n")
     _write(root / "two_unknown_intervals_numerics.py", "forbidden Paper II\n")
-    _write(root / "tests" / "test_paper1_numerics.py", "# fixture Paper I test\n")
-    _write(root / "tests" / "test_paper1_release_packaging.py", "# fixture release test\n")
-    _write(root / "tests" / "test_weighted_hull_exact.py", "# fixture theorem test\n")
+    for name in (
+        "test_environment_manifest.py",
+        "test_paper1_analytics.py",
+        "test_paper1_figures.py",
+        "test_paper1_numerics.py",
+        "test_paper1_release_packaging.py",
+        "test_quantum_interval_numerics.py",
+        "test_sdp_certification.py",
+        "test_srm_scaling.py",
+        "test_unknown_length_full_srm_probe.py",
+        "test_weighted_block_tail.py",
+        "test_weighted_hull_adaptive_blocks.py",
+        "test_weighted_hull_asymptotics.py",
+        "test_weighted_hull_continuum_certificate.py",
+        "test_weighted_hull_exact.py",
+        "test_weighted_hull_outer_ledger.py",
+        "test_weighted_hull_regimes.py",
+        "test_weighted_hull_sdp.py",
+    ):
+        _write(root / "tests" / name, "# fixture Paper I test\n")
     _write(root / "tests" / "test_m3_forest_factorization.py", "# forbidden Paper II test\n")
     for name in (
         "weighted_hull_finite_audit.py",
@@ -86,10 +113,27 @@ def _fixture(root: Path) -> tuple[Path, Path]:
     _write(root / "proofs" / "m3_forest_notes.md", "forbidden Paper II\n")
     _write(root / "paper1" / "REPRODUCING.md", "fixture reproduction guide\n")
     _write(root / "paper1" / "NUMERICAL_REPRODUCIBILITY.md", "fixture numerical guide\n")
+    for name in (
+        "PUBLIC_RELEASE_CHECKLIST.md",
+        "README.md",
+        "ARXIV_V2_METADATA.md",
+        "QUANTUM_COVER_LETTER.md",
+    ):
+        _write(root / "paper1" / name, f"fixture {name}\n")
     _write(root / "paper1" / "PAPER1_SCOPE_FREEZE.md", "fixture scope\n")
     _write(root / "paper1" / "PAPER1_RELEASE_MANIFEST.md", "fixture release manifest\n")
+    _write(
+        root / "paper1" / "reproduction_manifest.json",
+        '{"profile": "paper1", "command": ["python"]}\n',
+    )
+    _write(
+        root / "reproduction_manifest.json",
+        '{"profile": "all", "command": ["C:\\\\private\\\\python.exe"]}\n',
+    )
     _write(root / "paper1" / "build_release.py", "# fixture release builder\n")
     _write(root / "paper1" / "run_reproduction.ps1", "# fixture runner\n")
+    _write(root / "paper1" / "verification_report.json", "{}\n")
+    _write(root / "paper1" / "verification_report.audit.json", "{}\n")
     _write(root / "paper1" / "paper1_fixed_and_growing_srm.csv", "n,value\n3,0.5\n")
     _write(root / "paper1" / "paper1_h0_certified_sdp.csv", "n,value\n3,0.5\n")
     for name in (
@@ -125,6 +169,11 @@ class Paper1ReleasePackagingTests(unittest.TestCase):
             version="v1.3.0-paper1",
             main_pdf=main_pdf,
             supplement_pdf=supplement_pdf,
+            main_bbl=root
+            / "paper1"
+            / "quantum_revision_ultracritical"
+            / "build-main"
+            / "main.bbl",
             output_dir=output,
             repository_root=root,
         )
@@ -171,6 +220,44 @@ class Paper1ReleasePackagingTests(unittest.TestCase):
                     b"fresh bibliography\n",
                 )
 
+    def test_build_requires_an_explicit_main_bbl(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            base = Path(directory)
+            repo = base / "repo"
+            main_pdf, supplement_pdf = _fixture(repo)
+            with self.assertRaisesRegex(TypeError, "main_bbl"):
+                self.builder.build_release(
+                    version="v1.3.0-paper1",
+                    main_pdf=main_pdf,
+                    supplement_pdf=supplement_pdf,
+                    output_dir=base / "out",
+                    repository_root=repo,
+                )
+
+    def test_nonempty_output_directory_is_rejected_without_changes(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            base = Path(directory)
+            repo = base / "repo"
+            main_pdf, supplement_pdf = _fixture(repo)
+            output = base / "out"
+            sentinel = output / "keep.txt"
+            _write(sentinel, "do not overwrite\n")
+            with self.assertRaisesRegex(FileExistsError, "not empty"):
+                self.builder.build_release(
+                    version="v1.3.0-paper1",
+                    main_pdf=main_pdf,
+                    supplement_pdf=supplement_pdf,
+                    main_bbl=repo
+                    / "paper1"
+                    / "quantum_revision_ultracritical"
+                    / "build-main"
+                    / "main.bbl",
+                    output_dir=output,
+                    repository_root=repo,
+                )
+            self.assertEqual(sentinel.read_text(encoding="utf-8"), "do not overwrite\n")
+            self.assertEqual(list(output.iterdir()), [sentinel])
+
     def test_source_archives_include_paper1_assets_and_exclude_paper2_and_build_files(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             base = Path(directory)
@@ -187,6 +274,8 @@ class Paper1ReleasePackagingTests(unittest.TestCase):
                     self.assertIn("interval_unknown_length_numerics.py", members)
                     self.assertIn("paper1/build_release.py", members)
                     self.assertIn("paper1/PAPER1_RELEASE_MANIFEST.md", members)
+                    self.assertIn("paper1/reproduction_manifest.json", members)
+                    self.assertNotIn("reproduction_manifest.json", members)
                     self.assertIn("tests/test_paper1_release_packaging.py", members)
                     self.assertIn("tests/test_weighted_hull_exact.py", members)
                     self.assertIn(
@@ -198,6 +287,22 @@ class Paper1ReleasePackagingTests(unittest.TestCase):
                     )
                     self.assertIn(
                         "proofs/weighted_hull_continuum_outer_probe.py",
+                        members,
+                    )
+                    self.assertIn(
+                        "paper1/quantum_revision_ultracritical/FINAL_PDF_QA_20260901.md",
+                        members,
+                    )
+                    self.assertIn(
+                        "paper1/quantum_revision_ultracritical/FINAL_QUANTUM_REVIEW_20260901.md",
+                        members,
+                    )
+                    self.assertNotIn(
+                        "paper1/quantum_revision_ultracritical/FINAL_PDF_QA_20260831.md",
+                        members,
+                    )
+                    self.assertNotIn(
+                        "paper1/quantum_revision_ultracritical/FINAL_QUANTUM_REVIEW_20260831.md",
                         members,
                     )
                     self.assertTrue(all("\\" not in member for member in members))
@@ -222,6 +327,53 @@ class Paper1ReleasePackagingTests(unittest.TestCase):
                         )
                     )
 
+    def test_missing_required_allowlisted_file_fails_before_output_creation(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            base = Path(directory)
+            repo = base / "repo"
+            main_pdf, supplement_pdf = _fixture(repo)
+            (repo / "paper1" / "REPRODUCING.md").unlink()
+            output = base / "out"
+            with self.assertRaisesRegex(FileNotFoundError, "paper1.*REPRODUCING.md"):
+                self.builder.build_release(
+                    version="v1.3.0-paper1",
+                    main_pdf=main_pdf,
+                    supplement_pdf=supplement_pdf,
+                    main_bbl=repo
+                    / "paper1"
+                    / "quantum_revision_ultracritical"
+                    / "build-main"
+                    / "main.bbl",
+                    output_dir=output,
+                    repository_root=repo,
+                )
+            self.assertFalse(output.exists())
+
+    def test_absolute_host_path_in_public_manifest_is_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            base = Path(directory)
+            repo = base / "repo"
+            main_pdf, supplement_pdf = _fixture(repo)
+            _write(
+                repo / "paper1" / "reproduction_manifest.json",
+                '{"command": ["C:\\\\Users\\\\private\\\\python.exe"]}\n',
+            )
+            output = base / "out"
+            with self.assertRaisesRegex(ValueError, "absolute host path"):
+                self.builder.build_release(
+                    version="v1.3.0-paper1",
+                    main_pdf=main_pdf,
+                    supplement_pdf=supplement_pdf,
+                    main_bbl=repo
+                    / "paper1"
+                    / "quantum_revision_ultracritical"
+                    / "build-main"
+                    / "main.bbl",
+                    output_dir=output,
+                    repository_root=repo,
+                )
+            self.assertFalse(output.exists())
+
     def test_repeated_builds_have_identical_zip_hashes_and_normalized_metadata(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             base = Path(directory)
@@ -231,6 +383,11 @@ class Paper1ReleasePackagingTests(unittest.TestCase):
                 version="v1.3.0-paper1",
                 main_pdf=main_pdf,
                 supplement_pdf=supplement_pdf,
+                main_bbl=repo
+                / "paper1"
+                / "quantum_revision_ultracritical"
+                / "build-main"
+                / "main.bbl",
                 output_dir=base / "out-a",
                 repository_root=repo,
             )
@@ -238,6 +395,11 @@ class Paper1ReleasePackagingTests(unittest.TestCase):
                 version="v1.3.0-paper1",
                 main_pdf=main_pdf,
                 supplement_pdf=supplement_pdf,
+                main_bbl=repo
+                / "paper1"
+                / "quantum_revision_ultracritical"
+                / "build-main"
+                / "main.bbl",
                 output_dir=base / "out-b",
                 repository_root=repo,
             )
@@ -269,8 +431,13 @@ class Paper1ReleasePackagingTests(unittest.TestCase):
 
             copied_main = outputs["quantum_main_pdf"]
             copied_supplement = outputs["supplement_pdf"]
+            copied_cover_letter = outputs["cover_letter_md"]
             self.assertEqual(copied_main.read_bytes(), b"%PDF-main")
             self.assertEqual(copied_supplement.read_bytes(), b"%PDF-supplement")
+            self.assertEqual(
+                copied_cover_letter.read_text(encoding="utf-8"),
+                "fixture QUANTUM_COVER_LETTER.md\n",
+            )
 
     def test_missing_required_source_fails_before_writing_partial_release(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -284,6 +451,11 @@ class Paper1ReleasePackagingTests(unittest.TestCase):
                     version="v1.3.0-paper1",
                     main_pdf=main_pdf,
                     supplement_pdf=supplement_pdf,
+                    main_bbl=repo
+                    / "paper1"
+                    / "quantum_revision_ultracritical"
+                    / "build-main"
+                    / "main.bbl",
                     output_dir=output,
                     repository_root=repo,
                 )

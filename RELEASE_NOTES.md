@@ -1,3 +1,25 @@
+# v1.4.0-paper1
+
+This release freezes the submission-ready Paper I article and Supplemental
+Material after the final mathematical, bibliographic, numerical, editorial,
+and PDF audits. It retains the unified moving-overlap theorem introduced in
+the preceding revision and aligns every public artifact with the same source
+snapshot.
+
+Changes since `v1.3.0-paper1` include:
+
+- a shorter and clearer presentation of the two complementary proof routes,
+  without changing their assumptions or conclusions;
+- synchronized fixed-overlap, moving-overlap, no-change, and endpoint wording
+  across the abstract, theorem statements, discussion, and conclusion;
+- fully vector Figures 1, 2, and 3, including the Figure 3(c) heat map and
+  color scale;
+- a portable Paper I reproduction manifest with current release metadata and
+  no host-specific absolute paths;
+- hardened deterministic packaging for arXiv, Quantum, public source, and
+  GitHub release artifacts; and
+- final PDF, reference, claim, and extracted-package reproduction checks.
+
 # v1.3.0-paper1
 
 This reproducible release accompanies the revised manuscript *Quantum Change

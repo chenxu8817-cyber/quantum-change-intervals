@@ -31,7 +31,7 @@ py -3.12 -m venv .venv-paper1
 ```
 
 The workflow fixes all supported BLAS thread counts to one, runs the public
-Paper I test allowlist, regenerates every release CSV and Figure 1–3, checks the archived
+Paper I test allowlist, regenerates every release CSV and Figures 1, 2, and 3, checks the archived
 scientific columns, and writes an environment and file-hash manifest. Use
 `-FullWorkspaceTests` in a full repository clone to add the internal hash gate
 and the two Paper II regression modules.
@@ -51,7 +51,7 @@ for commands, grids, tolerances, and the interpretation of SDP outputs.
 - `srm_scaling.py`: dense physical-Gram SRM calculations through `n=50`.
 - `sdp_certification.py`: primal and dual postprocessing for floating-point
   diagnostic brackets.
-- `paper1_make_figures.py`: publication Figure 1–3 generator.
+- `paper1_make_figures.py`: publication figure generator for Figures 1, 2, and 3.
 - `paper1/build_release.py`: deterministic, allowlisted release packager.
 
 The historical words `certified` and `certification` remain in some filenames
@@ -68,6 +68,6 @@ subdirectory, choose pdfLaTeX, and select the appropriate root file.
 
 ## Release status
 
-The release target for this update is `v1.3.0-paper1`. The tag and GitHub
+The release target for this update is `v1.4.0-paper1`. The tag and GitHub
 release are declared current only after the remote assets have been downloaded
 and checked against the published SHA-256 list.

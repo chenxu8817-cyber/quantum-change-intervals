@@ -77,3 +77,23 @@ To skip the 30-case SDP regeneration while editing prose:
 ```
 
 This mode is a development check and is not the final reproduction protocol.
+
+## Release packaging gate
+
+After the clean PDF builds and the Paper-I profile manifest have passed their
+checks, create the submission archives in a new or empty directory:
+
+```powershell
+.\.venv-paper1-release-py312\Scripts\python.exe paper1\build_release.py `
+  --version v1.4.0-paper1 `
+  --main-pdf <clean-main-build>\main.pdf `
+  --supplement-pdf <clean-supplement-build>\supplement.pdf `
+  --main-bbl <clean-main-build>\main.bbl `
+  --output-dir <empty-release-directory>
+```
+
+The packager fails closed if `--main-bbl` is omitted, an allowlisted file is
+missing, the output directory is nonempty, or
+`paper1/reproduction_manifest.json` contains an absolute host path. The source
+archives contain only the Paper-I profile manifest; the legacy root-level
+all-project manifest is excluded.

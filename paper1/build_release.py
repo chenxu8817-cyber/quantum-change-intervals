@@ -10,7 +10,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
-from pathlib import Path, PurePosixPath
+from pathlib import Path, PurePosixPath, PureWindowsPath
 import re
 import shutil
 from typing import Iterable, Mapping
@@ -46,7 +46,6 @@ ROOT_RELEASE_FILES = (
     "pyproject.toml",
     "quantum_interval_numerics.py",
     "requirements-lock.txt",
-    "reproduction_manifest.json",
     "sdp_certification.py",
     "srm_scaling.py",
     "verify_paper1_results.py",
@@ -123,13 +122,47 @@ def _require_file(path: Path) -> Path:
     return path
 
 
-def _existing_files(root: Path, relative_paths: Iterable[str]) -> dict[str, Path]:
+def _required_files(root: Path, relative_paths: Iterable[str]) -> dict[str, Path]:
     files: dict[str, Path] = {}
     for relative in relative_paths:
-        path = root / Path(relative)
-        if path.is_file():
-            files[PurePosixPath(relative).as_posix()] = path
+        path = _require_file(root / Path(relative))
+        files[PurePosixPath(relative).as_posix()] = path
     return files
+
+
+_WINDOWS_ABSOLUTE_PATH = re.compile(
+    r"(?:^|[\"'\s=:(])(?:[A-Za-z]:[\\/]|\\\\[^\\/]+[\\/])"
+)
+_POSIX_ABSOLUTE_PATH = re.compile(r"(?:^|[\"'\s=:(])/(?!/)")
+
+
+def _contains_absolute_host_path(value: str) -> bool:
+    return (
+        PureWindowsPath(value).is_absolute()
+        or PurePosixPath(value).is_absolute()
+        or _WINDOWS_ABSOLUTE_PATH.search(value) is not None
+        or _POSIX_ABSOLUTE_PATH.search(value) is not None
+    )
+
+
+def _validate_public_manifest(path: Path) -> None:
+    try:
+        document = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as error:
+        raise ValueError(f"public manifest is not valid JSON: {path}") from error
+
+    pending: list[object] = [document]
+    while pending:
+        value = pending.pop()
+        if isinstance(value, dict):
+            pending.extend(value.keys())
+            pending.extend(value.values())
+        elif isinstance(value, list):
+            pending.extend(value)
+        elif isinstance(value, str) and _contains_absolute_host_path(value):
+            raise ValueError(
+                f"public manifest contains an absolute host path: {path}"
+            )
 
 
 def _write_zip(path: Path, members: Mapping[str, Path]) -> None:
@@ -153,20 +186,14 @@ def _write_zip(path: Path, members: Mapping[str, Path]) -> None:
 def _collect_arxiv_members(
     manuscript_root: Path,
     supplement_pdf: Path,
-    main_bbl: Path | None = None,
+    main_bbl: Path,
 ) -> dict[str, Path]:
     members = {
         name: _require_file(manuscript_root / Path(name))
         for name in REQUIRED_MANUSCRIPT_FILES
         if name not in {"supplement.tex", "supplement_content.tex"}
     }
-    bibliography = (
-        _require_file(main_bbl)
-        if main_bbl is not None
-        else manuscript_root / "build-main" / "main.bbl"
-    )
-    if bibliography.is_file():
-        members["main.bbl"] = bibliography
+    members["main.bbl"] = _require_file(main_bbl)
     members["anc/supplement.pdf"] = supplement_pdf
     return members
 
@@ -186,17 +213,21 @@ def _collect_source_members(repository_root: Path) -> dict[str, Path]:
         "figures/figure1_model_geometry.tiff",
         "figures/figure2_analytic_limits.png",
         "figures/figure3_finite_size.png",
-        "FINAL_QUANTUM_REVIEW_20260831.md",
-        "FINAL_PDF_QA_20260831.md",
+        "FINAL_QUANTUM_REVIEW_20260901.md",
+        "FINAL_PDF_QA_20260901.md",
     )
     for relative in optional_manuscript_files:
         source = manuscript_root / Path(relative)
         if source.is_file():
             members[(MANUSCRIPT_REL / Path(relative)).as_posix()] = source
-    members.update(_existing_files(repository_root, ROOT_RELEASE_FILES))
-    members.update(_existing_files(repository_root, PAPER1_RELEASE_FILES))
-    members.update(_existing_files(repository_root, PAPER1_TEST_FILES))
-    members.update(_existing_files(repository_root, PAPER1_PROOF_FILES))
+    public_manifest = _require_file(
+        repository_root / "paper1" / "reproduction_manifest.json"
+    )
+    _validate_public_manifest(public_manifest)
+    members.update(_required_files(repository_root, ROOT_RELEASE_FILES))
+    members.update(_required_files(repository_root, PAPER1_RELEASE_FILES))
+    members.update(_required_files(repository_root, PAPER1_TEST_FILES))
+    members.update(_required_files(repository_root, PAPER1_PROOF_FILES))
     return members
 
 
@@ -209,7 +240,7 @@ def build_release(
     version: str,
     main_pdf: str | Path,
     supplement_pdf: str | Path,
-    main_bbl: str | Path | None = None,
+    main_bbl: str | Path,
     output_dir: str | Path,
     repository_root: str | Path | None = None,
 ) -> dict[str, Path]:
@@ -220,9 +251,16 @@ def build_release(
     manuscript_root = root / MANUSCRIPT_REL
     main_pdf_path = _require_file(Path(main_pdf).resolve())
     supplement_pdf_path = _require_file(Path(supplement_pdf).resolve())
+    main_bbl_path = _require_file(Path(main_bbl).resolve())
+
+    output = Path(output_dir).resolve()
+    if output.exists():
+        if not output.is_dir() or any(output.iterdir()):
+            raise FileExistsError(
+                f"release output directory is not empty: {output}"
+            )
 
     # Validate and collect every required source before creating output_dir.
-    main_bbl_path = None if main_bbl is None else Path(main_bbl).resolve()
     arxiv_members = _collect_arxiv_members(
         manuscript_root,
         supplement_pdf_path,
@@ -230,7 +268,6 @@ def build_release(
     )
     source_members = _collect_source_members(root)
 
-    output = Path(output_dir).resolve()
     prefix = f"quantum-change-intervals-{version}"
     names = {
         "arxiv_source_zip": f"{prefix}-arxiv-source.zip",
@@ -238,6 +275,7 @@ def build_release(
         "github_release_zip": f"{prefix}-github-release.zip",
         "quantum_main_pdf": f"{prefix}-quantum-main.pdf",
         "supplement_pdf": f"{prefix}-supplement.pdf",
+        "cover_letter_md": f"{prefix}-cover-letter.md",
         "inventory_json": f"{prefix}-inventory.json",
         "sha256sums": "SHA256SUMS",
     }
@@ -249,6 +287,7 @@ def build_release(
     shutil.copyfile(paths["source_zip"], paths["github_release_zip"])
     shutil.copyfile(main_pdf_path, paths["quantum_main_pdf"])
     shutil.copyfile(supplement_pdf_path, paths["supplement_pdf"])
+    shutil.copyfile(root / "paper1" / "QUANTUM_COVER_LETTER.md", paths["cover_letter_md"])
 
     primary_keys = (
         "arxiv_source_zip",
@@ -256,6 +295,7 @@ def build_release(
         "github_release_zip",
         "quantum_main_pdf",
         "supplement_pdf",
+        "cover_letter_md",
     )
     artifact_records = {
         paths[key].name: _artifact_record(paths[key]) for key in primary_keys
@@ -290,6 +330,7 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--supplement-pdf", required=True, type=Path)
     parser.add_argument(
         "--main-bbl",
+        required=True,
         type=Path,
         help="Fresh main.bbl from the same clean build as --main-pdf.",
     )

@@ -13,7 +13,7 @@ import sys
 import warnings
 from datetime import datetime, timezone
 from importlib import metadata
-from pathlib import Path
+from pathlib import Path, PurePosixPath, PureWindowsPath
 
 
 ROOT = Path(__file__).resolve().parent
@@ -141,6 +141,8 @@ PAPER1_HASHED_FILES = [
     "paper1/quantum_revision_ultracritical/figures/figure2_analytic_limits.png",
     "paper1/quantum_revision_ultracritical/figures/figure3_finite_size.pdf",
     "paper1/quantum_revision_ultracritical/figures/figure3_finite_size.png",
+    "paper1/quantum_revision_ultracritical/FINAL_PDF_QA_20260901.md",
+    "paper1/quantum_revision_ultracritical/FINAL_QUANTUM_REVIEW_20260901.md",
 ]
 
 
@@ -166,6 +168,32 @@ def _portable_command(command: list[str]) -> list[str]:
         except ValueError:
             portable.append(candidate.name)
     return portable
+
+
+def _portable_numpy_configuration(raw: str) -> str:
+    """Redact absolute build paths from NumPy's public configuration text."""
+
+    try:
+        configuration = json.loads(raw)
+    except json.JSONDecodeError:
+        # NumPy's current output is JSON when PyYAML is unavailable.  If a
+        # future version changes that format, fail closed instead of exposing
+        # an unreviewed host path in a public manifest.
+        return "<unparsed NumPy configuration omitted>"
+
+    def redact(value: object) -> object:
+        if isinstance(value, dict):
+            return {key: redact(item) for key, item in value.items()}
+        if isinstance(value, list):
+            return [redact(item) for item in value]
+        if isinstance(value, str) and (
+            PureWindowsPath(value).is_absolute()
+            or PurePosixPath(value).is_absolute()
+        ):
+            return "<absolute-path-redacted>"
+        return value
+
+    return json.dumps(redact(configuration), indent=2, ensure_ascii=False)
 
 
 def collect_manifest(
@@ -217,7 +245,9 @@ def collect_manifest(
             variable: os.environ.get(variable)
             for variable in THREAD_VARIABLES
         },
-        "numpy_configuration": numpy_config.getvalue(),
+        "numpy_configuration": _portable_numpy_configuration(
+            numpy_config.getvalue()
+        ),
         "file_sha256": hashes,
     }
 

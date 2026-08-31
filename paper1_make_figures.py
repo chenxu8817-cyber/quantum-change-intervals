@@ -672,11 +672,13 @@ def make_figure_3(
             f"found {len(seen_pairs)} of {expected_pairs} points"
         )
 
-    image = ax.imshow(
+    x_edges = np.arange(len(n_values) + 1, dtype=float) - 0.5
+    y_edges = np.arange(len(c_values) + 1, dtype=float) - 0.5
+    image = ax.pcolormesh(
+        x_edges,
+        y_edges,
         upper_gap,
-        origin="lower",
-        aspect="auto",
-        interpolation="nearest",
+        shading="flat",
         cmap="viridis",
         norm=LogNorm(vmin=1e-6, vmax=2e-3),
     )
@@ -704,6 +706,7 @@ def make_figure_3(
     colorbar.ax.tick_params(labelsize=7.4, width=0.65, length=2.5)
     colorbar.ax.minorticks_off()
     colorbar.outline.set_linewidth(0.65)
+    colorbar.solids.set_rasterized(False)
 
     for axis in axes[:2]:
         axis.grid(axis="y", color=LIGHT_GRAY, lw=0.55, alpha=0.85)

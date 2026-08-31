@@ -12,7 +12,7 @@ the manuscript's ``Assumptions and scope'' subsection.
 
 ```text
 physical Gram -> SRM -> small floating-point SDP diagnostics
-              -> CSV -> Figure 1–3 -> environment manifest
+              -> CSV -> Figures 1, 2, and 3 -> environment manifest
 ```
 
 It also regenerates the weighted-hull and critical-overlap diagnostic tables.
@@ -24,11 +24,15 @@ and compared with their archived counterparts using documented tolerances.
 - `NUMERICAL_REPRODUCIBILITY.md` defines every numerical grid and explains the
   floating-point bracket semantics.
 - `REPRODUCING.md` gives the clean CPython 3.12 protocol.
-- `reproduction_manifest.json` records runtime metadata and SHA-256 hashes.
+- `reproduction_manifest.json` is the Paper-I profile manifest. The release
+  archive includes it as `paper1/reproduction_manifest.json` and excludes the
+  legacy root-level all-project manifest.
 - `PAPER1_RELEASE_MANIFEST.md` identifies the frozen manuscript, numerical
   outputs, figures, and submission artifacts.
 - `build_release.py` creates deterministic arXiv, Quantum, source, and GitHub
-  release artifacts from an explicit Paper I allowlist.
+  release artifacts from a strict Paper I allowlist. Every allowlisted input
+  must exist, `--main-bbl` must name the bibliography produced by the same
+  clean build as the main PDF, and the output directory must be empty.
 
 Files for multiple intervals, forest factorizations, and their dedicated tests
 belong to Paper II and are excluded from the Paper I release archive.

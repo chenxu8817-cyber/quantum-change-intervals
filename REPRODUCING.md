@@ -38,7 +38,7 @@ The workflow regenerates:
 - `paper1/reproduced/srm_scaling_m1.csv`;
 - `proofs/weighted_hull_diagnostics.csv`;
 - `paper1/quantum_revision_ultracritical/data/critical_srm_diagnostics.csv`;
-- all publication formats for Figure 1–3 in the authoritative `figures/`
+- all publication formats for Figures 1, 2, and 3 in the authoritative `figures/`
   directory;
 - `paper1/reproduction_manifest.json`.
 

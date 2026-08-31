@@ -75,9 +75,9 @@ Szeg{\H o} theorem does not give the desired limit.
 
 \paragraph{Main results.}
 Let \(p_1(x)\) be the one-dimensional Poisson kernel Toeplitz functional
-defined in Eq.~\eqref{eq:p1-definition}. Using Toeplitz and Følner methods
-\cite{gray2006,tilli1998,tyrtyshnikov1998}, we establish the following
-asymptotic laws.
+defined in Eq.~\eqref{eq:p1-definition}. Toeplitz spectral methods
+\cite{gray2006,tilli1998,tyrtyshnikov1998}, together with the local Følner
+argument developed below, yield the asymptotic laws below.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -112,7 +112,7 @@ asymptotic laws.
   hull-dominant regime \(c_n\to1\), \(c_n<1\) eventually, and
   \(n p_1(c_n)\to\infty\), we prove without monotonicity that
   \(P_X(G_n(c_n))\sim p_1(c_n)^2\) for all three \(X\). This includes the
-  inner bridge, the compact-uniform continuum interface
+  inner bridge, the continuum interface uniformly on compact parameter sets
   \(c_n=1-\lambda/n\), and the moving-outer regime
   \(n(1-c_n)\to\infty\).
 \item
@@ -126,11 +126,12 @@ asymptotic laws.
   maximum-a-posteriori postprocessing restores the optimal limit \(\pi_0\).
 \end{enumerate}
 
-Two proof devices support these results. Our explicit dual certificate treats
-singular Gram ensembles directly and allows the exceptional-sector transfer
-theorem to omit a uniform spectral bound on the comparison matrices. For
-moving overlaps, an exact hull decomposition, block-and-tail estimates, and
-adaptive endpoint macroblocks control the non-Toeplitz physical weights.
+A singular-safe dual certificate and an exact weighted-hull decomposition are
+the main technical tools. The certificate treats singular Gram ensembles
+directly and removes the need for a uniform spectral bound in the
+exceptional-sector transfer theorem. For moving overlaps, block and tail
+estimates and adaptive endpoint macroblocks control the non-Toeplitz physical
+weights.
 
 The appearance of \(c^2\) in the growing known-length law and \(c\) in the
 unknown-length comparison kernel reflects their different hypothesis
@@ -149,8 +150,8 @@ fixed as \(n\to\infty\); \(\pi_0\) is fixed whenever \(H_0\) is included.
 The stated uniform priors and unrestricted collective POVMs define the
 decision problems. The fixed-overlap growing- and unknown-length limits are
 pointwise in \(c\). Section~\ref{a-nonuniform-boundary-at-unit-overlap} treats
-the ultra-critical window and moving-overlap sequences under their stated
-sequencewise sufficient conditions. These results benchmark a receiver
+the ultracritical window and moving-overlap sequences under their stated
+sufficient conditions. These results benchmark a receiver
 capable of storing the full batch coherently and applying a collective
 measurement. Extensions to nonideal outputs, including correlations, mixing,
 gradual switching, or imperfect return, as well as unknown anomaly states,
@@ -159,27 +160,20 @@ analysis and are discussed in Section~\ref{conclusion-and-discussion}.
 
 The model is related to earlier quantum state discrimination problems in
 precise ways. Its boundary slice \(b=n\) is the permanent change point family
-\cite{sentis2016,sentis2017,sentis2018}. It also appears within the framework
-for two changes studied by Mohan--Sikora--Upadhyay \cite{mohan2023}. Their
-parameters become \(N'=n+1\), \(c_1=a\), and \(c_2=b+1\), with segment states
-\(\lvert0\rangle\), \(\lvert\psi\rangle\), and \(\lvert0\rangle\). The added
-leading \(\lvert0\rangle\) factor is common to every hypothesis, so this
-embedding preserves the Gram matrix and the discrimination problem.
-After fixing the phase of \(\lvert\psi\rangle\), the three pairwise overlaps
+\cite{sentis2016,sentis2017,sentis2018}. It is also a specialization of the
+two-change framework of Mohan--Sikora--Upadhyay \cite{mohan2023};
+Table~\ref{tab:literature} gives the exact parameter map and the common-factor
+reduction that preserves the Gram matrix.  After fixing the phase of
+\(\lvert\psi\rangle\), the three pairwise overlaps
 are \((c,c,1)\), while \(c_1<c_2\) enforces a nonempty interval. For fixed
-\(i\), the candidates form the consecutive \(k=i\) subensemble of
-quantum multi-anomaly detection \cite{llorens2024}. The inclusion is strict
-for \(1<i<n\), and the hypothesis sets coincide at \(i=1\) and \(i=n\).
-Quantum edge detection provides a related problem with one boundary and
-unknown pure states in both domains \cite{llorens2025}. Here the two endpoints
-belong to the same interval, the local states are calibrated, and both
-exterior regions are fixed to \(\lvert0\rangle\). Classical epidemic and
-changed-interval models share the same returning temporal geometry
-\cite{levin1985,yao1993,chen2015}; related scan statistics also treat spatially
-structured alternatives \cite{walther2010}. Their criteria concern classical
-test statistics, type I error, or power. Our objective is the exact
-Bayes localization probability for candidate density operators that generally
-do not commute, allowing arbitrary collective POVMs.
+\(i\), the candidates form the consecutive \(k=i\) subensemble of quantum
+multi-anomaly detection \cite{llorens2024}; the inclusion is strict for
+\(1<i<n\), while the hypothesis sets coincide at \(i=1\) and \(i=n\). Quantum
+edge detection instead has one boundary and unknown pure states in both
+domains \cite{llorens2025}. Classical epidemic, changed-interval, and spatial
+scan models are geometric analogues \cite{levin1985,yao1993,chen2015,walther2010},
+but their criteria concern classical significance or power rather than exact
+Bayes localization of generally noncommuting states by collective POVMs.
 Table~\ref{tab:literature} summarizes the main structural distinctions.
 
 \begin{table*}[t]
@@ -390,6 +384,7 @@ For fixed \(i\) and \(0<r<1\),
 \end{theorem}
 
 \begin{proof}
+\emph{Residual gap.}
 Put \(q=r^i\) and decompose
 
 \[
@@ -423,6 +418,7 @@ finitely supported vectors gives
 f_{i,r}(\theta)\ge(1-r)^i.
 \end{equation}
 
+\emph{Circulant comparison.}
 For \(N\ge2i\), let \(\widetilde B_{N,i}\) be the circulant matrix with the same local coefficients and set
 
 \[
@@ -473,6 +469,7 @@ The Sylvester integral gives
 \le\frac{K_{i,r}}{2(1-r)^{i/2}}=O_{i,r}(1).
 \end{equation}
 
+\emph{Exact circulant optimum.}
 Because \(C_{N,i}\) and \(\sqrt{C_{N,i}}\) are circulant, the diagonal of \(\sqrt{C_{N,i}}\) is constant. If
 
 \[
@@ -501,6 +498,8 @@ The rank-one term has the unique nonzero eigenvalue
 \(e_j^*Se_j=\beta_N\), because the diagonal of \(S\) is constant. Since
 \(\operatorname{tr}Y=\beta_N^2\), the SRM is exactly optimal for the
 circulant model.
+
+\emph{Transfer and spectral limit.}
 
 Let
 
@@ -907,8 +906,8 @@ two-dimensional Toeplitz kernel.
 Classical multilevel Szeg{\H o} theorems describe spectral averages for genuine
 multilevel Toeplitz compressions \cite{tilli1998,tyrtyshnikov1998}. Here the
 triangular endpoint sets and, more importantly, the non-Toeplitz physical
-kernel require the following local diagonal Følner statement together with a
-separate perturbative transfer back to \(G^{(n)}\).
+kernel require a local diagonal Følner statement and a separate perturbative
+transfer back to \(G^{(n)}\).
 
 \subsection{A Følner functional calculus lemma}\label{a-folner-functional-calculus-lemma}
 
@@ -1334,6 +1333,7 @@ Section~\ref{a-nonuniform-boundary-at-unit-overlap}.
 \end{theorem}
 
 \begin{proof}
+\emph{Retained family.}
 For \(c=0\), the hypotheses are orthogonal, whereas for \(c=1\) they are
 identical; both cases agree with the stated limit. Assume henceforth that
 \(0<c<1\), and choose
@@ -1377,6 +1377,7 @@ Consequently,
 \le|\mathcal B_n|c^{2L_n}=o(1).
 \end{equation}
 
+\emph{Følner geometry.}
 The retained endpoint sets form a Følner sequence. Under the endpoint
 identification \(I=[a,b]\leftrightarrow(a,b)\),
 
@@ -1428,6 +1429,7 @@ Corollary~\ref{cor:folner-comparison-transfer} factorizes as
 =p_1(c).
 \end{align}
 
+\emph{Transfer to the full ensemble.}
 The kernel \(k(u,v)=c^{|u|+|v|}\) is Hermitian, belongs to
 \(\ell^1(\mathbb Z^2)\), and has \(k(0,0)=1\). Equations
 \eqref{eq:short-interval-mass}, \eqref{eq:comparison-operator}, and
@@ -1482,8 +1484,7 @@ dominates and a relative comparison yields \(p_1(c_n)^2\). Theorem
 \ref{thm:unknown-length-ultracritical} treats the first regime, and Theorem
 \ref{thm:unknown-length-hull-dominance} treats the second.
 
-The following two elementary statements fix the normalization used for the
-orthogonal excitation sectors.
+We use two normalization lemmas for the orthogonal excitation sectors.
 
 \begin{lemma}[Subnormalized trace bound]\label{lem:subnormalized-trace-bound}
 Let \(v_1,\ldots,v_M\) be possibly subnormalized vectors with equal external
@@ -1569,35 +1570,20 @@ The suffix leverage satisfies, uniformly in \(j\),
  \le\frac1\pi\left(\log m+\log_+\frac mj\right)+C.
 \end{equation}
 
-Set
-\(\delta_m=3\log\log m/\log m\),
-\(h_m=\lceil m^{1-\delta_m}\rceil\), and let \(t_m\) be the maximum
-of the left-hand side of \eqref{eq:critical-volterra-leverage} over
-\(j\ge h_m\).  Then \(t_mC_m\) dominates all such bulk suffixes.  For
-\(j<h_m\), write
-
-\[
- r_{m,j}=\mathbf1_{\{h_m,\ldots,m\}}
- +\mathbf1_{\{j,\ldots,h_m-1\}}.
-\]
-
-A cyclic-interval certificate on the first \(h_m-1\) coordinates dominates
-the second term with trace \(O(h_m\log^2h_m)\).  Consequently the sum of
-\(t_mC_m\), twice the common rank-one projector, and twice this smaller
-certificate proves \eqref{eq:critical-volterra-domination}.  Since
-\(h_m/m=O((\log m)^{-3})\), its repair trace is lower order, while
-\(t_m\le(1+\delta_m)\log m/\pi+C\) and
-\(\operatorname{tr}C_m=m\log m/\pi+O(m)\) give
-\eqref{eq:critical-volterra-trace}.  The odd-cosine expansion proved in the
-Supplemental Material gives
-\(\sum_x|(C_m)_{xx}-m^{-1}\operatorname{tr}C_m|=O(m)\), so multiplication
-by \(t_m=O(\log m)\) contributes \(O(m\log m)\) to the diagonal deviation.
-The repair has trace \(O(m+h_m\log^2h_m)\), and its diagonal deviation is at
-most twice its trace.  These estimates imply
-\eqref{eq:critical-volterra-flatness}.
+Set \(\delta_m=3\log\log m/\log m\) and
+\(h_m=\lceil m^{1-\delta_m}\rceil\).  The bulk suffixes \(j\ge h_m\) are
+dominated by a multiple of \(C_m\).  A cyclic certificate repairs the first
+\(h_m-1\) coordinates after splitting each remaining suffix at \(h_m\).
+The bounds \(h_m/m=O((\log m)^{-3})\),
+\(\operatorname{tr}C_m=m\log m/\pi+O(m)\), and
+\eqref{eq:critical-volterra-leverage} give
+\eqref{eq:critical-volterra-trace}.  The odd-cosine diagonal estimate for
+\(C_m\), together with the lower-order repair trace, gives
+\eqref{eq:critical-volterra-flatness}.  The complete construction and its
+uniform constants are proved in the Supplemental Material.
 \end{proof}
 
-The geometry of the two endpoints enters through the following factor.
+The two endpoints contribute a triangular factor.
 
 \begin{lemma}[Triangular one-half factor]
 \label{lem:critical-triangular-half}
@@ -1633,7 +1619,7 @@ The trace in \eqref{eq:critical-triangular-half} is
 \(|\Lambda_m|/m^2=1/2+O(m^{-1})\).
 \end{proof}
 
-We now state the critical law.  For \(0\le t\le T\), set
+For \(0\le t\le T\), set
 
 \begin{equation}\label{eq:critical-overlap-family}
  c_n(t)=1-\frac{t}{nL_n^2},
@@ -1645,7 +1631,7 @@ For large enough \(n\), \(c_n(t)>0\) uniformly on every fixed interval
 \([0,T]\).  At \(t=0\), \(G_{n,0}=J_{M_n}\) and all conclusions below are
 exact.
 
-\begin{theorem}[Ultra-critical unknown-length law]
+\begin{theorem}[Ultracritical unknown-length law]
 \label{thm:unknown-length-ultracritical}
 For every \(T<\infty\), there are \(C_T<\infty\) and \(n_T\) such that,
 for \(n\ge n_T\),
@@ -1712,20 +1698,10 @@ macroblock pinching, proved in the Supplemental Material, give
  \label{eq:critical-b2-trace}
 \end{align}
 
-Uniformly for \(0\le t\le T\), the critical factors satisfy
-
-\begin{align}
- s_n^2nL_n^2
- &=2t\left[1+O_T\!\left((nL_n^2)^{-1}\right)\right],
- \label{eq:critical-s-rate}\\
- q_n^2nL_n^2
- &=2t\left[1+O_T\!\left((nL_n^2)^{-1}\right)\right].
- \label{eq:critical-q-rate}
-\end{align}
-
-The corresponding square-root expansion holds for
-\(q_n\sqrt n\,L_n\).  At \(t=0\), these identities are read directly with
-both sides equal to zero.
+Uniformly for \(0\le t\le T\), both
+\(s_n^2nL_n^2\) and \(q_n^2nL_n^2\) equal
+\(2t[1+O_T((nL_n^2)^{-1})]\); the corresponding square-root expansion holds
+for \(q_n\sqrt n\,L_n\).  At \(t=0\), these identities hold directly.
 
 Choose \(R_n\asymp L_n/\log L_n\) endpoint macroblocks.  Retaining the
 matched off-diagonal two-endpoint cells and centering both row coordinates
@@ -1738,17 +1714,12 @@ gives the quantitative global trace lower bound
  \ge A(t)-C_T\frac{\log L_n}{L_n}.
 \end{equation}
 
-The retained matched-cell lower estimate has relative loss
-\(O(R_n^{-1}+\log R_n/L_n+L_n^{-1})\); the qualitative full trace law in
-\eqref{eq:critical-b2-trace} is used separately in the inner-matching
-corollary.  The physical
-length and hull weights contribute only
-\(O_T(L_n^{-2})\), since
-
-\begin{align}\label{eq:critical-physical-weight-rate}
- 1-c_n(t)^n&=O_T(L_n^{-2}),\notag\\
- c_n(t)^{-(n-2)}-1&=O_T(L_n^{-2}).
-\end{align}
+The matched-cell loss is
+\(O(R_n^{-1}+\log R_n/L_n+L_n^{-1})\).  The physical length and hull weights
+add only \(O_T(L_n^{-2})\), because
+\(1-c_n(t)^n\) and \(c_n(t)^{-(n-2)}-1\) have that order uniformly on
+\([0,T]\).  The full trace law \eqref{eq:critical-b2-trace} is used separately
+for inner matching.
 
 For the upper bound, the vacuum vectors are collinear and
 \(M_nP_{\rm opt}^{(0)}=c_n(t)^2\).  A cyclic interval-frame certificate and
@@ -1783,19 +1754,10 @@ Squaring proves \eqref{eq:critical-uniform-rate}.  Continuity of \(F\), with
 \(|F(u)-F(v)|\le C_T(\sqrt{|u-v|}+|u-v|)\), proves the remaining assertions.
 \end{proof}
 
-The Supplemental Material also proves the stronger compact-uniform local law
-
-\begin{equation}\label{eq:critical-local-law}
- \sup_{0\le t\le T}\frac1{M_n}\sum_{I\in\mathcal I_n}
- \left|\sqrt{M_n}(\sqrt{G_{n,t}})_{I,I}-A(t)\right|^2
- \longrightarrow0.
-\end{equation}
-
-Its proof uses a retained row-orthogonal comparison and a Kac--Murdock--
-Szeg{\H o} anchor-family bound.  The explicit rate in
-Theorem~\ref{thm:unknown-length-ultracritical} comes instead from the sharper
-global trace and dual bounds. No \(O_T(\log\log n/\log n)\) rate is claimed for
-\eqref{eq:critical-local-law}.
+The Supplemental Material proves a stronger local law, uniform on compact
+parameter intervals, for the diagonal of \(\sqrt{G_{n,t}}\).  This qualitative
+refinement is independent of
+the global trace and dual bounds that yield the explicit rate above.
 
 \begin{corollary}[Inner matching to the fixed-overlap law]
 \label{cor:critical-inner-matching}
@@ -1881,8 +1843,9 @@ further subsequence on which \(\lambda_n\) converges in \([0,\infty]\). If
 \(\lambda_n\to0\), the endpoint expansion of \(p_1\), together with
 \(h_n\to\infty\), forces \(\tau_n\to\infty\) and reduces the claim to
 Corollary~\ref{cor:critical-inner-matching}. If
-\(\lambda_n\to\lambda\in(0,\infty)\), the compact-uniform weighted continuum
-estimate in the Supplemental Material applies. If \(\lambda_n\to\infty\),
+\(\lambda_n\to\lambda\in(0,\infty)\), the weighted continuum estimate in the
+Supplemental Material applies uniformly on compact parameter intervals. If
+\(\lambda_n\to\infty\),
 its adaptive macroblock estimate applies. Each case uses the same physical
 Gram matrix \eqref{eq:moving-physical-gram}, the same \(M_n\), and the same
 external uniform prior. The Supplemental Material also supplies the
@@ -1916,8 +1879,8 @@ necessary remains open.
 \section{Joint Bayes detection and exact localization}
 \label{joint-detection-and-exact-localization}
 
-We now augment the ensemble with a no-change hypothesis \(H_0\), represented
-by the reference state
+To include a no-change hypothesis, adjoin \(H_0\), represented by the reference
+state
 
 \[
 |\Omega\rangle=|0\rangle^{\otimes n}
@@ -1964,6 +1927,8 @@ to the reciprocal number of labels appears in \(\mathcal P(W)\). For equal
 priors on \(M\) labels, \(W=G/M\) and
 \(\mathcal P(W)=P_{\rm SRM}(G)\). We denote the augmented value by
 \(P_{\rm wSRM}^{H_0}\).
+
+\subsection{Weighted SRM decoupling}
 
 \begin{theorem}[No-change decoupling for the weighted SRM]
 \label{thm:h0-weighted-srm-decoupling}
@@ -2052,6 +2017,8 @@ multiplication, so
 Combining these identities proves \eqref{eq:h0-weighted-srm-decoupling} and
 the stated limit. No inverse or spectral gap is used.
 \end{proof}
+
+\subsection{Known interval length}
 
 \begin{theorem}[Fixed known length with a no-change prior]\label{thm:h0-known-length}
 Under the joint prior \eqref{eq:h0-known-joint-prior}, for fixed \(i\),
@@ -2162,6 +2129,8 @@ gives \(P_{\rm SRM}(G_{N_n,i_n})\to p_1(c^2)\). Combining this with
 Theorem~\ref{thm:h0-known-length} proves both limits in
 \eqref{eq:h0-growing-weighted-srm-limit}.
 \end{proof}
+
+\subsection{Unknown interval length}
 
 \begin{theorem}[Unknown length with a no-change prior]\label{thm:h0-unknown-length}
 Under the joint prior \eqref{eq:h0-unknown-joint-prior},
@@ -2300,6 +2269,8 @@ no-change decoupling error; it is not asserted as a rate for the full
 asymptotic law.
 \end{proof}
 
+\subsection{Unit-overlap endpoint and MAP repair}
+
 \begin{proposition}[Indistinguishable endpoint for the weighted SRM]
 \label{prop:h0-weighted-srm-unit-overlap}
 At \(c=1\), let \(K=N\) for known length and \(K=M_n\) for unknown length.
@@ -2334,7 +2305,7 @@ label prior. Substituting \(p_0=\pi_0\) and
 \(p_j=(1-\pi_0)/K\) proves both formulas.
 \end{proof}
 
-\begin{corollary}[MAP-postprocessed weighted SRM]
+\begin{corollary}[Weighted SRM with MAP postprocessing]
 \label{cor:h0-map-weighted-srm}
 After the weighted SRM, classically relabel each measurement outcome by a
 maximum-a-posteriori rule. For every fixed \(0\le c\le1\), this postprocessed
@@ -2376,11 +2347,11 @@ c\in\{0.3,0.6,0.8,0.9,0.95,0.99\}.
   \includegraphics[width=\textwidth]{figures/figure3_finite_size.pdf}
   \caption{\textbf{Finite-size SRM behavior and small-instance SDP
   diagnostics.}
-  (a) Square-root-measurement (SRM) success for the growing known-length schedules
+  (a) Square-root measurement (SRM) success for the growing known-length schedules
   \(i=\lceil\sqrt N\rceil\) and \(i=\lfloor N/2\rfloor\) at
   \(c=0.5,0.8\); dotted horizontal lines are \(p_1(c^2)\). Open squares are
   drawn around filled circles where the two schedules are nearly coincident.
-  (b) Full dense SRM values computed from the physical Gram matrix through
+  (b) Full dense physical Gram SRM computations through
   \(n=50\) for a prior
   uniform over all nonempty intervals; dotted lines are \(p_1(c)^2\), and the
   \(c=0.95,0.99\) curves are retained as high-overlap stress tests. For
@@ -2525,8 +2496,8 @@ that, whenever
 \]
 all three criteria obey \(P_X(G_n(c_n))\sim p_1(c_n)^2\), with no monotonicity
 assumption. This sufficient condition unifies the inner, continuum, and
-moving-outer regimes. In particular, it gives the compact-uniform continuum
-law for \(c_n=1-\lambda/n\).
+moving-outer regimes. In particular, it gives the continuum law uniformly on
+compact parameter intervals for \(c_n=1-\lambda/n\).
 
 The parameters \(c^2\) and \(c\) have distinct geometric origins. A growing
 interval of known length has one translation coordinate, and a unit shift
@@ -2548,20 +2519,21 @@ the raw weighted SRM tends to \(\pi_0^2\), whereas the optimum tends to
 \(\pi_0\); maximum-a-posteriori relabeling restores the optimal limit.
 
 For fixed \(i\) and \(0<r<1\), the bound
-\(P_{\rm opt}-P_{\rm SRM}=O_{i,r}(N^{-1/2})\) concerns the measurement gap
-rather than either individual convergence rate. The fixed-overlap growing-
-and unknown-length limits are pointwise in \(c\), whereas the moving-overlap
-theorems apply to sequences satisfying their stated conditions. The
-compact-window local square-root-diagonal law remains qualitative.
+\(P_{\rm opt}-P_{\rm SRM}=O_{i,r}(N^{-1/2})\) controls the measurement gap, not
+the individual convergence rates. The fixed-overlap theorems are pointwise in
+\(c\); the moving-overlap theorems apply to sequences under their stated
+conditions, and the local law for the square-root diagonal is qualitative on
+compact parameter intervals.
 
 These results benchmark unrestricted collective POVMs. Local protocols are
 known for permanent changes and for the \(i=1\) single-anomaly specialization
 \cite{sentis2016,llorens2024}. Whether local or sequential receivers attain
 the collective limits for fixed \(i\ge2\), growing known lengths, or the full
-uniform interval prior remains open. Other extensions lie beyond the
-assumptions stated in the Introduction. For the calibrated pure-state
-returning-interval model studied here, contiguity reduces the asymptotic
-discrimination problem to spectral limits in one and two dimensions.
+uniform interval prior remains open. Multiple intervals, varying states or
+overlaps, and restrictions on coherent readout require separate analysis. For
+the calibrated pure-state returning-interval model studied here, contiguity
+reduces the asymptotic discrimination problem to spectral limits in one and
+two dimensions.
 
 
 

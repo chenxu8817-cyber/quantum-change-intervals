@@ -10,10 +10,32 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from environment_manifest import PAPER1_HASHED_FILES, collect_manifest  # noqa: E402
+from environment_manifest import (  # noqa: E402
+    PAPER1_HASHED_FILES,
+    _portable_numpy_configuration,
+    collect_manifest,
+)
 
 
 class EnvironmentManifestTests(unittest.TestCase):
+    def test_numpy_configuration_redacts_absolute_host_paths(self) -> None:
+        raw = json.dumps(
+            {
+                "Build Dependencies": {
+                    "blas": {
+                        "include directory": "C:/Users/private/build/include",
+                        "lib directory": "/home/private/build/lib",
+                        "version": "0.3.27",
+                    }
+                }
+            }
+        )
+        portable = _portable_numpy_configuration(raw)
+        self.assertNotIn("C:/Users/private", portable)
+        self.assertNotIn("/home/private", portable)
+        self.assertIn("0.3.27", portable)
+        self.assertEqual(portable.count("<absolute-path-redacted>"), 2)
+
     def test_manifest_records_runtime_solver_and_blas_information(self) -> None:
         with warnings.catch_warnings(record=True) as caught:
             warnings.simplefilter("always")

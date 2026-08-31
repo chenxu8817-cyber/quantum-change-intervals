@@ -31,7 +31,7 @@ We write
  \qquad F(t)=A(t)^2.
 \end{equation}
 
-For a generic overlap \(0\le c<1\), we shall also use
+For a generic overlap \(0\le c<1\), define
 
 \[
  s(c)=\sqrt{1-c^2},\qquad
@@ -70,7 +70,7 @@ Thus \(L_n=\log n\) remains the logarithmic dimension variable, whereas
 directly.
 
 For a full \(M_n\)-label Gram matrix, \(P_{\rm tr}\), \(P_{\rm SRM}\), and
-\(P_{\rm opt}\) denote the trace benchmark, the square-root-measurement
+\(P_{\rm opt}\) denote the trace benchmark, the square-root measurement
 success probability, and the Bayes optimum with external prior \(1/M_n\).
 For \(k\in\{0,1,\ge2\}\), \(P_{\rm opt}^{(k)}\) is the optimum for the
 subnormalized vectors in excitation sector \(k\), retaining the same external
@@ -80,7 +80,7 @@ vectors vanish in the strict-hull sector.
 The common asymptotic success laws follow from the sectorwise dual certificates
 in Section~\ref{supp:dual-certificates} and the global trace theorem in
 Section~\ref{supp:trace-laws}. Section~\ref{supp:direct-srm} proves the stronger
-labelwise square-root-diagonal law; only its retained-orthogonality lemma is
+labelwise local law for the square-root diagonal; only its retained-orthogonality lemma is
 reused in the global trace argument. Section~\ref{supp:matching} extends the
 analysis to moving overlaps through weighted hull compression and adaptive
 endpoint blocks.
@@ -547,7 +547,7 @@ diagonal deviation at most twice its trace.  The lower bound
 remainder.
 \end{proof}
 
-\begin{lemma}[Singular-safe weighted block--tail extension]
+\begin{lemma}[Singular-safe weighted block and tail extension]
 \label{lem:supp-weighted-block-tail}
 Let \(Q\succeq0\) on a finite-dimensional Hilbert space and suppose
 
@@ -621,8 +621,7 @@ Apply this identity with \(y=\gamma_aw\).  Since
 \]
 
 If \(L=0\), positivity and trace zero imply \(Q=0\), hence every \(x_a=0\);
-the stated direct branch follows.  In particular, no positive \(L\), however
-small, is sent to the zero branch.
+the stated direct branch follows.
 
 The suffix identity is checked coordinatewise.  For \(k\ge B+1\), its tail
 term is
@@ -718,8 +717,7 @@ This proves the displayed budget.  The exact ratio is
 For the stated sequences this tends to one, since
 \(c_j^{-2(m_j-1)}\to1\); the same calculation is uniform for every triangular
 family on which the four errors in the proposition tend to zero uniformly.
-No monotonicity of \(c_j\) is used.  The endpoint constructions contain no
-inverse power of \(c\).
+The endpoint constructions contain no inverse power of \(c\).
 \end{proof}
 
 \begin{corollary}[Weighted endpoint-cell certificate]
@@ -777,7 +775,7 @@ decreases the trace of a positive operator, giving the trace bound and the
 stated normalization.
 \end{proof}
 
-\subsection{Tensorization, triangular compression, and the sector optimum}
+\subsection{Triangular compression and the sector bound}
 
 Let \(m=n-1\) and
 
@@ -883,24 +881,31 @@ and
 inequality from the main text to the sectors \(0,1,\ge2\).
 \end{proof}
 
-Combining Theorems~\ref{thm:supp-global-trace} and
-\ref{thm:supp-sector-upper} with
-\(P_{\rm tr}\le P_{\rm SRM}\le P_{\rm opt}\) proves the common rate on compact
-parameter windows. The lower estimate comes from retained rectangular
-pinching, while the upper estimate comes from dual feasibility.
-
-\section{Local SRM refinement and Kac--Murdock--Szeg{\H o} uniform integrability}
+\section{Local SRM refinement}
 \label{supp:direct-srm}
 
-This section proves the compact-uniform local statement quoted in the main
-text. It strengthens the common success probability law by resolving the SRM
-contribution label by label. The retained-orthogonality lemma below is also
-used in the global trace argument.
+The local result below strengthens the common success probability law by
+resolving the SRM contribution label by label.
+
+\begin{theorem}[Physical local law on compact parameter intervals]
+\label{thm:supp-full-local-law}
+For every \(T<\infty\), with
+\(c_n(t)=1-t/[n(\log n)^2]\),
+
+\begin{equation}\label{eq:supp-full-local-law}
+ \sup_{0\le t\le T}\frac1{M_n}\sum_{I\in\mathcal I_n}
+ \left|\sqrt{M_n}(\sqrt{G_n(c_n(t))})_{I,I}-A(t)\right|^2
+ \longrightarrow0.
+\end{equation}
+\end{theorem}
+
+The remainder of this section proves the theorem. Its
+retained-orthogonality lemma is also used in the global trace argument.
 
 \subsection{One- and two-excitation local laws}
 
-We first record the finite-codimension estimate used when the three
-excitation strata are made row-orthogonal.  Let
+We use a finite-codimension estimate when the three excitation strata are
+made row-orthogonal. Let
 \((U_m)_{ij}=\mathbf1_{\{i\le j\}}\).
 
 \begin{lemma}[Finite-codimension Volterra stability]
@@ -1299,7 +1304,7 @@ block size tends to infinity and
  \ell_{n,I}=\sqrt{M_n}(\sqrt{K_n})_{I,I},
 \]
 
-the compact-uniform statements
+the statements that are uniform on compact parameter intervals
 
 \begin{align}
  \sup_{0\le t\le T}\frac1{M_n}\sum_I
@@ -1424,29 +1429,15 @@ Proposition~\ref{prop:supp-hull-compression} gives
 
 so the same argument transfers the law to the exact physical matrix.
 
-\begin{theorem}[Compact-uniform physical local law]
-\label{thm:supp-full-local-law}
-For every \(T<\infty\), with
-\(c_n(t)=1-t/[n(\log n)^2]\),
-
-\begin{equation}\label{eq:supp-full-local-law}
- \sup_{0\le t\le T}\frac1{M_n}\sum_{I\in\mathcal I_n}
- \left|\sqrt{M_n}(\sqrt{G_n(c_n(t))})_{I,I}-A(t)\right|^2
- \longrightarrow0.
-\end{equation}
-\end{theorem}
-
-The Kac--Murdock--Szeg{\H o} truncation yields the local law uniformly on
-compact \(t\)-windows through the sequential compactness criterion; this local
-law is qualitative. The global trace and dual bounds in
-Sections~\ref{supp:trace-laws} and \ref{supp:dual-certificates} instead give the
+This completes the proof of Theorem~\ref{thm:supp-full-local-law}. The local
+law is qualitative; the global trace and dual bounds in
+Sections~\ref{supp:trace-laws} and \ref{supp:dual-certificates} give the
 explicit rate \(O_T(\log\log n/\log n)\) for the three success criteria.
 
 \section{Uniform matching and hull dominance}
 \label{supp:matching}
 
-We next connect the compact critical window to the large-\(\tau\) regime at
-leading relative order.
+\subsection{Inner matching}
 
 \begin{theorem}[Inner matching below the continuum scale]
 \label{thm:supp-inner-matching}
@@ -1571,13 +1562,13 @@ inner coefficient precisely when
 not obtained by inserting a moving \(c_n\) into the pointwise fixed-overlap
 theorem.
 
-\subsection{Weighted continuum interface and hull dominance}
+\subsection{Continuum and moving-outer regimes}
 
 When \(\lambda_n=n(1-c_n)\) stays away from zero, the physical length and hull
-weights are no longer close to the identity. The following argument therefore
-retains these weights within each block through the exact hull coordinates,
-local block-and-tail certificates, and matched rectangular pinching, instead
-of using \eqref{eq:supp-inner-schatten-sandwich}.
+weights are no longer close to the identity. We therefore retain them within
+each block through the exact hull coordinates, local block and tail
+certificates, and matched rectangular pinching instead of using
+\eqref{eq:supp-inner-schatten-sandwich}.
 
 \begin{lemma}[Matched rectangular pinching]
 \label{lem:supp-weighted-rectangular-pinching}
@@ -1605,7 +1596,8 @@ projection, form an orthogonal resolution of the dilation space.  Ordinary
 block pinching is Schatten--1 contractive, and compression to
 \(\sum_jR_j\) leaves the dilation of \(\sum_jP_jAQ_j\).  Dividing the
 resulting inequality by two proves the claim.  This argument is specific to
-  matched row-column blocks; arbitrary entry deletion need not be contractive.
+matched row and column blocks; arbitrary entry deletion need not be
+contractive.
 \end{proof}
 
 \begin{theorem}[Compact continuum interface]
@@ -1777,8 +1769,7 @@ away from zero on \(K\).  This proves the scaled formulation without
 dividing through a vanishing compact endpoint.
 \end{proof}
 
-The following table summarizes the normalization conventions used here and
-below.
+The table records the normalization conventions used here and below.
 
 \begin{center}
 \small
@@ -1948,8 +1939,8 @@ Then \(\ell_n=\log q_n^{\rm sc}+O(1)\), while
 \(\log n=\log\lambda_n+\log q_n^{\rm sc}\).  Both
 \(\log\lambda_n/\sqrt{\lambda_n}\) and
 \((\sqrt{\lambda_n}\log q_n^{\rm sc})^{-1}\) tend to zero.
-Sector Minkowski and the usual trace--SRM--optimum ordering complete the
-squeeze.
+Sector Minkowski and
+\(P_{\rm tr}\le P_{\rm SRM}\le P_{\rm opt}\) complete the squeeze.
 
 The proof is quantitative. One sufficient relative error bound for the
 amplitude is controlled by
@@ -1966,10 +1957,12 @@ amplitude is controlled by
 
 The terms arise, respectively, from local diagonal similarity, the Volterra
 boundary repair, logarithmic matching, the common rank-one tail, diagonal
-cells, one excitation, and the vacuum. Lemma
-\ref{lem:supp-adaptive-block-parameters} and the scalar estimate above make
-every term vanish.
+cells, one excitation, and the vacuum.
+Lemma~\ref{lem:supp-adaptive-block-parameters} and the two logarithmic
+estimates preceding the error bound make every term vanish.
 \end{proof}
+
+\subsection{Unified hull-dominance criterion}
 
 \begin{theorem}[Unified hull-dominance criterion]
 \label{thm:supp-hull-dominance}
@@ -2034,12 +2027,10 @@ filled sequences obey the required regime hypotheses.  The compact theorem
 is already uniform and needs no filling.
 
 Thus every subsequence has a further subsequence on which the displayed
-ratio tends to one.  The standard subsequence criterion proves the full
-limit.  The argument uses neither monotonicity nor regular variation.
+ratio tends to one. The standard subsequence criterion proves the full limit.
 \end{proof}
 
-The following table summarizes the regimes, their proof inputs, and their
-common limits.
+The table lists the regimes, their proof inputs, and their common limits.
 
 \begin{center}
 \small
@@ -2050,7 +2041,7 @@ common limits.
 \toprule
 Regime & Scale assumptions & Proof input & Common conclusion\\
 \midrule
-Ultra-critical &
+Ultracritical &
 \(\tau_n=n(1-c_n)(\log n)^2\) in a fixed compact window &
 global trace theorem plus sector duals &
 \(M_nP_X=A(\tau_n)^2+o(1)\)\\
@@ -2060,12 +2051,12 @@ inner bridge and Theorem~\ref{thm:supp-inner-matching} &
 \(P_X\sim p_1(c_n)^2\)\\
 Continuum &
 \(\lambda_n\) in a fixed compact subset of \((0,\infty)\) &
-weighted cells and compact-uniform squeeze &
+weighted cells and a squeeze uniform on compact parameter intervals &
 \(P_X\sim p_1(c_n)^2\), with coefficient
 \(2\lambda_n^2/\pi^4\) after \(M_n/(\log n)^4\) scaling\\
 Moving outer &
 \(c_n\to1,\ c_n<1\) eventually, \(\lambda_n\to\infty\) &
-adaptive blocks and weighted block--tail certificates &
+adaptive blocks and weighted block and tail certificates &
 \(P_X\sim p_1(c_n)^2\)\\
 Unified &
 \(c_n\to1,\ c_n<1\) eventually, \(h_n\to\infty\), with arbitrary
@@ -2084,7 +2075,7 @@ hull-dominance theorem instead assumes \(h_n\to\infty\).
 \section{Incidence trace laws and the global trace theorem}
 \label{supp:trace-laws}
 
-Let \(B_{1,n}\) be the interval--site incidence matrix.  A direct count gives
+Let \(B_{1,n}\) be the incidence matrix between intervals and sites. A direct count gives
 
 \begin{equation}\label{eq:supp-b1-normal}
  B_{1,n}^*B_{1,n}=(n+1)L_D^{-1},
@@ -2119,7 +2110,7 @@ For the matrix \(Z_n\) in \eqref{eq:supp-zeta},
 \end{equation}
 
 More quantitatively, partition the sites into \(R\) balanced consecutive
-blocks of sizes \(\ell_p\), retain only matched row--column cells with
+blocks of sizes \(\ell_p\), retain only matched cells of row and column blocks with
 \(p<r\), and project each one-dimensional column factor off the constant
 and incidence-sum directions used in
 Lemma~\ref{lem:supp-retained-orthogonality}.  The resulting rectangular
@@ -2177,8 +2168,8 @@ one.  For a balanced side length \(\ell\),
  \qquad
  \|J_\ell\otimes J_\ell\|_{S_1}=O(\ell^2).
 \]
-Thus, after summing the finitely many macroblocks for fixed \(R\), the one-
-and zero-match blocks are
+Thus, after summing the finitely many macroblocks for fixed \(R\), the blocks
+with one or zero matching endpoint indices are
 \(o(n^2\log^2n)\) for fixed \(R\).  The diagonal cells are rescaled copies of
 \(Z_{n/R}\).  Before taking a limsup, note that, up to the fixed reversal of
 the right-endpoint coordinate,
@@ -2305,6 +2296,12 @@ Combined with the retained lower bound, this proves
 \eqref{eq:supp-global-trace-limit}.
 \end{proof}
 
+Combining Theorems~\ref{thm:supp-global-trace} and
+\ref{thm:supp-sector-upper} with
+\(P_{\rm tr}\le P_{\rm SRM}\le P_{\rm opt}\) gives the common rate on compact
+parameter windows. Retained rectangular pinching supplies the lower estimate,
+and dual feasibility supplies the upper estimate.
+
 \section{Finite-size numerical diagnostics}
 \label{supp:numerics}
 
@@ -2320,7 +2317,7 @@ polar/SRM gap can initially appear to grow.
 
 \begin{table}[ht]
 \centering
-\caption{Dense physical-Gram diagnostics.  The retained trace gap is
+\caption{Dense physical Gram diagnostics.  The retained trace gap is
 \((\operatorname{tr}\sqrt G-\operatorname{tr}\sqrt K)/\sqrt{M_n}\).}
 \label{tab:supp-critical-diagnostics}
 \begin{tabular}{rrrrrr}
