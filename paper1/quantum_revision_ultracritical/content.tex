@@ -96,11 +96,10 @@ When used as an index, \(X\) ranges over
 \item
   For unknown interval length, under the uniform prior over all
   \(M_n=n(n+1)/2\) intervals, the optimum and SRM converge to
-  \(p_1(c)^2\) for each fixed \(0\le c\le1\). This pointwise endpoint result
-  does not control sequences \(c_n\to1\).
-  Theorem~\ref{thm:unknown-length-ultracritical} gives the
-  compact-window law and its logarithmic rate.
-  Theorem~\ref{thm:unknown-length-hull-dominance} gives
+  \(p_1(c)^2\) for each fixed \(0\le c\le1\). Moving overlaps are governed by
+  two complementary results. Theorem~\ref{thm:unknown-length-ultracritical}
+  gives the compact-window law and its logarithmic rate, whereas
+  Theorem~\ref{thm:unknown-length-hull-dominance} proves
   \(P_X(G_n(c_n))\sim p_1(c_n)^2\) whenever \(c_n\to1\), \(c_n<1\)
   eventually, and \(n p_1(c_n)\to\infty\).
   Together these results cover the inner, continuum, and moving-outer regimes
@@ -147,20 +146,11 @@ mixed outputs, gradual or imperfect return, unknown anomaly states,
 measurement restrictions, and multiple disjoint intervals require separate
 analysis.
 
-Table~\ref{tab:literature} gives the precise relations to four quantum
-inference problems and to classical geometric analogues. The slice \(b=n\)
-recovers the permanent change point family
-\cite{sentis2016,sentis2017,sentis2018}. The returning model specializes the
-two-change framework of Mohan--Sikora--Upadhyay \cite{mohan2023}, while
-fixed-length candidates form a consecutive subensemble of quantum
-multi-anomaly detection \cite{llorens2024}. Quantum edge detection instead
-has a one-boundary, unknown-state geometry \cite{llorens2025}. Classical
-epidemic, changed-interval, and spatial scan models are geometric analogues
-\cite{levin1985,yao1993,walther2010}; graph-based change-point statistics give
-  a related nonparametric detection framework \cite{chen2015}. Those classical
-  models use different observations and decision criteria from the
-  collective-POVM exact Bayes localization studied here. The table records the
-  exact parameter maps, boundary cases, and structured subensembles.
+Table~\ref{tab:literature} situates the returning-interval model relative to
+permanent and multiple quantum changes, multi-anomaly and edge-detection
+problems, and classical changed-interval geometries. It records the exact
+parameter maps and distinguishes the present collective-POVM Bayes
+localization task from unambiguous, online, and classical detection criteria.
 
 \begin{table*}[t]
 \centering
@@ -1231,8 +1221,9 @@ $p_1(c)^2$ for the uniform prior over intervals of unknown length.
 
 The pointwise fixed-overlap limit in Theorem~\ref{thm:unknown-length} does not
 resolve sequences with \(c_n\to1\). At \(c_n=1\), all interval labels
-represent the same state, and every equal-prior criterion equals the
-exact-label baseline \(1/M_n\). For a moving overlap, write
+represent the same state. The trace benchmark, SRM success probability, and
+Bayes optimum then all equal the exact-label baseline \(1/M_n\). For a moving
+overlap, write
 
 \begin{equation}\label{eq:moving-physical-gram}
  G_n(c)=\bigl(c^{|I\triangle J|}\bigr)_{I,J\in\mathcal I_n},
@@ -1272,9 +1263,12 @@ For large enough \(n\), \(c_n(t)>0\) uniformly on every fixed interval
 \([0,T]\). At \(t=0\), \(G_{n,0}=J_{M_n}\) and all conclusions below are
 exact.
 
+In this subsection, a maximum indexed by \(X\) ranges over
+\(\{\mathrm{tr},\mathrm{SRM},\mathrm{opt}\}\).
+
 \begin{theorem}[Ultracritical law for unknown interval length]
 \label{thm:unknown-length-ultracritical}
-For every \(T<\infty\), there are \(C_T<\infty\) and \(n_T\) such that,
+For every \(T\in[0,\infty)\), there are \(C_T<\infty\) and \(n_T\) such that,
 for \(n\ge n_T\),
 
 \begin{equation}\label{eq:critical-uniform-rate}
@@ -1284,9 +1278,6 @@ for \(n\ge n_T\),
  \le C_T\frac{\log\log n}{\log n}.
 \end{equation}
 
-Here and below, a maximum indexed by \(X\) ranges over
-\(\{\mathrm{tr},\mathrm{SRM},\mathrm{opt}\}\).
-
 Consequently, if \(\tau_n\to\tau\in[0,\infty)\) in
 \eqref{eq:critical-parameter}, then
 
@@ -1295,8 +1286,20 @@ Consequently, if \(\tau_n\to\tau\in[0,\infty)\) in
  \quad\text{for every }X.
 \end{equation}
 
-Centering the finite-size bound at \(F(\tau)\) adds
-\(C_T[\sqrt{|\tau_n-\tau|}+|\tau_n-\tau|]\).
+More precisely, for the same \(n\ge n_T\), if
+\(\tau,\tau_n\in[0,T]\) and \(G_n=G_{n,\tau_n}\), then, after increasing
+\(C_T\) if necessary,
+
+\begin{equation}\label{eq:critical-centered-rate}
+ \begin{aligned}
+ &\max_X\left|M_nP_X(G_n)-F(\tau)\right|\\[-0.3ex]
+ &\quad\le C_T\left[
+ \frac{\log\log n}{\log n}
+ +\sqrt{|\tau_n-\tau|}
+ +|\tau_n-\tau|
+ \right].
+ \end{aligned}
+\end{equation}
 \end{theorem}
 
 The moving-overlap analysis uses two complementary estimates. When
@@ -1307,7 +1310,9 @@ dominates and a relative comparison yields \(p_1(c_n)^2\). Theorem
 \ref{thm:unknown-length-ultracritical} treats the first regime, and Theorem
 \ref{thm:unknown-length-hull-dominance} treats the second.
 
-We use two normalization lemmas for the orthogonal excitation sectors.
+We first record two normalization inequalities for the orthogonal excitation
+sectors. The sector bounds then follow from the Volterra and triangular
+estimates stated below.
 
 \begin{lemma}[Subnormalized trace bound]\label{lem:subnormalized-trace-bound}
 Let \(v_1,\ldots,v_M\) be possibly subnormalized vectors with equal external
@@ -1510,11 +1515,8 @@ Squaring gives the explicit \(O_T(\log\log n/\log n)\) rate in
 \(|F(u)-F(v)|\le C_T(\sqrt{|u-v|}+|u-v|)\), proves the remaining assertions.
 \end{proof}
 
-The Supplemental Material proves a stronger local law, uniform on compact
-parameter intervals, for the diagonal of \(\sqrt{G_{n,t}}\). This downstream
-labelwise strengthening reuses the retained-orthogonality, incidence-trace,
-and odd-cosine estimates from the global analysis, but it is not used in the
-trace and sectorwise squeeze that proves the common limit or its rate.
+A labelwise diagonal refinement, uniform on compact parameter intervals, is
+proved in the Supplemental Material.
 
 \begin{corollary}[Inner matching to the fixed-overlap law]
 \label{cor:critical-inner-matching}
@@ -1590,14 +1592,8 @@ every subsequence has a further subsequence on which
 \eqref{eq:hull-dominance-law} holds, proving the full limit.
 \end{proof}
 
-The two theorems cover complementary scales. On a fixed compact
-\(\tau_n\)-window, the hull parameter \(h_n\) remains bounded and
-Theorem~\ref{thm:unknown-length-ultracritical} retains the vacuum and
-one-excitation contributions. When \(h_n\to\infty\),
-Theorem~\ref{thm:unknown-length-hull-dominance} gives the relative
-\(p_1(c_n)^2\) law. For every
-compact \(K\Subset(0,\infty)\), the continuum specialization has the stronger
-uniform form
+For every compact \(K\Subset(0,\infty)\), the continuum specialization of
+Theorem~\ref{thm:unknown-length-hull-dominance} has the stronger uniform form
 
 \begin{equation}\label{eq:continuum-interface-law}
  \sup_{\lambda\in K}\max_X
@@ -2005,12 +2001,14 @@ therefore gives
 =O_{c,\pi_0}(n^{-1/4}).
 \end{align}
 
-At \(c=0\) the comparison is exact. For \(0<c<1\), combine
-\eqref{eq:h0-unknown-weighted-srm-bound} with
-Theorem~\ref{thm:unknown-length}, which gives
-\(P_{\rm SRM}(G^{(n)})\to p_1(c)^2\), and with
-Theorem~\ref{thm:h0-unknown-length}. The displayed order bounds the no-change
-decoupling error; the full asymptotic law is stated without a rate.
+At \(c=0\) the comparison is exact. For \(0<c<1\),
+\eqref{eq:h0-unknown-weighted-srm-bound} and
+Theorem~\ref{thm:unknown-length} give the weighted-SRM limit, while
+Theorem~\ref{thm:h0-unknown-length} gives the same limit for the joint Bayes
+optimum. Hence their gap tends to zero. The
+\(O_{c,\pi_0}(n^{-1/4})\) term in
+\eqref{eq:h0-unknown-weighted-srm-bound} quantifies the no-change decoupling
+step.
 \end{proof}
 
 \subsection{Unit-overlap endpoint and MAP repair}
@@ -2050,6 +2048,16 @@ label prior. Substituting \(p_0=\pi_0\) and
 \(p_j=(1-\pi_0)/K\) proves both formulas.
 \end{proof}
 
+For a POVM \(\{M_y\}_y\) and priors \(p_j\), MAP postprocessing leaves the
+quantum measurement unchanged and assigns outcome \(y\) to any
+
+\[
+ d(y)\in\mathop{\rm arg\,max}_j
+ p_j\operatorname{tr}(\rho_jM_y),
+\]
+
+with an arbitrary fixed rule for ties.
+
 \begin{corollary}[Weighted SRM with MAP postprocessing]
 \label{cor:h0-map-weighted-srm}
 After the weighted SRM, classically relabel each measurement outcome by a
@@ -2060,7 +2068,15 @@ measurement is asymptotically Bayes optimal in both limits: known length with
 \end{corollary}
 
 \begin{proof}
-Classical MAP relabeling cannot decrease success, and no postprocessed
+When the outcomes are indexed by the original hypothesis labels, MAP success
+satisfies
+
+\[
+ \sum_y\max_j p_j\operatorname{tr}(\rho_jM_y)
+ \ge \sum_y p_y\operatorname{tr}(\rho_yM_y).
+\]
+
+Thus classical MAP relabeling cannot decrease success, and no postprocessed
 measurement can exceed the Bayes optimum. For fixed \(c<1\), the raw weighted
 SRM and the optimum already have the same limit by
 Corollaries~\ref{cor:h0-growing-weighted-srm} and
@@ -2073,16 +2089,14 @@ sufficiently large \(K\), MAP relabeling reports \(H_0\) and attains success
 \section{Finite-size numerical diagnostics}
 \label{numerical-verification}
 
-The numerical calculations check the finite-size Gram construction and
-illustrate preasymptotic behavior. Figure~\ref{fig:finite-size} summarizes the
-results. Panels~(a) and (b) compare SRM success probabilities computed from the
-physical Gram matrices with \(p_1(c^2)\) and \(p_1(c)^2\), respectively, for a
-growing known length and for unknown interval length. Panel~(c) displays the
-floating-point upper endpoint \(U_{\rm safe}-P_{\rm SRM}\) over the complete
-SDP grid of small instances. For the cases with unknown interval length, we
-compute primal and dual floating-point SDP solutions in canonical Gram
-coordinates. The calculations
-are diagnostics; none of the asymptotic proofs depends on them.
+The numerical calculations illustrate finite-size behavior for the physical
+Gram ensembles. Figure~\ref{fig:finite-size} summarizes the results.
+Panels~(a) and (b) compare SRM success with \(p_1(c^2)\) and \(p_1(c)^2\)
+for a growing known length and unknown interval length, respectively.
+Panel~(c) displays \(U_{\rm safe}-P_{\rm SRM}\) over the complete grid of
+small SDP instances. For the unknown-length cases, primal and dual SDP
+solutions are computed in canonical Gram coordinates; their safeguarded
+postprocessing is described below and in the Supplemental Material.
 The numerical grid covers \(n=3,\ldots,7\) and
 
 \[

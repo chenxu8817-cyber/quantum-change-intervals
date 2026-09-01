@@ -79,13 +79,56 @@ vectors vanish in the strict-hull sector.
 
 The common success law and its rate follow from the global trace theorem in
 Section~\ref{supp:trace-laws} and the sectorwise dual certificates in
-Section~\ref{supp:dual-certificates}. Section~\ref{supp:matching} then extends
-the analysis to moving overlaps through weighted hull compression and adaptive
-endpoint blocks. After this main proof chain, Section~\ref{supp:direct-srm}
-gives a downstream labelwise local diagonal refinement. It reuses retained
-orthogonality, incidence-trace laws, and odd-cosine estimates from the global
-analysis, but it is not an input to the trace and sectorwise squeeze that
-proves the common-limit theorem.
+Section~\ref{supp:dual-certificates}. Section~\ref{supp:matching} extends
+these results to moving overlaps through weighted hull compression and
+adaptive endpoint blocks. Section~\ref{supp:direct-srm} derives a labelwise
+local diagonal law from the retained-orthogonality, incidence-trace, and
+odd-cosine estimates used in the global analysis.
+
+\begin{lemma}[Elliptic endpoint scale]
+\label{lem:supp-elliptic-endpoint}
+As \(c\uparrow1\),
+
+\begin{equation}\label{eq:supp-elliptic-endpoint}
+ \ell(c)=\log\frac{8}{1-c}+o(1).
+\end{equation}
+
+Moreover, for every compact \(C\Subset(0,\infty)\),
+
+\begin{equation}\label{eq:supp-elliptic-endpoint-uniform}
+ \sup_{\lambda\in C}
+ \left|\ell(1-\lambda/n)-\log n-\log(8/\lambda)\right|
+ \longrightarrow0.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+With
+
+\[
+ m=\frac{4c}{(1+c)^2},
+ \qquad \delta=\sqrt{1-m}=\frac{1-c}{1+c},
+\]
+
+the substitution \(\theta=2\phi\) gives
+
+\[
+ \ell(c)=\frac{2}{1+c}\,K(m),
+\]
+
+where \(K\) uses the parameter convention of the main text. Its endpoint
+expansion is
+
+\[
+ K(m)=\log\frac4\delta
+ +O\!\left(\delta^2\log\frac1\delta\right).
+\]
+
+Substitution of \(\delta=(1-c)/(1+c)\) proves
+\eqref{eq:supp-elliptic-endpoint}. If \(c=1-\lambda/n\) and \(\lambda\) lies
+in a compact subset of \((0,\infty)\), the same remainder is uniform in
+\(\lambda\), which proves \eqref{eq:supp-elliptic-endpoint-uniform}.
+\end{proof}
 
 When \(c_n>0\), put \(q_n=s_n/c_n\) and
 \((D_n)_{I,I}=c_n^{|I|}\).  The state matrix, with rows indexed by interval
@@ -135,14 +178,14 @@ matrix of the depth-at-least-two sector is
 \end{equation}
 
 In particular, all \(M_n\) physical rows are retained, while the column set
-has the strict cardinality \(n(n-1)/2\).  If
+has cardinality \(n(n-1)/2\). Define
 
 \[
  [V_n(c)]_{a,u}=c^{u-a}\mathbf1_{\{a\le u\}},
 \]
 
-if \(R_{\mathcal I}\) restricts ordered row pairs to \(a\le b\), and if
-\(C_{<}\) includes strict column pairs \(u<v\), then
+and let \(R_{\mathcal I}\) restrict ordered row pairs to \(a\le b\) and
+\(C_{<}\) include strict column pairs \(u<v\). Then
 
 \[
  A_{\ge2,n}(c)
@@ -522,8 +565,8 @@ proves the stated SRM conclusion.
 \section{Retained orthogonality}
 \label{supp:retained-orthogonality}
 
-The following construction is shared by the global trace argument and the
-downstream labelwise local refinement. It is stated here before either use.
+The global trace argument and the local refinement use the same retained
+subspaces, which we now construct.
 
 Define the unweighted three-stratum comparison
 
@@ -783,9 +826,9 @@ In particular, for the unweighted comparison matrix in
  \right|\longrightarrow0.
 \end{equation}
 
-To restore the physical weights, note that
+To restore the physical weights, observe that
 \(\|D_n-I\|_{\rm op}=O_T((\log n)^{-2})\) and
-\(\|W_n-I\|_{\rm op}=O_T((\log n)^{-2})\), the ideal property gives
+\(\|W_n-I\|_{\rm op}=O_T((\log n)^{-2})\). The ideal property gives
 
 \begin{align*}
  \|(D_n-I)\widehat A_n\|_{S_1}
@@ -1518,7 +1561,7 @@ Corollary~\ref{cor:supp-fixed-delta-volterra} with any fixed
 
 \[
  \left[\frac{(1+\delta)^2}{2\pi^4}+o_\delta(1)\right]
- n^2(\log n)^4.
+ n^2(\log n)^4,
 \]
 
 where \(o_\delta(1)\to0\) as \(n\to\infty\) with \(\delta\) fixed.
@@ -1653,7 +1696,7 @@ Equivalently,
 Write \(c=1-\lambda/n\), \(s=s(c)\), and
 \(B=\lceil\ell(c)\rceil\).  Partition the sites into \(B\) balanced
 consecutive blocks of sizes \(m_p\in\{\lfloor n/B\rfloor,
-\lceil n/B\rceil\}\).  The elliptic endpoint expansion gives, uniformly
+\lceil n/B\rceil\}\).  Lemma~\ref{lem:supp-elliptic-endpoint} gives, uniformly
 for \(\lambda\in K\),
 
 \[
@@ -1664,8 +1707,8 @@ Consequently,
 
 \[
  B\to\infty,\quad B/n\to0,\quad
- \min_pm_p\to\infty,\quad
- \max_pm_p(1-c)\to0,\quad
+ \min_p m_p\to\infty,\quad
+ \max_p m_p(1-c)\to0,\quad
  \max_p\left|\frac{\log m_p}{\ell(c)}-1\right|\to0.
 \]
 
@@ -1876,7 +1919,7 @@ Also \(B_n\ge\sqrt{h_n}\to\infty\),
 Multiplication by \(1-c_n=\lambda_n/n\) and by
 \(p_1(c_n)=h_n/n\) proves the first two block limits.
 
-It remains to match logarithms.  The endpoint expansion is
+It remains to match logarithms. Lemma~\ref{lem:supp-elliptic-endpoint} gives
 
 \[
  \ell_n=\log n-\log\lambda_n+\log8+o(1).
@@ -2043,12 +2086,13 @@ uniform bound in Theorem~\ref{thm:supp-continuum-interface} at the moving
 point \(\lambda_n\).  If \(\lambda_n\to\infty\), apply
 Theorem~\ref{thm:supp-moving-outer}.
 
-To apply the sequence-wise inner and outer theorems to a sparse subsequence of
-dimensions, extend the parameters to omitted dimensions using
-\(\lambda_n=1/\log n\) in the inner case and \(\lambda_n=\sqrt n\) in the
-outer case. The extension leaves the selected Gram matrices unchanged and
-satisfies the corresponding regime assumptions. The compact theorem is
-already uniform.
+To apply the inner and outer theorems along a sparse subsequence, define
+\(\lambda_n=1/\log n\) at omitted dimensions in the inner case and
+\(\lambda_n=\sqrt n\) in the outer case. This extension preserves the selected
+Gram matrices and satisfies the corresponding regime assumptions. The
+continuum case requires no extension because
+Theorem~\ref{thm:supp-continuum-interface} is uniform on compact parameter
+intervals.
 
 Thus every subsequence has a further subsequence on which the displayed
 ratio tends to one. The standard subsequence criterion proves the full limit.
@@ -2296,12 +2340,29 @@ The sine expansion used in Lemma~\ref{lem:supp-odd-cosine} gives
  \max_xd_{m,x}\le\frac2\pi\log m+O(1).
 \]
 
-Products therefore make the right-hand side of
-\eqref{eq:supp-b2-square-majorant} converge to \(1/\pi^2\) in empirical
-\(L^2\) over the triangle.  Proposition~\ref{prop:supp-b2-trace} says the
+The triangular restriction preserves this empirical convergence: for any
+sequence \(x_u\) and constant \(a\),
+
+\[
+ \frac1{N_n}\sum_{u+v\le m+1}|x_u-a|^2
+ \le \frac2m\sum_u|x_u-a|^2.
+\]
+
+The product bound and uniform estimate above therefore make the right-hand
+side of \eqref{eq:supp-b2-square-majorant} converge to \(1/\pi^2\) in
+empirical \(L^2\) over the triangle.  Proposition~\ref{prop:supp-b2-trace} says the
 left-hand side has the same empirical mean.  The normalized deficit is
-nonnegative and uniformly bounded, hence converges to zero in empirical
-\(L^2\).  This proves \eqref{eq:supp-b2-local}.
+nonnegative and uniformly bounded. If \(\Delta_{a,b}\) denotes this deficit,
+then
+
+\[
+ \frac1{N_n}\sum_{a<b}\Delta_{a,b}^2
+ \le \left(\max_{a<b}\Delta_{a,b}\right)
+ \frac1{N_n}\sum_{a<b}\Delta_{a,b}\longrightarrow0.
+\]
+
+The triangle inequality in empirical \(L^2\) now proves
+\eqref{eq:supp-b2-local}.
 \end{proof}
 
 The same polar comparison as in \eqref{eq:supp-b1-weight-transfer}, followed
@@ -2598,10 +2659,7 @@ Proposition~\ref{prop:supp-hull-compression} gives
 
 so the same argument transfers the law to the exact physical matrix.
 
-This completes the proof of Theorem~\ref{thm:supp-full-local-law}. The global
-trace and dual bounds in
-Sections~\ref{supp:trace-laws} and \ref{supp:dual-certificates} give the
-explicit rate \(O_T(\log\log n/\log n)\) for the three success criteria.
+This completes the proof of Theorem~\ref{thm:supp-full-local-law}.
 
 \section{Finite-size numerical diagnostics}
 \label{supp:numerics}
@@ -2659,13 +2717,12 @@ L_{\rm safe}=\sum_j\operatorname{tr}(\rho_j\widehat M_j),\qquad
 L_{\rm safe}\le P_{\rm opt}\le U_{\rm safe}.
 \end{equation}
 
-The implementation, however, uses IEEE double precision and conventional
-floating-point eigensolvers, without directed rounding, interval arithmetic,
-or exact-rational verification. We therefore report \(L_{\rm safe}\) and
-\(U_{\rm safe}\) as safeguarded floating-point bracket endpoints. The displayed
-sandwich is valid in exact arithmetic whenever the postprocessed matrices are
-feasible, while the stored residuals quantify the numerical recheck at the
-working precision.
+The implementation uses IEEE double precision and conventional eigensolvers,
+with no directed rounding, interval arithmetic, or exact rational
+verification. Accordingly, \(L_{\rm safe}\) and \(U_{\rm safe}\) are reported
+as safeguarded floating-point endpoints. In exact arithmetic, the sandwich
+holds whenever the postprocessed matrices are feasible, and the stored
+residuals record the feasibility checks at working precision.
 
 \subsection{Critical-window physical Gram checks}
 
@@ -2712,8 +2769,9 @@ sum of the sectorwise square-root diagonals have the ranges
 \end{array}
 \]
 
-Both signs occur, ruling out coordinatewise square-root additivity for these
-finite-precision diagonals. The minimum eigenvalue of \(\widehat G_n-K_n\) lay
+Both signs occur at the working precision, providing numerical evidence
+against coordinatewise square-root additivity. The minimum eigenvalue of
+\(\widehat G_n-K_n\) lay
 between \(-2.9\times10^{-15}\) and \(-2.2\times10^{-15}\), and the retained
 row-orthogonality residuals were below \(1.8\times10^{-13}\), consistent with
 positive semidefiniteness at the working precision.

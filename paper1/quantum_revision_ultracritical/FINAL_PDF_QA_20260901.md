@@ -11,8 +11,8 @@ directories.
 
 | File | Pages | Bytes | SHA-256 |
 |---|---:|---:|---|
-| Main article | 18 | 389825 | `4FBC92F90ED5B96A6B1AE205D3610587757115ABF525B6EAEB63ED822BF042AE` |
-| Supplemental Material | 26 | 231660 | `9C5FEE77C081014CA9238234580F06E3441492FCBECFFD23CED0D498552BF2E3` |
+| Main article | 18 | 389853 | `DD1D752229E32CF57AED4BDC92AB3F389E59B189BBD87870B37AA6A420F97879` |
+| Supplemental Material | 27 | 235797 | `A2A7AABE11D49AC6158B99E8DA37827739FCADD4E6772672FF77158ECA9FA3CE` |
 | Main bibliography output |  | 7387 | `685F2AB321CD7AD51E4E2034136B4E4E0386C5E1C6F72A1E004C413AD0107E2C` |
 
 Both PDFs use A4 pages and PDF 1.5. They are unencrypted. Their title and
@@ -24,11 +24,11 @@ replacement characters.
 - Both clean builds completed with exit status zero.
 - The final logs contain no LaTeX error, fatal error, undefined citation,
   undefined reference, multiply defined label, or overfull box.
-- The article log contains 24 underfull-box notices from narrow two-column
+- The article log contains 23 underfull-box notices from narrow two-column
   mathematical and bibliographic lines. Visual inspection found no collision
   or loss of readability. The Supplemental Material log contains no
   underfull-box notice.
-- Static checks found 142 article labels and 135 Supplemental Material labels,
+- Static checks found 143 article labels and 138 Supplemental Material labels,
   with no duplicate or undefined label.
 - All 28 bibliography entries are cited. Every citation key resolves, and
   there is no duplicate or unused entry.
@@ -47,12 +47,12 @@ replacement characters.
 
 ## Visual inspection
 
-All 18 article pages and all 26 Supplemental Material pages were rendered at
-120 dpi and inspected. The last Supplemental Material page was also inspected
-at 160 dpi after the closing numerical discussion was shortened. This removed
-an otherwise nearly blank 27th page without deleting any scientific result.
-The final clean rebuilds have page-by-page extracted text identical to those
-inspected files; only nonsemantic PDF serialization metadata changed.
+All 18 article pages and all 27 Supplemental Material pages were rendered at
+120 dpi and inspected. After two final grammatical edits, the affected
+Supplemental pages 2, 3, and 15 were rerendered from the frozen build at
+150 dpi and inspected again. The 27th Supplemental page contains the closing
+finite-size diagnostic tables and discussion; it is sparse but neither blank
+nor misplaced.
 
 The inspection covered the title and author block, abstract, literature table,
 Figures 1, 2, and 3, all principal theorem statements, the no-change results,

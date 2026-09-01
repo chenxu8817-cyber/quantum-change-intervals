@@ -17,18 +17,20 @@ intervals, unknown anomalous states, local or sequential optima, general LOCC
 separations, mixed states, correlated outputs, and minimax priors are outside
 Paper I.
 
-The theorem set is frozen. This release changes exposition and release
-engineering but does not add a model, theorem, numerical claim, citation, or
-stronger conclusion relative to `v1.4.0-paper1`.
+The scientific scope and headline conclusions are frozen. Relative to
+`v1.4.0-paper1`, this release states one already-used elliptic endpoint
+expansion as an explicit supporting lemma and fully specifies the MAP decision
+rule. It adds no physical model, numerical claim, citation, or stronger
+headline conclusion.
 
 ## Authoritative sources
 
 | Relative path | SHA-256 |
 |---|---|
 | `paper1/quantum_revision_ultracritical/main.tex` | `FAACCE86875A07537671B92BF1BEE940B75CF8DAE78DC10F77C1003616B2B5AE` |
-| `paper1/quantum_revision_ultracritical/content.tex` | `69DD78F29FFF7C4DD7200AD4C65D2104AA417ED6862FC225821ABA4189C94346` |
+| `paper1/quantum_revision_ultracritical/content.tex` | `98C2F3517CDF5E60F21C7C89064CD59E5F703B77BAFE88AB4221F29E95D2F914` |
 | `paper1/quantum_revision_ultracritical/supplement.tex` | `BA17925EE931A5A5056372B72DD4694C9296468A8B4D5BE2F5117EF0EB0BA77E` |
-| `paper1/quantum_revision_ultracritical/supplement_content.tex` | `2D2510EF7DAAC9258952B3A889C9ECB1AA16843C4CF4040307FE12F21113A801` |
+| `paper1/quantum_revision_ultracritical/supplement_content.tex` | `A0736F26247D623489566F5FE1BFBA02F9701B06E16D3F66D728323C12E8A2F1` |
 | `paper1/quantum_revision_ultracritical/references.bib` | `FAA179CC5CE32CE80EFABDF7E97C3103EE3E434A8C04989ADD72E84FA1B34930` |
 
 The article build uses the bibliography output generated in the same clean
@@ -36,18 +38,18 @@ build:
 
 | Relative build path | Bytes | SHA-256 |
 |---|---:|---|
-| `paper1/quantum_revision_ultracritical/build-v1.5-main-freeze/main.bbl` | 7387 | `685F2AB321CD7AD51E4E2034136B4E4E0386C5E1C6F72A1E004C413AD0107E2C` |
+| `paper1/quantum_revision_ultracritical/build-v1.5-main-freeze-20260901f/main.bbl` | 7387 | `685F2AB321CD7AD51E4E2034136B4E4E0386C5E1C6F72A1E004C413AD0107E2C` |
 
 ## Frozen PDFs
 
 | Artifact | Pages | Bytes | SHA-256 |
 |---|---:|---:|---|
-| Main article | 18 | 389825 | `4FBC92F90ED5B96A6B1AE205D3610587757115ABF525B6EAEB63ED822BF042AE` |
-| Supplemental Material | 26 | 231660 | `9C5FEE77C081014CA9238234580F06E3441492FCBECFFD23CED0D498552BF2E3` |
+| Main article | 18 | 389853 | `DD1D752229E32CF57AED4BDC92AB3F389E59B189BBD87870B37AA6A420F97879` |
+| Supplemental Material | 27 | 235797 | `A2A7AABE11D49AC6158B99E8DA37827739FCADD4E6772672FF77158ECA9FA3CE` |
 
 Both PDFs were built with Tectonic 0.17.0. Their final logs contain no LaTeX
 error, undefined citation, undefined reference, multiply defined label,
-overfull box, or fatal warning. Fonts, vector figures, metadata, and all 44
+overfull box, or fatal warning. Fonts, vector figures, metadata, and all 45
 rendered pages are covered by
 `paper1/quantum_revision_ultracritical/FINAL_PDF_QA_20260901.md`.
 
@@ -91,15 +93,18 @@ PNG derivatives; Figure 1 additionally has a 600 dpi TIFF derivative.
 - CPython: 3.12.10 in a clean virtual environment
 - Random seed: 1729
 - BLAS thread variables: fixed to one during release reproduction
-- Public release candidate: 241 tests run twice; each pass had 186 passes, 55
+- Full workspace suite: 258 tests run twice; each pass had 204 passes, 54
+  documented skips, and no failure
+- Public release candidate: 241 tests run twice; each pass had 187 passes, 54
   documented retired-interface skips, and no failure
 - Extracted public source archive: the same 241 tests ran twice with the same
-  186-pass, 55-skip result; all four scientific data comparisons passed and
+  186-pass, 55-skip result; the extra skip is the documented extracted-archive
+  path, all four scientific data comparisons passed, and
   the regenerated manifest verified file by file
 - Extracted arXiv archive: clean 18-page Tectonic build with no undefined
   citation or reference, multiply defined label, overfull box, or fatal error;
   its embedded Supplemental Material has SHA-256
-  `9C5FEE77C081014CA9238234580F06E3441492FCBECFFD23CED0D498552BF2E3`
+  `A2A7AABE11D49AC6158B99E8DA37827739FCADD4E6772672FF77158ECA9FA3CE`
 - CSV files and Figures 1--3 regenerated from the current public code
 - Manifest generated after the second test pass and verified file by file
 - Release packager configured to reject missing, nonportable, or stale

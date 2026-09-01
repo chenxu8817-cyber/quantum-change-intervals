@@ -4,8 +4,9 @@ Date: 2026-09-01
 
 This conclusion-blind review was performed after the Paper I scope and theorem
 set were frozen. It assesses mathematical consistency, exposition,
-reproducibility, and submission readiness. It adds no model, theorem,
-numerical claim, or citation.
+reproducibility, and submission readiness. Stage 5--6 added no physical model
+or headline conclusion. It made an already-used elliptic endpoint expansion
+and the maximum-a-posteriori decision rule explicit.
 
 ## Overall assessment
 
@@ -20,7 +21,7 @@ clear sequence:
 5. fixed-prior no-change extension; and
 6. finite-size floating-point diagnostics.
 
-The 26-page Supplemental Material is dense but proportionate to the proof
+The 27-page Supplemental Material is dense but proportionate to the proof
 load. It contains the complete Følner and exceptional-sector arguments,
 excitation compression, singular-safe dual estimates, continuum matching,
 adaptive outer construction, local SRM refinement, and numerical details. Its
@@ -42,12 +43,13 @@ headline common-limit theorem, but retaining it in the Supplemental Material
 adds a genuine labelwise statement and clarifies why finite-size local
 deviations can coexist with the global law.
 
-The article now states the moving-overlap theorem before its supporting
+The article states the moving-overlap theorem before its supporting
 machinery, keeps the sector Minkowski step, Volterra repair, triangular factor,
 and normalization conventions in the main proof, and points to named
 Supplemental results for detailed estimates. Repeated proof outlines and scope
-caveats were removed. The final Supplemental page was consolidated during PDF
-inspection, reducing the file from 27 to 26 pages.
+caveats were reduced. The final Supplemental page contains only the closing
+finite-size diagnostics; it remains readable and is not an accidental blank
+page.
 
 ## Claim consistency
 
@@ -98,20 +100,37 @@ Technical compounds such as `minimum-error`, `square-root`, and
 define theorem domains, decision criteria, or the status of numerical
 evidence.
 
+A post-edit heuristic scan classified both TeX sources as `Low` for detected
+AI-style patterns, with score 0.265. Its vocabulary-diversity warning reflects
+repeated mathematical notation and TeX commands; replacing stable technical
+terms with cosmetic synonyms would reduce precision and was not attempted.
+
 An independent audit checked all 28 references against DOI records,
 publisher pages, official book records, or arXiv. All 27 DOI records resolve,
 and the Helstrom monograph metadata are correct. No invented source, metadata
 conflict, missing citation, duplicate key, or unused entry was found. The two
-preprints should be checked again before any later manuscript revision because
-their version status may change.
+preprints were checked live on 2026-09-01: arXiv:2312.04023 remains at version
+2 and arXiv:2602.11846 remains at version 1. Their status should be refreshed
+before any later manuscript revision.
 
 ## Numerical and release gate
 
-In the clean public release candidate, CPython 3.12.10 completed 241 tests
-twice with no failure: 186 passed and 55 documented retired-interface tests
-were skipped on each pass. The workflow regenerated all release CSV files and
-Figures 1, 2, and 3, and all four archived-versus-regenerated scientific data
-comparisons passed.
+In a clean CPython 3.12.10 environment, the full workspace suite completed 258
+tests twice with no failure: 204 passed and 54 documented retired-interface or
+out-of-scope tests were skipped on each pass. Between the two passes, the
+workflow regenerated all release CSV files and Figures 1, 2, and 3. All four
+archived-versus-regenerated scientific data comparisons passed.
+
+The 17-file public Paper I test subset then ran twice with deterministic BLAS
+thread settings. Each pass executed 241 tests: 187 passed, 54 documented
+retired-interface tests were skipped, and none failed.
+
+The first extracted source candidate ran the same 241 tests twice: 186 passed,
+55 documented tests were skipped, and none failed. The additional skip is the
+expected extracted-archive path. Its manifest verified file by file. The
+arXiv archive compiled in isolation to 18 pages with clean final labels and
+references; its page-by-page extracted text matched the frozen article, and
+its embedded Supplemental PDF matched the frozen SHA-256 value.
 
 For the 30-case unknown-length SDP grid, the largest raw primal-dual gap was
 `6.7818e-9` and the largest safeguarded floating-point diagnostic width was
@@ -121,8 +140,8 @@ For the 30-case unknown-length SDP grid, the largest raw primal-dual gap was
 resolution. These values are diagnostics, not interval-arithmetic
 certificates.
 
-The environment manifest was generated after the second test pass and then
-verified file by file. The release packager independently rejects missing,
-nonportable, or stale manifest entries.
+The public environment manifest is regenerated only after the frozen source
+and review records are final. The release packager independently rejects
+missing, nonportable, or stale manifest entries.
 
 Final submission-review status: **PASS**.

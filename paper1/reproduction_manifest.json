@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-09-01T14:25:57.971760+00:00",
+  "generated_at_utc": "2026-09-01T17:03:48.302842+00:00",
   "command": [
     "environment_manifest.py",
     "--profile",
@@ -39,10 +39,10 @@
     "SCS"
   ],
   "thread_environment": {
-    "OMP_NUM_THREADS": null,
-    "MKL_NUM_THREADS": null,
-    "OPENBLAS_NUM_THREADS": null,
-    "NUMEXPR_NUM_THREADS": null
+    "OMP_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "NUMEXPR_NUM_THREADS": "1"
   },
   "numpy_configuration": "{\n  \"Compilers\": {\n    \"c\": {\n      \"name\": \"msvc\",\n      \"linker\": \"link\",\n      \"version\": \"19.44.35228\",\n      \"commands\": \"cl\"\n    },\n    \"cython\": {\n      \"name\": \"cython\",\n      \"linker\": \"cython\",\n      \"version\": \"3.2.9\",\n      \"commands\": \"cython\"\n    },\n    \"c++\": {\n      \"name\": \"msvc\",\n      \"linker\": \"link\",\n      \"version\": \"19.44.35228\",\n      \"commands\": \"cl\"\n    }\n  },\n  \"Machine Information\": {\n    \"host\": {\n      \"cpu\": \"x86_64\",\n      \"family\": \"x86_64\",\n      \"endian\": \"little\",\n      \"system\": \"windows\"\n    },\n    \"build\": {\n      \"cpu\": \"x86_64\",\n      \"family\": \"x86_64\",\n      \"endian\": \"little\",\n      \"system\": \"windows\"\n    }\n  },\n  \"Build Dependencies\": {\n    \"blas\": {\n      \"name\": \"scipy-openblas\",\n      \"found\": true,\n      \"version\": \"0.3.34.0.0\",\n      \"detection method\": \"pkgconfig\",\n      \"include directory\": \"<absolute-path-redacted>\",\n      \"lib directory\": \"<absolute-path-redacted>\",\n      \"openblas configuration\": \"OpenBLAS 0.3.34.0.0  USE64BITINT DYNAMIC_ARCH NO_AFFINITY SkylakeX MAX_THREADS=24\",\n      \"pc file directory\": \"<absolute-path-redacted>\"\n    },\n    \"lapack\": {\n      \"name\": \"scipy-openblas\",\n      \"found\": true,\n      \"version\": \"0.3.34.0.0\",\n      \"detection method\": \"pkgconfig\",\n      \"include directory\": \"<absolute-path-redacted>\",\n      \"lib directory\": \"<absolute-path-redacted>\",\n      \"openblas configuration\": \"OpenBLAS 0.3.34.0.0  USE64BITINT DYNAMIC_ARCH NO_AFFINITY SkylakeX MAX_THREADS=24\",\n      \"pc file directory\": \"<absolute-path-redacted>\"\n    }\n  },\n  \"Python Information\": {\n    \"path\": \"<absolute-path-redacted>\",\n    \"version\": \"3.12\"\n  },\n  \"SIMD Extensions\": {\n    \"baseline\": [\n      \"X86_V2\"\n    ],\n    \"found\": [\n      \"X86_V3\"\n    ]\n  }\n}",
   "file_sha256": {
@@ -59,7 +59,7 @@
     "paper1/REPRODUCING.md": "31a3ff72f2bd8929b7644dad078f5432c2012c3f0aedc614c97237c64b535b9c",
     "paper1/NUMERICAL_REPRODUCIBILITY.md": "1d398b4e38dc004ea529cae60b677d8972eacf2f65274d3f900220aa6647defb",
     "paper1/PUBLIC_RELEASE_CHECKLIST.md": "359fec86923bcc3be252007f632eb3c81accf03fab14e387c3d6225ab8544330",
-    "paper1/PAPER1_RELEASE_MANIFEST.md": "c88548e509b6e045569b209d9fa467c45c4ee5e37de06a74bdee7ef99e20d656",
+    "paper1/PAPER1_RELEASE_MANIFEST.md": "58f43da7ad5b4182024061567a1f7fa373cf899b7cbcc7204257b03522c2561f",
     "paper1/ARXIV_V2_METADATA.md": "f861c873997a3f2b28e49418af72e874f346fcb2ea4f0170d40a9c6c322a7b52",
     "paper1/QUANTUM_COVER_LETTER.md": "a26bbcec6a8a6fc5aa75c99cd4b9e42a0124c2450c1eeb3363bb6717609bcb93",
     "paper1/build_release.py": "70d5b7bdcfc301c037ef1e0aaf95566ed247f8f74bb4cee0267a5d8f7bb172f1",
@@ -95,9 +95,9 @@
     "paper1/paper1_fixed_and_growing_srm.csv": "e428832dbca3b5a93eb62d00707ec4b8e0bfc4505d6510275617506931585911",
     "paper1/paper1_h0_certified_sdp.csv": "cf1e49f703e47bdec7b1099054d9528f118eaec47a2e9707e42c540e18e298eb",
     "paper1/reproduced/paper1_fixed_and_growing_srm.csv": "e428832dbca3b5a93eb62d00707ec4b8e0bfc4505d6510275617506931585911",
-    "paper1/reproduced/paper1_h0_certified_sdp.csv": "79a762c504c5a1d67fcc116c03e7fc1391c937167770869f785321ad97aafa2a",
-    "paper1/reproduced/certified_sdp_results.csv": "76e5631e6899680e43579ac466b302574c14ea2164209853119e7aa1490368e5",
-    "paper1/reproduced/srm_scaling_m1.csv": "d6b6fca2f5f5596074c82e33129f0886be4654640859b2ee22c1e1fabc807436",
+    "paper1/reproduced/paper1_h0_certified_sdp.csv": "2d9988773723836c11db4530151f4a763602a65a06fca5c3f558bf471d4436a3",
+    "paper1/reproduced/certified_sdp_results.csv": "dec9462ba6c5c75aedee02d33bfbc750f7776fd36660bafd05a88d8df6069cdf",
+    "paper1/reproduced/srm_scaling_m1.csv": "8dd5e596d84d41fc82ebabcff783b731bafb4a38fc8613daf67e0f5a667a7666",
     "proofs/weighted_hull_finite_audit.py": "c021dd6402d336ad9704d2b9761a88c7d55bee8016e513cf47a3241e7903ae98",
     "proofs/weighted_block_tail_probe.py": "9f633ae5c1a1da1c5a7dc0259d64b1b58486b3ccd08cb04e4490aa2a0b874850",
     "proofs/weighted_hull_asymptotic_probe.py": "17e2677e505000d955c026eb3de0f7639fc9d88b02e5d2d199c30e2b1c00846e",
@@ -105,9 +105,9 @@
     "proofs/weighted_hull_diagnostics.csv": "b9c5b773d6548ce87b1808c69ecb0cff83502c6d1f5c76be04db7916b8c0884b",
     "proofs/plot_task8_candidate_figure3.py": "4d39ab68c766641743046373d372ff50d371b2830e10dacdabfa9dc32525255d",
     "paper1/quantum_revision_ultracritical/main.tex": "faacce86875a07537671b92bf1bee940b75cf8dae78dc10f77c1003616b2b5ae",
-    "paper1/quantum_revision_ultracritical/content.tex": "69dd78f29fff7c4dd7200ad4c65d2104aa417ed6862fc225821aba4189c94346",
+    "paper1/quantum_revision_ultracritical/content.tex": "98c2f3517cdf5e60f21c7c89064cd59e5f703b77bafe88ab4221f29e95d2f914",
     "paper1/quantum_revision_ultracritical/supplement.tex": "ba17925ee931a5a5056372b72dd4694c9296468a8b4d5be2f5117ef0eb0ba77e",
-    "paper1/quantum_revision_ultracritical/supplement_content.tex": "2d2510ef7daac9258952b3a889c9ecb1aa16843c4cf4040307fe12f21113a801",
+    "paper1/quantum_revision_ultracritical/supplement_content.tex": "a0736f26247d623489566f5fe1bfba02f9701b06e16d3f66d728323c12e8a2f1",
     "paper1/quantum_revision_ultracritical/references.bib": "faa179cc5ce32ce80efabdf7e97c3103ee3e434a8c04989add72e84fa1b34930",
     "paper1/quantum_revision_ultracritical/quantumarticle.cls": "3559fdcf5c7d0a3194d80bb5a7b1e9051643ef875f74087b8892a2f691f7b41d",
     "paper1/quantum_revision_ultracritical/quantum.bst": "a4639fb11246e5715a51b443a39b6e71842d3256a0ac36cd6c7926317cd3bfe2",
@@ -121,7 +121,7 @@
     "paper1/quantum_revision_ultracritical/figures/figure2_analytic_limits.png": "f70fabec2ca6607d14a6309cf9f95beb35379a274a2e14997c7a0c409d6a2433",
     "paper1/quantum_revision_ultracritical/figures/figure3_finite_size.pdf": "fd29dbebc13ff0ea9d8bc0ed27f509d6c497089449eaff22793d0e7fdacb1776",
     "paper1/quantum_revision_ultracritical/figures/figure3_finite_size.png": "9f005797fdc1a001172e9947040e25e3d347049de8e15be59d43c194724df957",
-    "paper1/quantum_revision_ultracritical/FINAL_PDF_QA_20260901.md": "84c6d86b79cee55dd78b6cab91d1381a307c93ae2269a902e373f088bc131c8e",
-    "paper1/quantum_revision_ultracritical/FINAL_QUANTUM_REVIEW_20260901.md": "61ecbfef678e602769cc81542c71ece48f345ce387e27ccd0b0bf626cd988cd5"
+    "paper1/quantum_revision_ultracritical/FINAL_PDF_QA_20260901.md": "25ee1d3ad3df849349d9317ca279a5910d405899338121b53081dcfc6b00a697",
+    "paper1/quantum_revision_ultracritical/FINAL_QUANTUM_REVIEW_20260901.md": "ea458539adcfa2f45c2f5bd1059e1172df42865934410902a2b8f693b08cf806"
   }
 }
