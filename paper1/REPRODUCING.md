@@ -49,20 +49,27 @@ The release workflow:
 5. regenerates the exact dense \(m=1\) SRM scaling table through \(n=50\);
 6. compares scientific columns with archived tables using explicit tolerances;
 7. regenerates the weighted-hull and critical-SRM diagnostic tables;
-8. writes Figures 1--3 directly to
+8. writes Figures 1–3 directly to
    `quantum_revision_ultracritical/figures`;
-9. records a Paper-I-only environment and SHA256 manifest bound to the current
-   main text, Supplemental Material, code, data, and figures.
+9. reruns the post-generation release gate against the files that were
+   actually written; and
+10. records a Paper-I-only environment and SHA-256 manifest bound to the final
+    main text, Supplemental Material, code, data, and figures, then verifies
+    every recorded hash against the files on disk.
 
 The default allowlist excludes the two Paper-II modules
 `test_fixed_m_sdp_grid.py` and `test_m3_forest_factorization.py`. To add the
-complete workspace suite as a stronger, optional gate, run
+complete workspace suite as a stronger gate, run
 
 ```powershell
 .\paper1\run_reproduction.ps1 `
   -PythonExe .\.venv-paper1-release-py312\Scripts\python.exe `
   -FullWorkspaceTests
 ```
+
+With `-FullWorkspaceTests`, the complete suite runs both before generation and
+again after the final CSV files and figures have been written. Manifest
+generation and the manifest freshness check follow the second test pass.
 
 Timing and iteration-count columns are reported but excluded from numerical
 identity checks.  They are machine-dependent diagnostics, not scientific
@@ -85,7 +92,7 @@ checks, create the submission archives in a new or empty directory:
 
 ```powershell
 .\.venv-paper1-release-py312\Scripts\python.exe paper1\build_release.py `
-  --version v1.4.0-paper1 `
+  --version v1.5.0-paper1 `
   --main-pdf <clean-main-build>\main.pdf `
   --supplement-pdf <clean-supplement-build>\supplement.pdf `
   --main-bbl <clean-main-build>\main.bbl `
@@ -94,6 +101,7 @@ checks, create the submission archives in a new or empty directory:
 
 The packager fails closed if `--main-bbl` is omitted, an allowlisted file is
 missing, the output directory is nonempty, or
-`paper1/reproduction_manifest.json` contains an absolute host path. The source
+`paper1/reproduction_manifest.json` contains an absolute host path, a missing
+hashed file, or a stale SHA-256 value. The source
 archives contain only the Paper-I profile manifest; the legacy root-level
 all-project manifest is excluded.

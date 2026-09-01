@@ -84,7 +84,6 @@ PAPER1_HASHED_FILES = [
     "paper1/build_release.py",
     "paper1/run_reproduction.ps1",
     "paper1/verification_report.json",
-    "paper1/verification_report.audit.json",
     "paper1_analytics.py",
     "paper1_numerics.py",
     "paper1_make_figures.py",
@@ -252,6 +251,61 @@ def collect_manifest(
     }
 
 
+def verify_manifest_file(
+    manifest_path: Path,
+    *,
+    root: Path = ROOT,
+    expected_files: list[str] | None = None,
+) -> list[str]:
+    """Return portability, completeness, and SHA-256 errors for a manifest.
+
+    The verifier deliberately checks the files on disk rather than trusting
+    the manifest's recorded environment metadata.  An empty return value is a
+    release-gate pass.
+    """
+
+    issues: list[str] = []
+    try:
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        return [f"cannot read manifest {manifest_path}: {exc}"]
+
+    hashes = manifest.get("file_sha256")
+    if not isinstance(hashes, dict):
+        return ["manifest field 'file_sha256' is missing or is not an object"]
+
+    if expected_files is not None:
+        for relative in expected_files:
+            if relative not in hashes:
+                issues.append(f"missing manifest hash entry: {relative}")
+
+    resolved_root = root.resolve()
+    for relative, recorded_digest in hashes.items():
+        if not isinstance(relative, str) or not isinstance(recorded_digest, str):
+            issues.append("manifest hash entries must map strings to strings")
+            continue
+        if (
+            PureWindowsPath(relative).is_absolute()
+            or PurePosixPath(relative).is_absolute()
+        ):
+            issues.append(f"absolute path in manifest: {relative}")
+            continue
+        candidate = (resolved_root / relative).resolve()
+        if not candidate.is_relative_to(resolved_root):
+            issues.append(f"path escapes repository root: {relative}")
+            continue
+        if not candidate.is_file():
+            issues.append(f"hashed file is missing: {relative}")
+            continue
+        current_digest = _file_sha256(candidate)
+        if current_digest != recorded_digest:
+            issues.append(
+                f"SHA-256 mismatch: {relative} "
+                f"(recorded {recorded_digest}, current {current_digest})"
+            )
+    return issues
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -265,15 +319,40 @@ def main() -> None:
         choices=["all", "paper1"],
         default="all",
     )
+    parser.add_argument(
+        "--verify-existing",
+        action="store_true",
+        help="verify the existing --output manifest instead of rewriting it",
+    )
     args = parser.parse_args()
     selected_files = PAPER1_HASHED_FILES if args.profile == "paper1" else None
+    if args.verify_existing:
+        expected_files = PAPER1_HASHED_FILES if args.profile == "paper1" else HASHED_FILES
+        issues = verify_manifest_file(
+            args.output,
+            expected_files=expected_files,
+        )
+        if issues:
+            for issue in issues:
+                print(f"ERROR: {issue}", file=sys.stderr)
+            raise SystemExit(1)
+        print(f"verified {args.output.resolve()}")
+        return
+
+    files_to_hash = PAPER1_HASHED_FILES if args.profile == "paper1" else HASHED_FILES
+    missing_files = [relative for relative in files_to_hash if not (ROOT / relative).is_file()]
+    if missing_files:
+        for relative in missing_files:
+            print(f"ERROR: required hashed file is missing: {relative}", file=sys.stderr)
+        raise SystemExit(1)
     manifest = collect_manifest(
         random_seed=args.seed,
         hashed_files=selected_files,
     )
     args.output.write_text(
-        json.dumps(manifest, indent=2, ensure_ascii=False),
+        json.dumps(manifest, indent=2, ensure_ascii=False) + "\n",
         encoding="utf-8",
+        newline="\n",
     )
     print(f"wrote {args.output.resolve()}")
 

@@ -3,7 +3,7 @@
 ## Prepared release identity
 
 - Suggested repository name: `quantum-change-intervals`
-- Release-candidate tag: `v1.4.0-paper1`
+- Release-candidate tag: `v1.5.0-paper1`
 - Suggested archive title: *Quantum Change Intervals: Exact Asymptotic
   Localization with Collective Measurements - code and data*
 - Archive contents: the files hashed by the `paper1` profile in
@@ -20,7 +20,7 @@ disclosure. The repository retains its existing MIT License, with the
 copyright notice synchronized to Xu Chen and Xue Ma.
 
 Xue Ma's ORCID and a Zenodo or institutional-archive DOI may be added later;
-neither item blocks the GitHub tag `v1.4.0-paper1`. Do not add an archival DOI
+neither item blocks the GitHub tag `v1.5.0-paper1`. Do not add an archival DOI
 to the manuscript until it resolves to the immutable tagged release.
 
 ## Publication sequence
@@ -28,26 +28,25 @@ to the manuscript until it resolves to the immutable tagged release.
 1. Update the existing repository at
    `https://github.com/chenxu8817-cyber/quantum-change-intervals` without
    rewriting its history or replacing its MIT terms.
-2. Run `paper1/run_reproduction.ps1` in a clean CPython 3.12 clone, regenerate
-   the PDF and manifest, inspect the diff, and push `main`.
-   Before packaging, confirm that the Paper-I manifest contains no absolute
-   host paths. Invoke `paper1/build_release.py` with the fresh `main.bbl` from
-   the same clean main-PDF build and a new or empty output directory.
-3. Create and push the immutable `v1.4.0-paper1` tag. Optionally enable the
-   repository in Zenodo and let Zenodo archive that exact tag.
-4. If archived, record both the concept DOI and version DOI. Use the version DOI in the
-   manuscript's data-and-code statement for exact reproducibility; use the
-   concept DOI in general repository documentation if desired.
-5. Add the version DOI to the existing data/code statement in
-   `quantum_revision_ultracritical/content.tex`, compile `main.pdf`, and confirm that the
-   DOI resolves to the archived tag.
-6. Compare the Zenodo archive file hashes with
-   `paper1/reproduction_manifest.json`.
+2. Run `paper1/run_reproduction.ps1` in a clean CPython 3.12 clone. Build the
+   article and Supplemental Material from the same final source snapshot, then
+   inspect the source, data, figure, test, and PDF gates.
+3. Generate and verify `paper1/reproduction_manifest.json` only after the
+   source and release metadata are final. Confirm that it contains no absolute
+   host paths.
+4. Invoke `paper1/build_release.py` with the fresh `main.bbl` from the same
+   clean article build and a new or empty output directory. Extract the public
+   source archive, rerun its tests, and compile the arXiv archive in isolation.
+5. Commit the frozen snapshot, create and push the immutable
+   `v1.5.0-paper1` tag, create the GitHub Release, and compare every downloaded
+   asset with the generated `SHA256SUMS` file.
+6. A Zenodo or institutional archive may later preserve the tagged release.
+   If a DOI is added to the manuscript, do so in a new source version rather
+   than modifying the immutable tag.
 
 ## Tooling boundary
 
 Git is available and the public remote can be updated through the configured
-Git credential manager. GitHub CLI and archival credentials are not assumed;
-a pushed annotated tag is the immutable release anchor. Creating a separate
-GitHub release page or Zenodo DOI may require the corresponding authenticated
-web/API session.
+Git credential manager. The annotated tag is the immutable source anchor; the
+GitHub Release carries the corresponding submission and source assets. Zenodo
+or another archival service remains optional.

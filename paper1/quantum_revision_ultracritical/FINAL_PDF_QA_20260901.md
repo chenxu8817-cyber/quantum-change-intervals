@@ -2,61 +2,63 @@
 
 Date: 2026-09-01
 
-This report records the final quality checks for the frozen Paper I article and
-Supplemental Material. Both files were rebuilt with Tectonic 0.17.0 from the
-authoritative sources in `paper1/quantum_revision_ultracritical`.
+This report records the final quality checks for the Paper I article and
+Supplemental Material. Both files were built from the authoritative sources in
+`paper1/quantum_revision_ultracritical` with Tectonic 0.17.0 in new output
+directories.
 
 ## Frozen files
 
 | File | Pages | Bytes | SHA-256 |
 |---|---:|---:|---|
-| Main article | 20 | 407192 | `909DBC6AE2C2B8BCC892FBA1707B357077D2E3A4DEE5767C77AE9ABD897682B7` |
-| Supplemental Material | 23 | 215233 | `3987A16E57C2DBB52A5F1AD093746EA77325F0D86609B555019E37DB56B57C02` |
-| Main bibliography output |  | 7387 | `471D4C1B01BACD530A4C401F48203E4C298619ECCE1B53CBD3934D7EC1EFA524` |
+| Main article | 18 | 389825 | `4FBC92F90ED5B96A6B1AE205D3610587757115ABF525B6EAEB63ED822BF042AE` |
+| Supplemental Material | 26 | 231660 | `9C5FEE77C081014CA9238234580F06E3441492FCBECFFD23CED0D498552BF2E3` |
+| Main bibliography output |  | 7387 | `685F2AB321CD7AD51E4E2034136B4E4E0386C5E1C6F72A1E004C413AD0107E2C` |
 
-The main article and Supplemental Material use A4 pages and PDF 1.5. They are
-unencrypted, and their title and author metadata agree with the manuscript.
+Both PDFs use A4 pages and PDF 1.5. They are unencrypted. Their title and
+author metadata agree with the manuscript, and text extraction found no
+replacement characters.
 
 ## Compilation, labels, and bibliography
 
-- The clean article and Supplemental Material builds completed with exit
-  status zero.
-- The final logs contain no LaTeX errors, fatal errors, undefined citations,
-  undefined references, multiply defined labels, or overfull boxes.
-- The article log contains 27 underfull-box notices caused by narrow
-  two-column mathematical or bibliographic lines. Visual inspection found no
-  corresponding collision or readability problem. The Supplemental Material
-  log contains no underfull-box notice.
-- Static source checks found 155 unique article labels and 119 unique
-  Supplemental Material labels. Every referenced label is defined, and no
-  label is multiply defined.
-- All 28 bibliography entries are cited. All 28 citation keys resolve, with no
-  unused or duplicate entry.
+- Both clean builds completed with exit status zero.
+- The final logs contain no LaTeX error, fatal error, undefined citation,
+  undefined reference, multiply defined label, or overfull box.
+- The article log contains 24 underfull-box notices from narrow two-column
+  mathematical and bibliographic lines. Visual inspection found no collision
+  or loss of readability. The Supplemental Material log contains no
+  underfull-box notice.
+- Static checks found 142 article labels and 135 Supplemental Material labels,
+  with no duplicate or undefined label.
+- All 28 bibliography entries are cited. Every citation key resolves, and
+  there is no duplicate or unused entry.
 
 ## Fonts and figures
 
-- All 47 font resources used by the article and all 32 used by the
-  Supplemental Material are embedded.
-- Figures 1--3 are fully vector based in the frozen article PDF. In
-  particular, the cells and color scale in Figure 3(c) are vector objects and
-  the PDF contains no image XObject.
-- The separate PNG derivatives of Figures 1--3 are 300 dpi, and the Figure 1
-  TIFF derivative is 600 dpi. The PDF figures are the authoritative article
+- All 47 effective font resources used by the article and all 31 used by the
+  Supplemental Material have embedded font programs. Type 0 wrapper fonts were
+  checked through their embedded descendant fonts.
+- Figures 1, 2, and 3 are vector based in the article PDF. The article and
+  Supplemental Material contain no raster image XObject.
+- The PNG derivatives of Figures 1, 2, and 3 are 300 dpi. Their pixel sizes are
+  2164 by 769, 2095 by 803, and 2152 by 877, respectively. The Figure 1 TIFF is
+  4329 by 1539 pixels at 600 dpi. The PDF figures are the authoritative article
   inputs.
 
 ## Visual inspection
 
-All 20 article pages and all 23 Supplemental Material pages were rendered at
-110 dpi and inspected. Additional full-page checks covered the title and
-author block, the literature-comparison table, Figures 1--3, the fixed- and
-moving-overlap theorem statements, the no-change results, the conclusion and
-references, the Supplemental Material proof map, the continuum and
-moving-outer arguments, and the final diagnostic table.
+All 18 article pages and all 26 Supplemental Material pages were rendered at
+120 dpi and inspected. The last Supplemental Material page was also inspected
+at 160 dpi after the closing numerical discussion was shortened. This removed
+an otherwise nearly blank 27th page without deleting any scientific result.
+The final clean rebuilds have page-by-page extracted text identical to those
+inspected files; only nonsemantic PDF serialization metadata changed.
 
-No clipped material, overlapping curve labels, broken equations, unreadable
-legends, missing glyphs, misplaced floats, column collisions, or unexpected
-blank pages were found. The open lower portion of the final Supplemental
-Material page follows naturally from the closing table and reproduction
-commands and does not indicate omitted content.
+The inspection covered the title and author block, abstract, literature table,
+Figures 1, 2, and 3, all principal theorem statements, the no-change results,
+conclusion, references, Supplemental proof map, continuum and moving-outer
+arguments, local SRM refinement, and diagnostic table. No clipped material,
+overlapping curve label, broken equation, unreadable legend, missing glyph,
+misplaced float, column collision, or unexpected blank page was found.
 
-Final status: **PASS**.
+Final PDF status: **PASS**.

@@ -42,24 +42,25 @@ Hebei Co., Ltd., Shijiazhuang, Hebei 050000, People's Republic of China}
 \hypersetup{pdfauthor={Xu Chen and Xue Ma}}
 
 \begin{abstract}
-We study exact-label minimum-error localization of a transient change in
-independent quantum outputs. A known pure state \(\lvert\psi\rangle\) occupies
-one nonempty contiguous interval and the reference state \(\lvert0\rangle\)
-occupies its complement; the receiver may measure the full sequence
-collectively. Write \(c=\lvert\langle0\vert\psi\rangle\rvert\), and let
-\(p_1(x)\) denote the one-dimensional Poisson-kernel Toeplitz functional. For
-fixed \(c\), we derive an exact square-root integral for every fixed known
-interval length and prove that the square-root measurement (SRM) and the Bayes
-optimum have the same asymptotic value. When both the known length and the
-number of translations diverge, this value is \(p_1(c^2)\). Under the prior
-uniform over all \(M_n=n(n+1)/2\) nonempty intervals, a triangular F{\o}lner
-reduction and a transfer to the physical Gram matrix instead give
-\(p_1(c)^2\).
+We study exact-label minimum-error localization of one transient change
+interval in independent quantum outputs. A known pure state
+\(\lvert\psi\rangle\) occupies a nonempty contiguous interval, while
+\(\lvert0\rangle\) occupies its complement, and the receiver may apply a
+collective measurement to the full sequence. Put
+\(c=\lvert\langle0\vert\psi\rangle\rvert\), and let \(p_1(x)\) denote the
+one-dimensional Poisson-kernel Toeplitz functional. For fixed \(c\) and a fixed
+known length \(i\), under the prior uniform over the \(N=n-i+1\) admissible
+translations, the square-root measurement (SRM) and Bayes optimum share an
+exact asymptotic Toeplitz integral limit. If \(i=i_n\to\infty\) and
+\(N_n=n-i_n+1\to\infty\), the limit for the same fixed \(c\) is
+\(p_1(c^2)\). When the length is unknown and the prior is uniform over all
+\(M_n=n(n+1)/2\) nonempty intervals, a triangular F{\o}lner reduction and
+transfer to the physical Gram matrix give the common fixed-overlap limit
+\(p_1(c)^2\) as \(n\to\infty\).
 
-We also resolve moving overlaps near the indistinguishable limit at \(c_n=1\),
-where the exact-label baseline is \(1/M_n\). With
-\(\tau_n=n(1-c_n)(\log n)^2\), uniformly for \(\tau_n\) in every fixed compact
-interval, the trace benchmark, SRM, and optimum obey
+We also resolve moving overlaps near \(c_n=1\), where the exact-label baseline
+is \(1/M_n\). With \(\tau_n=n(1-c_n)(\log n)^2\), uniformly for \(\tau_n\) in
+each fixed compact interval, the trace benchmark, SRM, and optimum satisfy
 \[
  \begin{aligned}
  M_nP_X&=
@@ -68,24 +69,22 @@ interval, the trace benchmark, SRM, and optimum obey
  &\quad+O\!\left(\frac{\log\log n}{\log n}\right),
  \end{aligned}
 \]
-for \(X\in\{\mathrm{tr},\mathrm{SRM},\mathrm{opt}\}\).
-On this scale, \(n p_1(c_n)\) remains bounded. In the complementary regime
+for \(X\in\{\mathrm{tr},\mathrm{SRM},\mathrm{opt}\}\). In the hull-dominant
+regime
 \[
  c_n\to1,\qquad c_n<1\ \text{eventually},\qquad
  n p_1(c_n)\to\infty,
 \]
-all three criteria satisfy \(P_X\sim p_1(c_n)^2\) without a monotonicity
-assumption. This includes \(c_n=1-\lambda/n\), for which
-\(M_nP_X/(\log n)^4\to2\lambda^2/\pi^4\) uniformly when \(\lambda\) ranges
-over compact subsets of \((0,\infty)\). We also add a no-change hypothesis
-with fixed prior \(\pi_0\), retaining the stated uniform interval prior
-conditional on an anomaly. If \(\Lambda\) denotes the corresponding
-asymptotic conditional localization limit, then the joint Bayes detection and
-exact localization limit is \(\pi_0+(1-\pi_0)\Lambda\). For fixed \(c<1\),
-the prior-weighted SRM attains this limit for growing known and unknown interval
-lengths. At \(c=1\), however,
-the raw weighted SRM tends to \(\pi_0^2\), whereas the optimum tends to
-\(\pi_0\); maximum-a-posteriori relabeling restores the optimal limit.
+all three criteria satisfy \(P_X\sim p_1(c_n)^2\), without any monotonicity
+assumption. For the fixed-overlap models treated here, adjoining a no-change
+hypothesis with fixed prior \(\pi_0\), while
+conditioning an anomaly on the same uniform priors, maps a conditional
+localization limit \(\Lambda\) to the joint Bayes detection and exact
+localization limit \(\pi_0+(1-\pi_0)\Lambda\). For fixed \(c<1\), the
+prior-weighted SRM attains this limit when \(i_n,N_n\to\infty\), and in the
+unknown-length model as \(n\to\infty\). At \(c=1\), the raw weighted SRM tends
+to \(\pi_0^2\), whereas the optimum tends to \(\pi_0\);
+maximum-a-posteriori relabeling restores the optimal limit.
 \end{abstract}
 
 

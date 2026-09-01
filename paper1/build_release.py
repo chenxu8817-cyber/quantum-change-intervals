@@ -70,7 +70,6 @@ PAPER1_RELEASE_FILES = (
     "paper1/reproduced/certified_sdp_results.csv",
     "paper1/reproduced/srm_scaling_m1.csv",
     "paper1/run_reproduction.ps1",
-    "paper1/verification_report.audit.json",
     "paper1/verification_report.json",
 )
 
@@ -145,7 +144,7 @@ def _contains_absolute_host_path(value: str) -> bool:
     )
 
 
-def _validate_public_manifest(path: Path) -> None:
+def _validate_public_manifest(path: Path, repository_root: Path) -> None:
     try:
         document = json.loads(path.read_text(encoding="utf-8"))
     except (OSError, UnicodeDecodeError, json.JSONDecodeError) as error:
@@ -162,6 +161,36 @@ def _validate_public_manifest(path: Path) -> None:
         elif isinstance(value, str) and _contains_absolute_host_path(value):
             raise ValueError(
                 f"public manifest contains an absolute host path: {path}"
+            )
+
+    hashes = document.get("file_sha256") if isinstance(document, dict) else None
+    if not isinstance(hashes, dict) or not hashes:
+        raise ValueError(
+            f"public manifest has no nonempty file_sha256 object: {path}"
+        )
+    resolved_root = repository_root.resolve()
+    for relative, recorded_digest in hashes.items():
+        if not isinstance(relative, str) or not isinstance(recorded_digest, str):
+            raise ValueError(
+                f"public manifest hash entries must map strings to strings: {path}"
+            )
+        if (
+            PureWindowsPath(relative).is_absolute()
+            or PurePosixPath(relative).is_absolute()
+        ):
+            raise ValueError(
+                f"public manifest contains an absolute hash path: {relative}"
+            )
+        candidate = (resolved_root / relative).resolve()
+        if not candidate.is_relative_to(resolved_root):
+            raise ValueError(f"public manifest hash path escapes root: {relative}")
+        if not candidate.is_file():
+            raise ValueError(f"public manifest hashes a missing file: {relative}")
+        current_digest = _sha256(candidate)
+        if current_digest != recorded_digest:
+            raise ValueError(
+                f"public manifest is stale for {relative}: "
+                f"recorded {recorded_digest}, current {current_digest}"
             )
 
 
@@ -223,7 +252,7 @@ def _collect_source_members(repository_root: Path) -> dict[str, Path]:
     public_manifest = _require_file(
         repository_root / "paper1" / "reproduction_manifest.json"
     )
-    _validate_public_manifest(public_manifest)
+    _validate_public_manifest(public_manifest, repository_root)
     members.update(_required_files(repository_root, ROOT_RELEASE_FILES))
     members.update(_required_files(repository_root, PAPER1_RELEASE_FILES))
     members.update(_required_files(repository_root, PAPER1_TEST_FILES))

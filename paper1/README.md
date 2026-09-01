@@ -12,12 +12,16 @@ the manuscript's ``Assumptions and scope'' subsection.
 
 ```text
 physical Gram -> SRM -> small floating-point SDP diagnostics
-              -> CSV -> Figures 1, 2, and 3 -> environment manifest
+              -> CSV -> Figures 1, 2, and 3 -> final tests
+              -> environment and file-hash manifest
 ```
 
 It also regenerates the weighted-hull and critical-overlap diagnostic tables.
 The generated copies of the four principal tables are placed in `reproduced/`
 and compared with their archived counterparts using documented tolerances.
+With `-FullWorkspaceTests`, the complete workspace suite runs before generation
+and again after the final CSV files and figures have been written. The manifest
+is then generated and immediately checked against the final files on disk.
 
 ## Release map
 

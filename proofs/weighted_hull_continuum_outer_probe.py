@@ -4163,7 +4163,11 @@ def _write_diagnostics_csv(
     path = Path(output)
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(handle, fieldnames=CSV_FIELDS)
+        writer = csv.DictWriter(
+            handle,
+            fieldnames=CSV_FIELDS,
+            lineterminator="\n",
+        )
         writer.writeheader()
         for row in rows:
             writer.writerow(row)

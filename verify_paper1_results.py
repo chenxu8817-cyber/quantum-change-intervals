@@ -267,7 +267,9 @@ def main() -> None:
         "timing_columns_ignored": sorted(TIMING_COLUMNS),
     }
     args.output.write_text(
-        json.dumps(report, indent=2, ensure_ascii=False), encoding="utf-8"
+        json.dumps(report, indent=2, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+        newline="\n",
     )
     print(json.dumps(report, indent=2, ensure_ascii=False))
     if not report["passed"]:

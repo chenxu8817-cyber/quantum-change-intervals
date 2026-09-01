@@ -103,20 +103,31 @@ try {
     & $resolvedPython paper1_make_figures.py --output-dir $figureOutput --known-data $fixedFigureData --sdp-data $sdpFigureData --srm-data $srmFigureData
     if ($LASTEXITCODE -ne 0) { throw "Paper I figure generation failed" }
 
-    & $resolvedPython environment_manifest.py --profile paper1 --output (Join-Path $PSScriptRoot "reproduction_manifest.json") --seed 1729
-    if ($LASTEXITCODE -ne 0) { throw "manifest generation failed" }
-
-    $postGenerationTests = @(
-        "tests/test_environment_manifest.py",
-        "tests/test_paper1_figures.py",
-        "tests/test_paper1_numerics.py",
-        "tests/test_paper1_release_packaging.py",
-        "tests/test_sdp_certification.py",
-        "tests/test_unknown_length_full_srm_probe.py",
-        "tests/test_weighted_hull_sdp.py"
-    )
-    & $resolvedPython -m unittest @postGenerationTests -v
+    if ($FullWorkspaceTests) {
+        # Re-run the complete suite after every generated CSV and figure has
+        # reached its final on-disk state.
+        & $resolvedPython -m unittest discover -s tests -v
+    } else {
+        $postGenerationTests = @(
+            "tests/test_environment_manifest.py",
+            "tests/test_paper1_figures.py",
+            "tests/test_paper1_numerics.py",
+            "tests/test_paper1_release_packaging.py",
+            "tests/test_sdp_certification.py",
+            "tests/test_unknown_length_full_srm_probe.py",
+            "tests/test_weighted_hull_sdp.py"
+        )
+        & $resolvedPython -m unittest @postGenerationTests -v
+    }
     if ($LASTEXITCODE -ne 0) { throw "post-generation release tests failed" }
+
+    # Write the public manifest only after all generators and tests pass, then
+    # verify every recorded hash against the final on-disk release state.
+    $manifestPath = Join-Path $PSScriptRoot "reproduction_manifest.json"
+    & $resolvedPython environment_manifest.py --profile paper1 --output $manifestPath --seed 1729
+    if ($LASTEXITCODE -ne 0) { throw "manifest generation failed" }
+    & $resolvedPython environment_manifest.py --profile paper1 --output $manifestPath --verify-existing
+    if ($LASTEXITCODE -ne 0) { throw "manifest freshness verification failed" }
 } finally {
     Pop-Location
 }

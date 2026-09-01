@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import sys
+import tempfile
 import unittest
 import warnings
 from pathlib import Path
@@ -13,7 +14,9 @@ sys.path.insert(0, str(ROOT))
 from environment_manifest import (  # noqa: E402
     PAPER1_HASHED_FILES,
     _portable_numpy_configuration,
+    _file_sha256,
     collect_manifest,
+    verify_manifest_file,
 )
 
 
@@ -98,6 +101,67 @@ class EnvironmentManifestTests(unittest.TestCase):
         for relative, digest in hashes.items():
             self.assertTrue(ROOT.joinpath(relative).is_file(), relative)
             self.assertRegex(digest, r"^[0-9a-f]{64}$")
+
+    def test_verify_manifest_accepts_fresh_hashes(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            tracked = root / "tracked.txt"
+            tracked.write_text("release candidate\n", encoding="utf-8")
+            manifest_path = root / "manifest.json"
+            manifest_path.write_text(
+                json.dumps(
+                    {"file_sha256": {"tracked.txt": _file_sha256(tracked)}}
+                ),
+                encoding="utf-8",
+            )
+            self.assertEqual(
+                verify_manifest_file(
+                    manifest_path,
+                    root=root,
+                    expected_files=["tracked.txt"],
+                ),
+                [],
+            )
+
+    def test_verify_manifest_detects_missing_and_changed_files(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            changed = root / "changed.txt"
+            changed.write_text("before\n", encoding="utf-8")
+            manifest_path = root / "manifest.json"
+            manifest_path.write_text(
+                json.dumps(
+                    {"file_sha256": {"changed.txt": _file_sha256(changed)}}
+                ),
+                encoding="utf-8",
+            )
+            changed.write_text("after\n", encoding="utf-8")
+            issues = verify_manifest_file(
+                manifest_path,
+                root=root,
+                expected_files=["changed.txt", "missing.txt"],
+            )
+            self.assertTrue(any("SHA-256 mismatch" in issue for issue in issues))
+            self.assertIn("missing manifest hash entry: missing.txt", issues)
+
+    def test_verify_manifest_rejects_nonportable_paths(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            manifest_path = root / "manifest.json"
+            manifest_path.write_text(
+                json.dumps(
+                    {
+                        "file_sha256": {
+                            "../outside.txt": "0" * 64,
+                            "C:/private/file.txt": "0" * 64,
+                        }
+                    }
+                ),
+                encoding="utf-8",
+            )
+            issues = verify_manifest_file(manifest_path, root=root)
+            self.assertTrue(any("escapes repository root" in issue for issue in issues))
+            self.assertTrue(any("absolute path" in issue for issue in issues))
 
 
 if __name__ == "__main__":

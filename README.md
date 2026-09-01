@@ -34,7 +34,8 @@ The workflow fixes all supported BLAS thread counts to one, runs the public
 Paper I test allowlist, regenerates every release CSV and Figures 1, 2, and 3, checks the archived
 scientific columns, and writes an environment and file-hash manifest. Use
 `-FullWorkspaceTests` in a full repository clone to add the internal hash gate
-and the two Paper II regression modules.
+and the two Paper II regression modules; in that mode the complete suite is
+run both before and after generation.
 
 See [REPRODUCING.md](REPRODUCING.md) and
 [paper1/NUMERICAL_REPRODUCIBILITY.md](paper1/NUMERICAL_REPRODUCIBILITY.md)
@@ -68,6 +69,6 @@ subdirectory, choose pdfLaTeX, and select the appropriate root file.
 
 ## Release status
 
-The release target for this update is `v1.4.0-paper1`. The tag and GitHub
+The release target for this update is `v1.5.0-paper1`. The tag and GitHub
 release are declared current only after the remote assets have been downloaded
 and checked against the published SHA-256 list.

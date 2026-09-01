@@ -124,7 +124,19 @@ def _fixture(root: Path) -> tuple[Path, Path]:
     _write(root / "paper1" / "PAPER1_RELEASE_MANIFEST.md", "fixture release manifest\n")
     _write(
         root / "paper1" / "reproduction_manifest.json",
-        '{"profile": "paper1", "command": ["python"]}\n',
+        json.dumps(
+            {
+                "profile": "paper1",
+                "command": ["python"],
+                "file_sha256": {
+                    "README.md": _sha256(root / "README.md"),
+                    "paper1/REPRODUCING.md": _sha256(
+                        root / "paper1" / "REPRODUCING.md"
+                    ),
+                },
+            }
+        )
+        + "\n",
     )
     _write(
         root / "reproduction_manifest.json",
@@ -133,7 +145,6 @@ def _fixture(root: Path) -> tuple[Path, Path]:
     _write(root / "paper1" / "build_release.py", "# fixture release builder\n")
     _write(root / "paper1" / "run_reproduction.ps1", "# fixture runner\n")
     _write(root / "paper1" / "verification_report.json", "{}\n")
-    _write(root / "paper1" / "verification_report.audit.json", "{}\n")
     _write(root / "paper1" / "paper1_fixed_and_growing_srm.csv", "n,value\n3,0.5\n")
     _write(root / "paper1" / "paper1_h0_certified_sdp.csv", "n,value\n3,0.5\n")
     for name in (
@@ -332,9 +343,12 @@ class Paper1ReleasePackagingTests(unittest.TestCase):
             base = Path(directory)
             repo = base / "repo"
             main_pdf, supplement_pdf = _fixture(repo)
-            (repo / "paper1" / "REPRODUCING.md").unlink()
+            (repo / "paper1" / "PUBLIC_RELEASE_CHECKLIST.md").unlink()
             output = base / "out"
-            with self.assertRaisesRegex(FileNotFoundError, "paper1.*REPRODUCING.md"):
+            with self.assertRaisesRegex(
+                FileNotFoundError,
+                "paper1.*PUBLIC_RELEASE_CHECKLIST.md",
+            ):
                 self.builder.build_release(
                     version="v1.3.0-paper1",
                     main_pdf=main_pdf,
@@ -360,6 +374,28 @@ class Paper1ReleasePackagingTests(unittest.TestCase):
             )
             output = base / "out"
             with self.assertRaisesRegex(ValueError, "absolute host path"):
+                self.builder.build_release(
+                    version="v1.3.0-paper1",
+                    main_pdf=main_pdf,
+                    supplement_pdf=supplement_pdf,
+                    main_bbl=repo
+                    / "paper1"
+                    / "quantum_revision_ultracritical"
+                    / "build-main"
+                    / "main.bbl",
+                    output_dir=output,
+                    repository_root=repo,
+                )
+            self.assertFalse(output.exists())
+
+    def test_stale_public_manifest_is_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            base = Path(directory)
+            repo = base / "repo"
+            main_pdf, supplement_pdf = _fixture(repo)
+            (repo / "README.md").write_text("changed after manifest\n", encoding="utf-8")
+            output = base / "out"
+            with self.assertRaisesRegex(ValueError, "public manifest is stale"):
                 self.builder.build_release(
                     version="v1.3.0-paper1",
                     main_pdf=main_pdf,

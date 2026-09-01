@@ -2,74 +2,71 @@
 
 Date: 2026-09-01
 
-This review was performed after the Paper I scope and theorem set were frozen.
-It assesses mathematical consistency, presentation, reproducibility, and
-submission readiness. It adds no model, theorem, numerical claim, or citation.
+This conclusion-blind review was performed after the Paper I scope and theorem
+set were frozen. It assesses mathematical consistency, exposition,
+reproducibility, and submission readiness. It adds no model, theorem,
+numerical claim, or citation.
 
 ## Overall assessment
 
 No blocking mathematical, bibliographic, numerical, editorial, or
-typesetting issue remains in the reviewed snapshot. The article is technically
-dense, but its main line is coherent:
+typesetting issue remains in the reviewed snapshot. The 18-page article has a
+clear sequence:
 
 1. returning-interval model and exact Gram geometry;
 2. fixed and growing known lengths;
 3. unknown length at fixed overlap;
 4. moving-overlap and hull-dominance regimes;
-5. the fixed-prior no-change extension;
+5. fixed-prior no-change extension; and
 6. finite-size floating-point diagnostics.
 
-The Supplemental Material is longer because it contains the complete sector
-decomposition, singular-safe dual bounds, local square-root analysis,
-continuum matching, adaptive outer construction, quantitative trace laws, and
-diagnostic details. Its opening proof map and normalization ledger make the
-dependency structure explicit. The length is justified by the number of
-independent asymptotic regimes rather than by duplicated exposition.
+The 26-page Supplemental Material is dense but proportionate to the proof
+load. It contains the complete Følner and exceptional-sector arguments,
+excitation compression, singular-safe dual estimates, continuum matching,
+adaptive outer construction, local SRM refinement, and numerical details. Its
+opening proof map and normalization table make the dependencies explicit.
 
 ## Proof architecture and concision
 
-Two proof routes remain necessary, but they now have distinct stated roles.
+The two global proof routes have different domains and should both remain.
+The Toeplitz/Følner route proves fixed-overlap transfer laws. The weighted-hull
+and sectorwise route treats moving overlaps, for which the fixed-overlap
+comparison is not uniform. Removing either route would leave a headline
+regime unsupported.
 
-1. The Toeplitz/Foelner and exceptional-sector route establishes the fixed-
-   overlap transfer results.
-2. The weighted-hull, sectorwise dual, global-trace, and adaptive-macroblock
-   route treats moving overlaps, where the fixed-overlap comparison is not
-   uniform.
+The local square-root-diagonal law is a downstream strengthening, not an
+independent proof of the common optimum and SRM limit. It reuses retained
+orthogonality, incidence-trace, and odd-cosine estimates and is not an input to
+the global trace and dual squeeze. It could be omitted without changing the
+headline common-limit theorem, but retaining it in the Supplemental Material
+adds a genuine labelwise statement and clarifies why finite-size local
+deviations can coexist with the global law.
 
-Within the second route, the local square-root-diagonal argument is presented
-as an independent stronger refinement, not as a duplicate derivation of the
-common optimum/SRM limit. Removing the global-trace route would lose the
-optimum upper squeeze and the explicit rate; removing the local route would
-lose the labelwise result and retained-orthogonality input. The appropriate
-simplification was therefore to shorten repeated proof outlines in the main
-article while retaining complete proofs in the Supplemental Material.
-
-The revision also reduced repeated contribution lists and caveats, divided the
-no-change discussion into shorter logical units, normalized terminology, and
-replaced checklist-like transitions with direct result-reason-scope prose.
-No theorem assumption, conclusion, numerical value, citation, or scientific
-qualification was removed in this editing pass.
+The article now states the moving-overlap theorem before its supporting
+machinery, keeps the sector Minkowski step, Volterra repair, triangular factor,
+and normalization conventions in the main proof, and points to named
+Supplemental results for detailed estimates. Repeated proof outlines and scope
+caveats were removed. The final Supplemental page was consolidated during PDF
+inspection, reducing the file from 27 to 26 pages.
 
 ## Claim consistency
 
-- The abstract, Introduction, unified theorem, Supplemental Material, and
+- The abstract, introduction, theorem statements, Supplemental Material, and
   conclusion use the same hull-dominance assumptions:
   `c_n -> 1`, `c_n < 1` eventually, and `n p_1(c_n) -> infinity`.
-- This criterion is stated as sufficient. The article claims neither a
-  converse nor a necessary-and-sufficient phase boundary.
-- Fixed overlap, moving overlap, compact continuum, and ultra-critical
-  statements retain their distinct hypotheses and normalizations. The
-  continuum coefficient is consistently `2 lambda^2/pi^4`.
-- The uniform prior is over all nonempty intervals. In the no-change model,
-  `pi_0` is fixed and the anomaly prior is conditionally uniform.
+- The hull-dominance condition is sufficient. No converse or
+  necessary-and-sufficient phase boundary is claimed.
+- Fixed overlap, compact continuum, moving outer, and ultracritical results
+  retain their distinct hypotheses, priors, and normalizations.
+- The interval prior is uniform over all nonempty intervals. When `H_0` is
+  included, `pi_0` is fixed and the anomaly prior is conditionally uniform.
 - Every `H_0` result is identified as joint Bayes detection and exact
   localization.
-- The exact `c=1` counterexample for the raw weighted SRM is explicit. The
-  maximum-a-posteriori repair is described as classical postprocessing and is
-  not used to obscure the counterexample.
-- Finite SDPs are described only as residual-checked floating-point
-  diagnostics. For sizes above the stated cutoff, the article reports SRM
-  values without claiming to have computed `P_opt`.
+- The exact `c=1` counterexample for the raw weighted SRM remains explicit.
+  Maximum-a-posteriori relabeling is identified as classical postprocessing.
+- Finite SDPs are described as residual-checked floating-point diagnostics,
+  not formal finite-dimensional optima or rigorous enclosures. For `n>7`, the
+  article reports SRM calculations without claiming to compute `P_opt`.
 
 ## Scope and originality
 
@@ -80,44 +77,52 @@ optima, general LOCC separation, mixed states, correlated outputs, and minimax
 priors remain outside this release.
 
 The originality claims are concentrated on exact asymptotic Bayes laws, the
-Toeplitz/Foelner and exceptional-sector transfer mechanism, the
-singular-safe dual comparison, the moving-overlap hull-dominance theorem, and
-asymptotic SRM optimality. The article makes no unconditional priority claim.
+Toeplitz/Følner and exceptional-sector transfer mechanism, singular-safe dual
+control, the moving-overlap hull-dominance theorem, and asymptotic SRM
+optimality. The article makes no unconditional priority claim.
 
-Relations to permanent change points, general two-change models,
-multi-anomaly detection, quantum edge detection, and classical changed
-intervals are stated respectively as boundary cases, structured
-subensembles, or geometric analogies. The theorem-level comparison with the
-Mohan--Sikora--Upadhyay framework uses the correct parameter embedding and
-does not attribute the present asymptotic laws to earlier work.
+Permanent change points, general two-change models, multi-anomaly detection,
+quantum edge detection, and classical changed intervals are described as
+boundary cases, structured subensembles, or geometric analogues. The
+Mohan--Sikora--Upadhyay parameter embedding and the distinctions between
+minimum-error, unambiguous, local, and collective tasks were checked against
+the cited papers.
 
-## Language, references, and formalization scope
+## Language and references
 
 The article and Supplemental Material were reviewed for repeated caveats,
 vague claims, formulaic transitions, unnecessary jargon, ornamental dashes,
-and unsupported strengthening. No systematic AI-style pattern remains. The
-qualifications that remain define theorem domains, decision criteria, or the
-status of numerical evidence.
+and unsupported strengthening. No systematic AI-style pattern remains.
+Technical compounds such as `minimum-error`, `square-root`, and
+`fixed-overlap` retain necessary hyphens. The remaining negative statements
+define theorem domains, decision criteria, or the status of numerical
+evidence.
 
-An independent reference audit verified all 28 entries against primary or
-official sources. Twenty-seven DOI records resolve correctly; the remaining
-Helstrom monograph was verified through the publisher. No invented source,
-metadata conflict, missing citation key, duplicate key, or unused entry was
-found.
-
-A separate Lean development was used as internal proof-audit infrastructure
-for selected finite-dimensional Gram, PGM, norm, growing-known-length, and
-no-change components. The fixed-overlap unknown-length closure and the new
-critical-scaling phase diagram are not claimed to be formally verified. The
-submission therefore makes no statement that all proofs are Lean-certified.
+An independent audit checked all 28 references against DOI records,
+publisher pages, official book records, or arXiv. All 27 DOI records resolve,
+and the Helstrom monograph metadata are correct. No invented source, metadata
+conflict, missing citation, duplicate key, or unused entry was found. The two
+preprints should be checked again before any later manuscript revision because
+their version status may change.
 
 ## Numerical and release gate
 
-The clean Python 3.12.10 regression completed 254 tests with no failure; 54
-documented tests for retired interfaces were skipped. All release CSV files
-and Figures 1--3 were regenerated from the current code. The small-instance
-SDP tables retained zero feasible PSD violation at the evaluator's resolution
-and equality residuals below `1.5e-15`; these values remain floating-point
-diagnostics rather than interval-arithmetic enclosures.
+In the clean public release candidate, CPython 3.12.10 completed 241 tests
+twice with no failure: 186 passed and 55 documented retired-interface tests
+were skipped on each pass. The workflow regenerated all release CSV files and
+Figures 1, 2, and 3, and all four archived-versus-regenerated scientific data
+comparisons passed.
 
-Final status: **PASS**.
+For the 30-case unknown-length SDP grid, the largest raw primal-dual gap was
+`6.7818e-9` and the largest safeguarded floating-point diagnostic width was
+`1.0243e-8`. For the 24-case no-change grid, the corresponding values were
+`2.1485e-9` and `4.3924e-9`. Rechecked equality residuals were below
+`1.5e-15`, and rechecked PSD violations were reported as zero at evaluator
+resolution. These values are diagnostics, not interval-arithmetic
+certificates.
+
+The environment manifest was generated after the second test pass and then
+verified file by file. The release packager independently rejects missing,
+nonportable, or stale manifest entries.
+
+Final submission-review status: **PASS**.

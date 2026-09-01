@@ -1,3 +1,26 @@
+# v1.5.0-paper1
+
+This release freezes the polished Paper I article and Supplemental Material
+for the arXiv update and submission to *Quantum*. The scientific scope and
+formal theorem set are unchanged from `v1.4.0-paper1`.
+
+Changes since `v1.4.0-paper1` include:
+
+- a shorter main presentation that states the moving-overlap theorem before
+  its supporting machinery and directs detailed boundary-layer estimates to
+  named Supplemental results;
+- a clearer proof map distinguishing the two complementary global asymptotic
+  arguments from the downstream local SRM refinement;
+- synchronized hypotheses, priors, endpoint cases, and numerical caveats
+  across the abstract, introduction, theorem statements, captions, discussion,
+  and conclusion;
+- removal of repetitive defensive wording while retaining every scientific
+  limitation needed to interpret the results;
+- a fail-closed manifest freshness check that runs after all generators and
+  tests and is repeated by the release packager; and
+- regenerated numerical tables, figures, PDFs, submission archives, and
+  independent scientific, bibliographic, language, and PDF audits.
+
 # v1.4.0-paper1
 
 This release freezes the submission-ready Paper I article and Supplemental
