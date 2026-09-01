@@ -33,7 +33,7 @@ $M_nP_X=A(\tau_n)^2+O_T(\log\log n/\log n)$. If $c_n\to1$, $c_n<1$
 eventually, and $n p_1(c_n)\to\infty$, then $P_X\sim p_1(c_n)^2$ without a
 monotonicity assumption. For the fixed-overlap models, a fixed no-change prior
 $\pi_0$ and the same conditional anomaly priors map a conditional limit
-$\Lambda$ to the joint Bayes detection and exact-localization limit
+$\Lambda$ to the joint Bayes detection and exact localization limit
 $\pi_0+(1-\pi_0)\Lambda$. For fixed $c<1$, the prior-weighted SRM attains this
 limit for a growing known length and for unknown length. At $c=1$, as the
 number of anomaly labels diverges, the raw weighted SRM and optimum tend

@@ -97,6 +97,6 @@ consistency of the
 lower/upper aliases used by Figure 3(c). A SHA256 manifest records the exact
 manuscript, code, tests, data, and environment metadata used in the run.
 
-The stored verification report has passed: true: all 30 SDP rows and
+The stored verification report records `passed: true`; all 30 SDP rows and
 all 25 SRM-scaling rows agree with their archived counterparts within the
 declared tolerances.

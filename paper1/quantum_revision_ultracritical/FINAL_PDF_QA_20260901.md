@@ -5,15 +5,15 @@ Date: 2026-09-01
 This report records the final quality checks for the Paper I article and
 Supplemental Material. Both files were built from the authoritative sources in
 `paper1/quantum_revision_ultracritical` with Tectonic 0.17.0 in the new
-`build-v1.5.1-main-freeze-20260901b` and
-`build-v1.5.1-supp-freeze-20260901b` directories.
+`build-v1.5.2-main-freeze-20260901b` and
+`build-v1.5.2-supp-freeze-20260901b` directories.
 
 ## Frozen files
 
 | File | Pages | Bytes | SHA-256 |
 |---|---:|---:|---|
-| Main article | 19 | 389249 | `88F326D12F49CE2990FF9915B4298E843D142E98A629698609B72E7125422711` |
-| Supplemental Material | 28 | 242457 | `397F62F2116E73EA39C660061E4BAF0DA8E09DFF4585B9CD1566FF251250FEFE` |
+| Main article | 19 | 389343 | `B8BD20B9C716525E3657BC64864052DCE4CEAA6CC5AD06671F480DE2E6C703F2` |
+| Supplemental Material | 28 | 242511 | `5BF2E79CDA49A5458ADBD6432E97DA50A9CBC00D278583C6954A58E574BA5D9E` |
 | Main bibliography output |  | 7387 | `685F2AB321CD7AD51E4E2034136B4E4E0386C5E1C6F72A1E004C413AD0107E2C` |
 
 Both PDFs use A4 pages and PDF 1.5. They are unencrypted. Their title and
@@ -25,7 +25,7 @@ replacement characters.
 - Both clean builds completed with exit status zero.
 - The final logs contain no LaTeX error, fatal error, undefined citation,
   undefined reference, multiply defined label, or overfull box.
-- The article log contains 22 underfull-box notices from narrow two-column
+- The article log contains 23 underfull-box notices from narrow two-column
   mathematical and bibliographic lines. Visual inspection found no collision
   or loss of readability. The Supplemental Material log contains no
   underfull-box notice.
@@ -50,9 +50,11 @@ replacement characters.
 ## Visual inspection
 
 All 19 article pages and all 28 Supplemental Material pages were rendered at
-130 dpi from the frozen build and inspected in complete contact sheets. The
-article's title page and Figure 3 page, and the final Supplemental page, were
-also inspected at their original rendered resolution. The 28th Supplemental
+96 dpi from the frozen build and inspected in complete contact sheets. The
+article's title page and Figure 3 page, the final reference page, and the final
+Supplemental page were also inspected individually. Page-by-page rendered
+output is identical to the preceding clean build, so the PDF byte differences
+are confined to generation metadata. The 28th Supplemental
 page contains the closing finite-size diagnostic tables and discussion; it is
 sparse but neither blank nor misplaced.
 

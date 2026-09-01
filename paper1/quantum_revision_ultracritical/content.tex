@@ -232,11 +232,12 @@ unchanged. We use
 
 without loss of generality.
 
-Unless a theorem explicitly introduces a sequence \(i=i_n\), every
-asymptotic statement is taken as \(n\to\infty\) with \(c\) (and hence
-\(r=c^2\)) fixed. In Section~\ref{joint-detection-and-exact-localization},
-the no-change prior \(\pi_0\in(0,1)\) is also fixed rather than scaled with
-\(n\).
+Unless a theorem explicitly introduces a size-dependent model parameter,
+such as \(i_n\) or \(c_n\), every asymptotic statement is taken as
+\(n\to\infty\) with \(c\) (and hence \(r=c^2\)) fixed and with any stated
+interval length \(i\) fixed. In
+Section~\ref{joint-detection-and-exact-localization}, the no-change prior
+\(\pi_0\in(0,1)\) is also fixed rather than scaled with \(n\).
 
 For an ensemble of \(M\) normalized pure states \(\{|\phi_j\rangle\}_{j=1}^M\) with equal priors, let
 
@@ -1870,7 +1871,7 @@ overlap in Theorem~\ref{thm:h0-weighted-srm-decoupling} is
 \mu=\frac1N\sum_{a=1}^Nc^{2i}=c^{2i}.
 \]
 
-This gives \eqref{eq:h0-growing-weighted-srm-bound}; its right hand side tends
+This gives \eqref{eq:h0-growing-weighted-srm-bound}; its right-hand side tends
 to zero for fixed \(c<1\) and \(i_n\to\infty\). Theorem~\ref{thm:long-known}
 gives \(P_{\rm SRM}(G_{N_n,i_n})\to p_1(c^2)\). Combining this with
 Theorem~\ref{thm:h0-known-length} proves both limits in
@@ -1963,7 +1964,7 @@ Theorem~\ref{thm:unknown-length} gives
 \eqref{eq:unknown-length-limit} gives the full-family limit
 \(P_{G,n}^{\rm all}\to p_1(c)^2\). Since
 \(\varepsilon_n,\eta_n\to0\), the lower and upper bounds both converge to the
-right hand side of \eqref{eq:h0-unknown-limit}. If \(c=0\), all hypotheses are
+right-hand side of \eqref{eq:h0-unknown-limit}. If \(c=0\), all hypotheses are
 mutually orthogonal and the success probability is one. If \(c=1\), all
 hypotheses are identical and the optimum is
 \(\max\{\pi_0,(1-\pi_0)/M_n\}\to\pi_0\).

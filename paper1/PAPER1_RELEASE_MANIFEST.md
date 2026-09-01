@@ -1,6 +1,6 @@
 # Paper I release manifest
 
-Release identifier: `v1.5.1-paper1`
+Release identifier: `v1.5.2-paper1`
 
 Freeze date: 2026-09-01
 
@@ -18,19 +18,20 @@ separations, mixed states, correlated outputs, and minimax priors are outside
 Paper I.
 
 The scientific scope and headline conclusions are frozen. Relative to
-`v1.5.0-paper1`, this release makes the adaptive moving-overlap squeeze
-explicit, clarifies the role of the independent local SRM refinement, and
-shortens the article's presentation. It adds no physical model, numerical
-claim, citation, or stronger headline conclusion.
+`v1.5.1-paper1`, this copy-only release corrects the general convention for
+explicitly varying parameters, restores the fixed-overlap qualifier in the
+optional cover letter, repairs two grammatical defects, and harmonizes the
+public terminology and proof-route description. It adds no physical model,
+theorem claim, numerical claim, citation, figure, or stronger conclusion.
 
 ## Authoritative sources
 
 | Relative path | SHA-256 |
 |---|---|
 | `paper1/quantum_revision_ultracritical/main.tex` | `7A22563438E856B138290D6E4AC3DEAAB94D27921721C5ACAD05B92AF6711904` |
-| `paper1/quantum_revision_ultracritical/content.tex` | `D35CDE9304DCCFC064D4CC71945878C26BA7AB2FBA7263039926B5D3AE7FEFAD` |
+| `paper1/quantum_revision_ultracritical/content.tex` | `9E7E28A833055CF826B4BD99FA823BE0B78712BE8E8D6232ABBED262938B998B` |
 | `paper1/quantum_revision_ultracritical/supplement.tex` | `BA17925EE931A5A5056372B72DD4694C9296468A8B4D5BE2F5117EF0EB0BA77E` |
-| `paper1/quantum_revision_ultracritical/supplement_content.tex` | `7907D396F45F8788DACF228A92FB7FCBA3366618B45C422D52FC9DEDCFC01AF8` |
+| `paper1/quantum_revision_ultracritical/supplement_content.tex` | `1AD5F3C0AB2705BE1B77D5DB15127F686E1190C7E687A3269B6A93AF5D4A7528` |
 | `paper1/quantum_revision_ultracritical/references.bib` | `FAA179CC5CE32CE80EFABDF7E97C3103EE3E434A8C04989ADD72E84FA1B34930` |
 
 The article build uses the bibliography output generated in the same clean
@@ -38,14 +39,14 @@ build:
 
 | Relative build path | Bytes | SHA-256 |
 |---|---:|---|
-| `paper1/quantum_revision_ultracritical/build-v1.5.1-main-freeze-20260901b/main.bbl` | 7387 | `685F2AB321CD7AD51E4E2034136B4E4E0386C5E1C6F72A1E004C413AD0107E2C` |
+| `paper1/quantum_revision_ultracritical/build-v1.5.2-main-freeze-20260901b/main.bbl` | 7387 | `685F2AB321CD7AD51E4E2034136B4E4E0386C5E1C6F72A1E004C413AD0107E2C` |
 
 ## Frozen PDFs
 
 | Artifact | Pages | Bytes | SHA-256 |
 |---|---:|---:|---|
-| Main article | 19 | 389249 | `88F326D12F49CE2990FF9915B4298E843D142E98A629698609B72E7125422711` |
-| Supplemental Material | 28 | 242457 | `397F62F2116E73EA39C660061E4BAF0DA8E09DFF4585B9CD1566FF251250FEFE` |
+| Main article | 19 | 389343 | `B8BD20B9C716525E3657BC64864052DCE4CEAA6CC5AD06671F480DE2E6C703F2` |
+| Supplemental Material | 28 | 242511 | `5BF2E79CDA49A5458ADBD6432E97DA50A9CBC00D278583C6954A58E574BA5D9E` |
 
 Both PDFs were built with Tectonic 0.17.0. Their final logs contain no LaTeX
 error, undefined citation, undefined reference, multiply defined label,
@@ -141,6 +142,6 @@ Artifact hashes are stored in the generated inventory and checksum file rather
 than copied into this tracked document, which avoids a circular hash
 dependency.
 
-The annotated Git tag `v1.5.1-paper1` identifies the frozen source commit. The
+The annotated Git tag `v1.5.2-paper1` identifies the frozen source commit. The
 tag-to-commit mapping and released binary assets are recorded by GitHub rather
 than embedded here, avoiding a self-referential commit identifier.

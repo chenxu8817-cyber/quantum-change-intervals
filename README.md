@@ -69,6 +69,6 @@ subdirectory, choose pdfLaTeX, and select the appropriate root file.
 
 ## Release status
 
-The release target for this update is `v1.5.1-paper1`. The tag and GitHub
+The release target for this update is `v1.5.2-paper1`. The tag and GitHub
 release are declared current only after the remote assets have been downloaded
 and checked against the published SHA-256 list.

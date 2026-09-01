@@ -3,7 +3,7 @@
 ## Prepared release identity
 
 - Suggested repository name: `quantum-change-intervals`
-- Release-candidate tag: `v1.5.1-paper1`
+- Release-candidate tag: `v1.5.2-paper1`
 - Suggested archive title: *Quantum Change Intervals: Exact Asymptotic
   Localization with Collective Measurements - code and data*
 - Archive contents: the files hashed by the `paper1` profile in
@@ -20,7 +20,7 @@ disclosure. The repository retains its existing MIT License, with the
 copyright notice synchronized to Xu Chen and Xue Ma.
 
 Xue Ma's ORCID and a Zenodo or institutional-archive DOI may be added later;
-neither item blocks the GitHub tag `v1.5.1-paper1`. Do not add an archival DOI
+neither item blocks the GitHub tag `v1.5.2-paper1`. Do not add an archival DOI
 to the manuscript until it resolves to the immutable tagged release.
 
 ## Publication sequence
@@ -38,7 +38,7 @@ to the manuscript until it resolves to the immutable tagged release.
    clean article build and a new or empty output directory. Extract the public
    source archive, rerun its tests, and compile the arXiv archive in isolation.
 5. Commit the frozen snapshot, create and push the immutable
-   `v1.5.1-paper1` tag, create the GitHub Release, and compare every downloaded
+   `v1.5.2-paper1` tag, create the GitHub Release, and compare every downloaded
    asset with the generated `SHA256SUMS` file.
 6. A Zenodo or institutional archive may later preserve the tagged release.
    If a DOI is added to the manuscript, do so in a new source version rather

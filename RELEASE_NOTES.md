@@ -1,3 +1,13 @@
+# v1.5.2-paper1
+
+This copy-only maintenance release preserves every Paper I theorem, formula,
+prior, numerical table, figure, citation, and scientific conclusion from
+`v1.5.1-paper1`. It corrects the general convention for explicitly varying
+parameters, restores the fixed-overlap qualifier in the optional cover letter,
+repairs two grammatical defects, and harmonizes the public terminology and
+proof-route description. All PDFs, archives, manifests, and release hashes are
+rebuilt from the corrected source snapshot.
+
 # v1.5.1-paper1
 
 This maintenance release preserves the Paper I model, assumptions, data, and
@@ -73,8 +83,9 @@ monotonicity.
 The release also includes:
 
 - the final 20-page article and separate 23-page Supplemental Material;
-- the exact weighted-hull identity, reusable block-tail certificate, and the
-  global and local proof routes used for the unified theorem;
+- the exact weighted-hull identity, reusable block-tail certificate, the
+  global proof of the unified theorem, and the downstream local SRM
+  refinement;
 - the singular-safe dual certificate and the no-change weighted-PGM results,
   including the exact (c=1) counterexample and MAP repair;
 - all numerical tables and Figures 1--3 regenerated under CPython 3.12.10;

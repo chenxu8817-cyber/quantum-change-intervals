@@ -18,11 +18,12 @@ obstruction through a triangular Følner reduction and an exceptional-sector
 transfer theorem.
 
 The revised version also gives a unified near-unit-overlap result. It separates
-the ultra-critical scale, where vacuum and one-excitation terms remain visible,
+the ultracritical scale, where vacuum and one-excitation terms remain visible,
 from the hull-dominant regime characterized by the sufficient condition
-$n p_1(c_n)\to\infty$. A fixed-prior no-change extension establishes joint
-Bayes detection and exact-localization limits and identifies when the weighted
-square-root measurement attains them. The manuscript distinguishes these
+$n p_1(c_n)\to\infty$. For the fixed-overlap models, the extension with a
+fixed no-change prior establishes joint Bayes detection and exact localization
+limits and identifies when the weighted square-root measurement attains them.
+The manuscript distinguishes these
 minimum-error results from permanent change points, general multiple-change
 formulations, multi-anomaly detection, quantum edge detection, and classical
 changed-interval statistics.
