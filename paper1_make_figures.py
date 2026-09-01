@@ -685,7 +685,7 @@ def make_figure_3(
     ax.set(
         xlabel=r"sequence length $n$",
         ylabel=r"state overlap $c$",
-        title="SDP endpoint above SRM",
+        title=r"$U_{\mathrm{safe}}-P_{\mathrm{SRM}}$",
         xticks=np.arange(len(n_values)),
         yticks=np.arange(len(c_values)),
     )

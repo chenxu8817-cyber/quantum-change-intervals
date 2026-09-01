@@ -39,6 +39,10 @@ We write \(i=b-a+1\) for the interval length,
 When the length is
 unknown, both endpoints must be inferred. Figure~\ref{fig:model-geometry}
 shows the returning geometry and the collective localization task.
+The permanent-change model is the boundary slice \(b=n\), while fixed-length
+intervals form a consecutive-anomaly subensemble with tied endpoints. Quantum
+edge detection has related boundary geometry, but here both states are
+calibrated and the return boundary is explicit.
 
 \begin{figure*}[t]
   \centering
@@ -73,6 +77,14 @@ global two-dimensional Toeplitz compression or a transitive association
 scheme, and its analysis requires more than a direct multilevel Szeg{\H o}
 limit.
 
+Mohan, Sikora, and Upadhyay formulate general two-change discrimination using
+a finite Gram matrix and a Bayes SDP; their framework contains the
+specialization in Table~\ref{tab:literature} \cite{mohan2023}. Building on that
+formulation, we derive asymptotic laws both at fixed overlap and as the overlap
+moves, including the compact continuum interface, prove SRM asymptotic
+optimality for the full physical ensemble, and establish the sufficient
+hull-dominance condition \(n p_1(c_n)\to\infty\).
+
 \paragraph{Main results.}
 Let \(p_1(x)\) be the one-dimensional Poisson kernel Toeplitz functional
 defined in Eq.~\eqref{eq:p1-definition}. Toeplitz spectral methods
@@ -102,7 +114,7 @@ When used as an index, \(X\) ranges over
   Theorem~\ref{thm:unknown-length-hull-dominance} proves
   \(P_X(G_n(c_n))\sim p_1(c_n)^2\) whenever \(c_n\to1\), \(c_n<1\)
   eventually, and \(n p_1(c_n)\to\infty\).
-  Together these results cover the inner, continuum, and moving-outer regimes
+  Together these results cover the inner, continuum, and moving outer regimes
   stated below.
 \item
   For the fixed-overlap models treated here, assigning \(H_0\) a fixed prior
@@ -110,24 +122,18 @@ When used as an index, \(X\) ranges over
   anomaly, converts each conditional localization law \(\Lambda\) into the
   joint Bayes limit \(\pi_0+(1-\pi_0)\Lambda\). For fixed \(c<1\), the
   prior-weighted SRM attains the limits for a growing known length and for
-  unknown interval length. At \(c=1\), its
-  limiting success is \(\pi_0^2\); maximum-a-posteriori postprocessing
-  restores the optimal limit \(\pi_0\).
+  unknown interval length. In the corresponding diverging-label limits, at
+  \(c=1\) its success tends to \(\pi_0^2\); maximum-a-posteriori
+  postprocessing restores the optimal limit \(\pi_0\).
 \end{enumerate}
 
-A singular-safe dual certificate and an exact weighted-hull decomposition are
-the main technical tools. The certificate treats singular Gram ensembles
-directly and removes the need for a uniform spectral bound in the
-exceptional-sector transfer theorem. For moving overlaps, block and tail
-estimates and adaptive endpoint macroblocks control the non-Toeplitz physical
-weights.
-
-The appearance of \(c^2\) in the law for a growing known length and \(c\) in
-the comparison kernel for unknown interval length reflects their different
-hypothesis geometries. A growing interval of known length has one translation
-coordinate, and a unit shift changes two local factors. When the interval
-length is unknown, the two endpoints form separate coordinates, each
-contributing a kernel with parameter
+\paragraph{Proof overview.}
+A singular-safe dual certificate and local F{\o}lner transfer connect the
+fixed-overlap physical Gram matrices to Toeplitz comparison kernels. An exact
+weighted-hull decomposition, block and tail estimates, and adaptive endpoint
+macroblocks handle moving overlaps. The parameter \(c^2\) arises for a growing
+known length because a unit translation changes two local factors, whereas an
+unknown length has two endpoint coordinates, each with kernel parameter
 \(c\). Finite-size semidefinite programs and direct SRM computations illustrate
 the approach to these limits.
 
@@ -175,9 +181,10 @@ Mohan--Sikora--Upadhyay \cite{mohan2023}
 \(\lvert0\rangle,\lvert\psi\rangle,\lvert0\rangle\). Removing the common
 factor preserves the Gram matrix; after phase fixing, the pairwise overlaps
 are \((\gamma_1,\gamma_2,\gamma_{12})=(c,1,c)\)
-& A Bayes SDP formulated from the Gram matrix and a piecewise kernel. The
-present specialization derives returning-interval asymptotics and transfers
-SRM optimality to the full physical ensemble. \\
+& A finite-size Bayes SDP based on the Gram matrix and a piecewise kernel. The
+present analysis derives fixed-overlap and moving-overlap asymptotic laws,
+including a sufficient hull-dominance condition, and proves SRM asymptotic
+optimality for the full physical ensemble. \\
 Quantum multi-anomaly detection \cite{llorens2024}
 & Consecutive \(k=i\) subensemble; strict for \(1<i<n\)
 & Johnson symmetry gives finite \(n\) SRM optimality for the full
@@ -186,8 +193,8 @@ and is also the asymptotic minimum-error limit for fixed \(k\). Contiguity
 removes Johnson transitivity. \\
 Quantum edge detection \cite{llorens2025}
 & Analogue with one boundary and unknown domain states
-& An SRM protocol is asymptotically optimal. The returning model has two tied
-endpoints, calibrated states, and equal exterior regions. \\
+& An SRM protocol is asymptotically optimal. The returning model has two
+jointly inferred endpoints, calibrated states, and equal exterior regions. \\
 Classical structured-change statistics
 \cite{levin1985,yao1993,walther2010,chen2015}
 & Epidemic and changed-interval models are geometric analogues; spatial scans
@@ -249,7 +256,10 @@ for the square-root measurement success probability
 \cite{hausladen1994,eldar2001,dallapozza2015}. If \(G\) is singular,
 \(G^{-1/2}\) is understood on the support of \(G\), and the POVM is completed
 arbitrarily on its orthogonal complement; this does not change any ensemble
-success probability. The elementary trace bound
+success probability. The SRM is an explicit collective POVM determined by the
+candidate states and their average density operator. Evaluating it at a given
+size therefore does not require solving the Bayes semidefinite program. The
+elementary trace bound
 
 \begin{equation}\label{eq:trace-srm-bound}
 \left(\frac{\operatorname{tr}\sqrt G}{M}\right)^2
@@ -1230,7 +1240,7 @@ overlap, write
  \qquad G_n:=G_n(c_n),
 \end{equation}
 
-We use the amplitude-overlap boundary scale
+We use the following boundary scale for the amplitude overlap:
 
 \begin{equation}\label{eq:critical-parameter}
  L_n=\log n,
@@ -1259,9 +1269,9 @@ For \(0\le t\le T\), set
  (G_{n,t})_{I,J}=c_n(t)^{|I\triangle J|}.
 \end{equation}
 
-For large enough \(n\), \(c_n(t)>0\) uniformly on every fixed interval
-\([0,T]\). At \(t=0\), \(G_{n,0}=J_{M_n}\) and all conclusions below are
-exact.
+For all sufficiently large \(n\), \(c_n(t)>0\) uniformly on every fixed
+interval \([0,T]\). At \(t=0\), \(G_{n,0}=J_{M_n}\), and the three success
+criteria are each exactly \(1/M_n\).
 
 In this subsection, a maximum indexed by \(X\) ranges over
 \(\{\mathrm{tr},\mathrm{SRM},\mathrm{opt}\}\).
@@ -1515,8 +1525,9 @@ Squaring gives the explicit \(O_T(\log\log n/\log n)\) rate in
 \(|F(u)-F(v)|\le C_T(\sqrt{|u-v|}+|u-v|)\), proves the remaining assertions.
 \end{proof}
 
-A labelwise diagonal refinement, uniform on compact parameter intervals, is
-proved in the Supplemental Material.
+The Supplemental Material also proves a labelwise diagonal refinement that is
+uniform on compact parameter intervals. This independent strengthening is not
+used in the global trace-to-optimum squeeze above.
 
 \begin{corollary}[Inner matching to the fixed-overlap law]
 \label{cor:critical-inner-matching}
@@ -1592,8 +1603,8 @@ every subsequence has a further subsequence on which
 \eqref{eq:hull-dominance-law} holds, proving the full limit.
 \end{proof}
 
-For every compact \(K\Subset(0,\infty)\), the continuum specialization of
-Theorem~\ref{thm:unknown-length-hull-dominance} has the stronger uniform form
+The Supplemental theorem ``Compact continuum interface'' gives the stronger
+uniform statement that, for every compact \(K\Subset(0,\infty)\),
 
 \begin{equation}\label{eq:continuum-interface-law}
  \sup_{\lambda\in K}\max_X
@@ -1603,7 +1614,7 @@ Theorem~\ref{thm:unknown-length-hull-dominance} has the stronger uniform form
  \right|\longrightarrow0.
 \end{equation}
 
-The hull-dominance criterion also includes the moving-outer regime
+The hull-dominance criterion also includes the moving outer regime
 \(n(1-c_n)\to\infty\). Conditions
 \eqref{eq:hull-dominance-assumptions} are sufficient; whether they are
 necessary remains open.
@@ -2118,44 +2129,42 @@ c\in\{0.3,0.6,0.8,0.9,0.95,0.99\}.
   uniform over all nonempty intervals; dotted lines are \(p_1(c)^2\). The
   \(c=0.95,0.99\) curves show the stronger finite-size effects at large
   overlap.
-  (c) Logarithmic color map of the safeguarded floating-point upper endpoint
+  (c) Logarithmic color map of the floating-point diagnostic
   \(U_{\rm safe}-P_{\rm SRM}\) for the complete 30-case
-  semidefinite-programming (SDP) grid
+  semidefinite programming (SDP) grid
   \(n=3,\ldots,7\) and
-  \(c\in\{0.3,0.6,0.8,0.9,0.95,0.99\}\). The corresponding lower endpoints
-  differ from the upper endpoints by at most \(1.025\times10^{-8}\). Panel
-  (c) reports safeguarded floating-point diagnostics, not rigorous numerical
-  enclosures.}
+  \(c\in\{0.3,0.6,0.8,0.9,0.95,0.99\}\). This panel does not report a rigorous
+  numerical enclosure.}
   \label{fig:finite-size}
 \end{figure*}
 
 Raw primal and dual solver outputs are not used directly as bounds. The
 primal matrices are projected onto the positive semidefinite cone and
 normalized to a POVM, while each dual matrix is shifted by its rechecked
-negative slack and a recorded roundoff margin. In exact arithmetic, the
-postprocessed matrices give
+negative slack and a recorded roundoff margin. If the postprocessing is
+performed in exact arithmetic and the recorded shifts dominate the true
+residual violations, the resulting matrices are feasible, and weak duality
+gives
 
 \[
  L_{\rm safe}\le P_{\rm opt}\le U_{\rm safe}.
 \]
 
-The implementation uses IEEE double precision without directed rounding,
-interval arithmetic, or exact-rational verification. We therefore report the
-endpoints and the primal, dual, and completeness residuals as safeguarded
-floating-point diagnostics. The full construction and its precision
-limitations are given in the Supplemental Material. These diagnostics do not
-imply a finite-size convergence rate.
+The implementation instead uses IEEE double precision, without directed
+rounding, interval arithmetic, or exact-rational verification. The endpoints
+and primal, dual, and completeness residuals are therefore safeguarded
+floating-point diagnostics rather than rigorous enclosures. The Supplemental
+Material gives the construction and its precision limitations. These
+diagnostics do not imply a finite-size convergence rate.
 
-As shown in Figure~\ref{fig:finite-size}(c), the upper endpoints for the SRM
-gap remain small over the complete grid. Across the 30 cases with unknown
-interval length,
+As shown in Figure~\ref{fig:finite-size}(c), the diagnostic values of
+\(U_{\rm safe}-P_{\rm SRM}\) remain small over the complete grid. Across the
+30 cases with unknown interval length,
 the largest raw absolute primal--dual gap
 is \(6.782\times10^{-9}\), while the largest postprocessed floating-point bracket
 width \(U_{\rm safe}-L_{\rm safe}\) is \(1.025\times10^{-8}\). The largest
-rechecked completeness residual is \(1.41\times10^{-15}\). At the working
-precision, no negative eigenvalue was detected in any rechecked primal matrix
-or dual slack. The smallest postprocessed primal eigenvalue and dual slack
-eigenvalue are respectively
+rechecked completeness residual is \(1.41\times10^{-15}\). The smallest
+postprocessed primal eigenvalue and dual slack eigenvalue are respectively
 \(3.4104\times10^{-13}\) and \(3.4102\times10^{-13}\). Dense SRM computations
 using the full physical Gram matrix for the single-interval
 model extend to \(n=50\), with candidate count \(M_n=1275\), over
@@ -2192,13 +2201,13 @@ consistent with slow preasymptotic convergence at large overlap.
 We obtained exact asymptotic minimum-error laws for one nonempty returning
 quantum change interval. For fixed \(c\), a fixed known length \(i\geq1\), and
 the uniform prior over \(N=n-i+1\) translations, the optimum and SRM converge
-to \(P_\infty(i,c^2)\). When both \(i_n\) and
+as \(N\to\infty\) to \(P_\infty(i,c^2)\). When both \(i_n\) and
 \(N_n=n-i_n+1\) diverge, their common fixed-\(c\) limit is \(p_1(c^2)\).
- Under the prior uniform over all nonempty intervals, the common fixed-overlap
- limit is \(p_1(c)^2\). The fixed-length estimate
- \(P_{\rm opt}-P_{\rm SRM}=O_{i,r}(N^{-1/2})\), proved for \(0<r<1\)
- with the endpoints exact, controls the measurement gap; it is not a rate for
- either probability separately.
+Under the prior uniform over all nonempty intervals, the common fixed-overlap
+limit is \(p_1(c)^2\). The fixed-length estimate
+\(P_{\rm opt}-P_{\rm SRM}=O_{i,r}(N^{-1/2})\), proved for \(0<r<1\)
+with the endpoints exact, controls the measurement gap; it is not a rate for
+either probability separately.
 
 The moving-overlap analysis resolves the nonuniform boundary at \(c=1\).
 Theorem~\ref{thm:unknown-length-ultracritical} gives the common trace, SRM, and
@@ -2207,7 +2216,7 @@ optimal law, with an explicit logarithmic error, when
 complementary hull-dominant region, Theorem~\ref{thm:unknown-length-hull-dominance}
 shows that \(P_X(G_n(c_n))\sim p_1(c_n)^2\) whenever \(c_n\to1\), \(c_n<1\)
 eventually, and \(n p_1(c_n)\to\infty\). This sufficient condition connects
-the inner, continuum, and moving-outer regimes.
+the inner, continuum, and moving outer regimes.
 
 The two limiting parameters have different geometric origins. A growing
 interval of known length has one translation coordinate, and a unit shift
@@ -2224,8 +2233,9 @@ with fixed prior \(\pi_0\in(0,1)\) maps a conditional localization limit
 \(\Lambda\) to the joint Bayes limit \(\pi_0+(1-\pi_0)\Lambda\), under the
 stated conditional anomaly prior. For fixed \(c<1\), the prior-weighted SRM
 attains this limit for a growing known length and for unknown interval length.
-At \(c=1\), it instead tends to \(\pi_0^2\), while maximum-a-posteriori
-postprocessing restores the optimal limit \(\pi_0\). These results benchmark
+In the corresponding diverging-label limits, at \(c=1\) it instead tends to
+\(\pi_0^2\), while maximum-a-posteriori postprocessing restores the optimal
+limit \(\pi_0\). These results benchmark
 unrestricted collective POVMs for the calibrated pure-state
 returning-interval ensembles specified in the theorems. Whether local or
 sequential receivers attain the same limits within this returning-interval

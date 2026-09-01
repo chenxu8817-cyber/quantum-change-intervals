@@ -77,13 +77,14 @@ subnormalized vectors in excitation sector \(k\), retaining the same external
 prior. Singleton interval labels therefore remain present even when their
 vectors vanish in the strict-hull sector.
 
-The common success law and its rate follow from the global trace theorem in
-Section~\ref{supp:trace-laws} and the sectorwise dual certificates in
-Section~\ref{supp:dual-certificates}. Section~\ref{supp:matching} extends
-these results to moving overlaps through weighted hull compression and
-adaptive endpoint blocks. Section~\ref{supp:direct-srm} derives a labelwise
-local diagonal law from the retained-orthogonality, incidence-trace, and
-odd-cosine estimates used in the global analysis.
+Sections~\ref{supp:trace-laws} and \ref{supp:dual-certificates} close the
+compact-window global squeeze through a trace lower bound and sectorwise dual
+upper bounds. Section~\ref{supp:matching} extends the squeeze to moving
+overlaps and proves the unified hull-dominance law by weighted hull
+compression and adaptive endpoint blocks. Section~\ref{supp:direct-srm} is an
+independent labelwise SRM refinement. Finally, Section~\ref{supp:numerics}
+records the finite-size
+numerical diagnostics.
 
 \begin{lemma}[Elliptic endpoint scale]
 \label{lem:supp-elliptic-endpoint}
@@ -663,8 +664,9 @@ For the matrix \(Z_n\) in \eqref{eq:supp-zeta},
  \sim\frac{n^2(\log n)^2}{2\pi^2}.
 \end{equation}
 
-More quantitatively, partition the sites into \(R\) balanced consecutive
-blocks of sizes \(\ell_p\). Retain only matched row and column cells with
+More quantitatively, for an integer \(2\le R\le n\), partition the sites into
+\(R\) balanced consecutive blocks of sizes \(\ell_p\). Retain only matched row
+and column cells with
 \(p<r\), and project each one-dimensional column factor off the constant and
 incidence-sum directions used in
 Lemma~\ref{lem:supp-retained-orthogonality}. The resulting rectangular
@@ -710,7 +712,7 @@ Using
 \(\sum_{p<r}\ell_p\ell_r=(n^2-\sum_p\ell_p^2)/2\) and balancedness proves
 \eqref{eq:supp-b2-retained-rate}.
 
-For the full upper bound, fix \(R\) and decompose both endpoint triangles
+For the full upper bound, fix an integer \(R\ge2\) and decompose both endpoint triangles
 into all macroblocks.  Blocks with two matching endpoint indices are
 compressions of \(U\otimes U\); blocks with one matching index are
 compressions of \(U\otimes J\); and blocks with no matching index have rank
@@ -722,11 +724,24 @@ one.  For a balanced side length \(\ell\),
  \|J_\ell\otimes J_\ell\|_{S_1}=O(\ell^2).
 \]
 Thus, after summing the finitely many macroblocks for fixed \(R\), the blocks
-with one or zero matching endpoint indices are
-\(o(n^2\log^2n)\) for fixed \(R\).  The diagonal cells are rescaled copies of
-\(Z_{n/R}\).  Before taking a limsup, note that, up to the fixed reversal of
-the right-endpoint coordinate,
+with one or zero matching endpoint indices contribute
+\(o(n^2\log^2n)\).  The off-diagonal cells with two matching endpoint indices
+have total normalized contribution
+
 \[
+ \frac1{\pi^2n^2\log^2n}
+ \sum_{p<r}\ell_p\ell_r\log\ell_p\log\ell_r
+ \longrightarrow\frac{1-R^{-1}}{2\pi^2}.
+\]
+
+The \(R\) diagonal cells are rescaled triangular problems.  Their total
+limsup contribution is at most \(C^*/R\), because
+\(R(n/R)^2\log^2(n/R)/[n^2\log^2n]\to R^{-1}\).  To justify the use of the
+finite constant \(C^*\), note first that, up to the fixed reversal of the
+right-endpoint coordinate,
+\[
+ \Lambda_m=\{(x,y)\in\{1,\ldots,m\}^2:x+y\le m+1\},
+ \qquad
  Z_n=P_{\Lambda_{n-1}}
  (U_{n-1}\otimes U_{n-1})P_{\Lambda_{n-1}}.
 \]
@@ -1016,15 +1031,38 @@ the rectangular polar identity gives
 \end{equation}
 
 Uniformly in \(k\),
-\(\csc(\theta_k/2)=2(2m+1)/[\pi(2k-1)]+O(1)\).  The identity
+\(\csc(\theta_k/2)=2(2m+1)/[\pi(2k-1)]+O(1)\).  Put
+\(x_j=(2j-1)\pi/(2m+1)\).  Abel summation and
+
+\[
+ \left|\sum_{k=1}^K\cos((2k-1)x)\right|
+ \le \min\{K,|\sin x|^{-1}\}
+\]
+
+show that the truncated odd-harmonic sum differs from its infinite series by
+at most
+\[
+ \frac{C}{m\sin x_j}=O(1),
+\]
+uniformly in \(j\).  Hence the identity
 
 \[
  \sum_{k\ge1}\frac{\cos[(2k-1)x]}{2k-1}
  =\frac12\log\cot(x/2),\qquad0<x<\pi,
 \]
 
-together with summation by parts gives \eqref{eq:supp-leverage-profile},
-including \(j=1,m\).  Summing the singular values gives
+implies
+
+\[
+ \sum_{k=1}^m\frac{\cos[(2k-1)x_j]}{2k-1}
+ =\frac12\log\cot(x_j/2)+O(1).
+\]
+
+Together with
+\(\sum_{k=1}^m(2k-1)^{-1}=\tfrac12\log m+O(1)\) and
+\(\log\cot(x_j/2)\le\log_+(Cm/j)\), this proves
+\eqref{eq:supp-leverage-profile}, including \(j=1,m\).  Summing the singular
+values gives
 \eqref{eq:supp-cm-trace}.
 
 For the physical-coordinate diagonal, the exact expansion is
@@ -1042,10 +1080,21 @@ orthogonality gives
  =\frac{2m+1}{4}I-\frac12J.
 \end{equation}
 
-Since \(\sum_k\csc^2(\theta_k/2)=O(m^2)\), equations
-\eqref{eq:supp-cm-diagonal-expansion}--\eqref{eq:supp-odd-cosine-gram}
-show that the empirical variance of the diagonal is bounded.  Cauchy--
-Schwarz proves \eqref{eq:supp-cm-flatness}.
+Let \(a_k=\csc(\theta_k/2)\), and let \(d_x=(C_m)_{xx}\).  Centering can only
+decrease the Euclidean norm, so
+
+\[
+ \frac1m\sum_{x=1}^m\left|d_x-\frac1m\sum_{y=1}^md_y\right|^2
+ \le
+ \frac{a^{\mathsf T}\mathsf D^{\mathsf T}\mathsf D a}
+ {m(2m+1)^2}
+ \le\frac{\|a\|_2^2}{4m(2m+1)}=O(1),
+\]
+
+where the last step uses
+\(\sum_k\csc^2(\theta_k/2)=O(m^2)\).  Since the centered mean is
+\(\operatorname{tr}C_m/m\), Cauchy--Schwarz now gives
+\eqref{eq:supp-cm-flatness}.
 \end{proof}
 
 \begin{proposition}[Quantitative Volterra certificate]
@@ -1343,7 +1392,11 @@ The endpoint constructions are defined directly and avoid inverse powers of
 
 \begin{corollary}[Weighted endpoint-cell certificate]
 \label{cor:supp-weighted-cell-certificate}
-Partition the sites into consecutive endpoint blocks \(E_1,\ldots,E_B\).
+Fix \(n\) and a common overlap \(c\in[0,1]\), and partition the sites into
+consecutive endpoint blocks \(E_1,\ldots,E_B\). For each block \(E_p\), let
+\(\Lambda_p\) be the applicable local trace budget from
+Proposition~\ref{prop:supp-weighted-volterra-certificate}, using its direct
+endpoint or finite-frame budget in the exceptional branches.
 For each block, extend the local operators of
 Proposition~\ref{prop:supp-weighted-volterra-certificate} by zero and apply
 Lemma~\ref{lem:supp-weighted-block-tail}.  This gives right and left suffix
@@ -1399,7 +1452,7 @@ stated normalization.
 
 \subsection{Triangular compression and the sector bound}
 
-Let \(m=n-1\) and
+Recall that \(m=n-1\) and
 
 \[
  \Lambda_m=\{(x,y)\in\{1,\ldots,m\}^2:x+y\le m+1\}.
@@ -1629,7 +1682,7 @@ inner coefficient precisely when
 \eqref{eq:supp-inner-assumptions}. Equation~\eqref{eq:supp-outer-formula}
 compares the two asymptotic formulas directly through the endpoint expansion.
 
-\subsection{Continuum and moving-outer regimes}
+\subsection{Continuum and moving outer regimes}
 
 When \(\lambda_n=n(1-c_n)\) stays away from zero, the physical length and hull
 weights are no longer close to the identity. We therefore retain them within
@@ -1948,6 +2001,90 @@ The floor changes this by \(o(1)\), and \(\ell_n\to\infty\), proving
 the sequence oscillates.
 \end{proof}
 
+\begin{lemma}[Adaptive strict-hull squeeze]
+\label{lem:supp-adaptive-hull-squeeze}
+Suppose \(c_n\to1\), \(c_n<1\) eventually, and
+\(\lambda_n=n(1-c_n)\to\infty\).  The identity
+\(h_n=\lambda_n(1+c_n)\ell_n^2/\pi^2\) gives \(h_n\to\infty\).  Use the
+balanced partition with \(B_n\) blocks and minimum block size \(m_n\) from
+Lemma~\ref{lem:supp-adaptive-block-parameters}, and define
+
+\[
+ \varepsilon_n^{(\ge2)}=
+ \frac{\lambda_n}{B_n}
+ +\frac{\log\log m_n}{\log m_n}
+ +\left|\frac{\log m_n}{\ell_n}-1\right|
+ +\sqrt{\frac{B_n}{h_n}}
+ +\frac1{B_n}.
+\]
+
+There is an absolute constant \(C>0\) such that, for all sufficiently large
+\(n\), the exact strict-hull state matrix and the certificate constructed in
+Corollary~\ref{cor:supp-weighted-cell-certificate} satisfy
+
+\begin{align}
+ \|A_{\ge2,n}(c_n)\|_{S_1}
+ &\ge M_np_1(c_n)\bigl(1-E_n^{(\ge2)}\bigr),
+ \label{eq:supp-adaptive-hull-lower}\\
+ \operatorname{tr}\mathcal K_{\ge2,n}
+ &\le M_np_1(c_n)^2\bigl(1+E_n^{(\ge2)}\bigr),
+ \label{eq:supp-adaptive-hull-upper}
+\end{align}
+
+where \(E_n^{(\ge2)}=C\varepsilon_n^{(\ge2)}\to0\).
+\end{lemma}
+
+\begin{proof}
+For each pair of distinct blocks, the exact weighted-hull identity
+\eqref{eq:supp-weighted-hull-identity} and
+Lemma~\ref{lem:supp-weighted-rectangular-pinching} retain the tensor product
+of the two local weighted Volterra factors.  The similarity comparison costs
+\(O(m_n(1-c_n))=O(\lambda_n/B_n)\); the finite Volterra trace law costs
+\(O(1/\log m_n)\); and replacing \(\log m_n\) by \(\ell_n\) costs
+\(O(|\log m_n/\ell_n-1|)\).  Finally,
+
+\[
+ \sum_{p<q}m_{p,n}m_{q,n}
+ =\frac12\left(n^2-\sum_pm_{p,n}^2\right)
+ =M_n\bigl[1-O(B_n^{-1})\bigr].
+\]
+
+These estimates prove \eqref{eq:supp-adaptive-hull-lower}, after enlarging a
+single absolute constant \(C\); the term \(1/\log m_n\) is absorbed by
+\(\log\log m_n/\log m_n\) for large \(n\).
+
+For the upper bound, Proposition
+\ref{prop:supp-weighted-volterra-certificate} gives, uniformly for the two
+possible block sizes,
+
+\[
+ \frac{\Lambda_{p,n}}{m_{p,n}p_1(c_n)}
+ =1+O\!\left(
+ \frac{\lambda_n}{B_n}
+ +\frac{\log\log m_n}{\log m_n}
+ +\left|\frac{\log m_n}{\ell_n}-1\right|
+ \right).
+\]
+
+Lemma~\ref{lem:supp-weighted-block-tail} changes the local budget to
+\(T_{p,n}=(\sqrt{\Lambda_{p,n}}+1)^2\).  Since
+\(\min_p\Lambda_{p,n}\asymp h_n/B_n\to\infty\), its relative cost is
+\(O(\sqrt{B_n/h_n})\).  Summing the endpoint-cell certificates of
+Corollary~\ref{cor:supp-weighted-cell-certificate} over \(p\le q\) adds only
+\(O(B_n^{-1})\), because
+
+\[
+ \sum_{p\le q}m_{p,n}m_{q,n}
+ =\frac12\left(n^2+\sum_pm_{p,n}^2\right)
+ =M_n\bigl[1+O(B_n^{-1})\bigr].
+\]
+
+This proves \eqref{eq:supp-adaptive-hull-upper}.  Every term in
+\(\varepsilon_n^{(\ge2)}\) tends to zero by
+Lemma~\ref{lem:supp-adaptive-block-parameters} and its logarithmic estimate,
+so \(E_n^{(\ge2)}\to0\).
+\end{proof}
+
 \begin{theorem}[Moving outer regime]
 \label{thm:supp-moving-outer}
 If \(c_n\to1\), \(c_n<1\) eventually, and
@@ -1960,34 +2097,13 @@ If \(c_n\to1\), \(c_n<1\) eventually, and
 \end{theorem}
 
 \begin{proof}
-The exact identity in the preceding lemma gives \(h_n\to\infty\), so use its
-adaptive balanced blocks.  For either possible block size
-\(m_{p,n}\in\{m_n,m_n+1\}\),
-
-\[
- m_{p,n}(1-c_n)\to0,\quad
- \frac{\log m_{p,n}}{\ell_n}\to1,\quad
- m_{p,n}p_1(c_n)\to\infty.
-\]
-
-The same weighted similarity, matched pinching, and strict-cell count as in
-Theorem~\ref{thm:supp-continuum-interface} give
-
-\[
- \|A_{\ge2,n}(c_n)\|_{S_1}
- \ge M_np_1(c_n)[1-o(1)]
-\]
-
-and hence \(P_{\rm tr}(G_n)\ge p_1(c_n)^2[1-o(1)]\).
-Proposition~\ref{prop:supp-weighted-volterra-certificate} and
-Lemma~\ref{lem:supp-weighted-block-tail} give one-sided certificate traces
-\(T_{p,n}=m_{p,n}p_1(c_n)[1+o(1)]\), uniformly in \(p\).  The cell
-corollary, including every diagonal and terminal cell, then gives
-
-\[
- \operatorname{tr}\mathcal K_{\ge2,n}
- \le M_np_1(c_n)^2[1+o(1)].
-\]
+The identity
+\(h_n=\lambda_n(1+c_n)\ell_n^2/\pi^2\) gives \(h_n\to\infty\).
+Lemma~\ref{lem:supp-adaptive-hull-squeeze} therefore
+supplies both strict-hull bounds.  In particular,
+\(P_{\rm tr}(G_n)\ge p_1(c_n)^2[1-o(1)]\), while the Bayes-normalized hull
+certificate gives
+\(P_{\rm opt}^{(\ge2)}\le p_1(c_n)^2[1+o(1)]\).
 
 The vacuum relative amplitude is \(O(h_n^{-1})\).  For one excitation,
 \eqref{eq:supp-cyclic-certificate} gives
@@ -2005,28 +2121,18 @@ Then \(\ell_n=\log q_n^{\rm sc}+O(1)\), while
 \(\log n=\log\lambda_n+\log q_n^{\rm sc}\).  Both
 \(\log\lambda_n/\sqrt{\lambda_n}\) and
 \((\sqrt{\lambda_n}\log q_n^{\rm sc})^{-1}\) tend to zero.
-Sector Minkowski and
-\(P_{\rm tr}\le P_{\rm SRM}\le P_{\rm opt}\) complete the squeeze.
-
-The proof is quantitative. One sufficient relative error bound for the
-amplitude is controlled by
+Define the remaining sector errors by
 
 \[
- \frac{\lambda_n}{B_n}
- +\frac{\log\log m_n}{\log m_n}
- +\left|\frac{\log m_n}{\ell_n}-1\right|
- +\sqrt{\frac{B_n}{h_n}}
- +\frac1{B_n}
- +\frac{\log n}{\sqrt{\lambda_n}\ell_n^2}
- +\frac1{h_n}.
+ E_n^{(1)}=\frac{\log n}{\sqrt{\lambda_n}\ell_n^2},
+ \qquad E_n^{(0)}=\frac1{h_n},
+ \qquad \mathcal E_n=E_n^{(\ge2)}+E_n^{(1)}+E_n^{(0)}.
 \]
 
-The first three terms measure the local similarity, Volterra repair, and
-logarithmic matching errors. The next two account for the common rank-one tail
-and the diagonal cells, while the final two control the one-excitation and
-vacuum sectors.
-Lemma~\ref{lem:supp-adaptive-block-parameters} and the two logarithmic
-estimates preceding the error bound make every term vanish.
+The preceding estimates show that \(\mathcal E_n\to0\).  Sector Minkowski and
+\(P_{\rm tr}\le P_{\rm SRM}\le P_{\rm opt}\) now complete the squeeze.  Thus
+\(\mathcal E_n\) is also a sufficient control, up to an absolute multiplicative
+constant, for the relative amplitude error.
 \end{proof}
 
 \subsection{Unified hull-dominance criterion}
@@ -2086,11 +2192,19 @@ uniform bound in Theorem~\ref{thm:supp-continuum-interface} at the moving
 point \(\lambda_n\).  If \(\lambda_n\to\infty\), apply
 Theorem~\ref{thm:supp-moving-outer}.
 
-To apply the inner and outer theorems along a sparse subsequence, define
-\(\lambda_n=1/\log n\) at omitted dimensions in the inner case and
-\(\lambda_n=\sqrt n\) in the outer case. This extension preserves the selected
-Gram matrices and satisfies the corresponding regime assumptions. The
-continuum case requires no extension because
+To apply the inner and outer theorems along a sparse subsequence, leave the
+selected values unchanged.  At all sufficiently large omitted dimensions, set
+\(\lambda_n=1/\log n\) in the inner case or \(\lambda_n=\sqrt n\) in the outer
+case, and define
+
+\[
+ c_n=1-\frac{\lambda_n}{n}.
+\]
+
+Assign arbitrary legal values on the finite remaining prefix. In both
+constructions \(0\le c_n<1\) eventually. The extension preserves the selected
+Gram matrices and satisfies the corresponding regime assumptions.
+The continuum case requires no extension because
 Theorem~\ref{thm:supp-continuum-interface} is uniform on compact parameter
 intervals.
 
@@ -2140,11 +2254,12 @@ Every row uses the physical Gram matrix
 prior. On the canonical fixed-\(\tau\) scale, \(h_n\) remains bounded; the
 hull-dominance theorem instead assumes \(h_n\to\infty\).
 
-\section{Local SRM refinement}
+\section{Independent labelwise SRM refinement}
 \label{supp:direct-srm}
 
-The local result below strengthens the common success probability law by
-resolving the SRM contribution label by label.
+The result below is an independent refinement that resolves the SRM
+contribution label by label.  It is not used in the global trace and dual
+squeeze that proves the headline optimum and SRM laws.
 
 \begin{theorem}[Physical local law on compact parameter intervals]
 \label{thm:supp-full-local-law}
@@ -2726,8 +2841,7 @@ residuals record the feasibility checks at working precision.
 
 \subsection{Critical-window physical Gram checks}
 
-The numerical checks in this section are diagnostics, not inputs to any
-proof. For each \((n,\tau)\), we set
+For each \((n,\tau)\), the diagnostic sets
 \(c=1-\tau/[n(\log n)^2]\), construct the full physical Gram matrix explicitly
 as a dense matrix, and diagonalize it.
 Table~\ref{tab:supp-critical-diagnostics} reports the scaled

@@ -1,6 +1,6 @@
 # Paper I release manifest
 
-Release identifier: `v1.5.0-paper1`
+Release identifier: `v1.5.1-paper1`
 
 Freeze date: 2026-09-01
 
@@ -18,19 +18,19 @@ separations, mixed states, correlated outputs, and minimax priors are outside
 Paper I.
 
 The scientific scope and headline conclusions are frozen. Relative to
-`v1.4.0-paper1`, this release states one already-used elliptic endpoint
-expansion as an explicit supporting lemma and fully specifies the MAP decision
-rule. It adds no physical model, numerical claim, citation, or stronger
-headline conclusion.
+`v1.5.0-paper1`, this release makes the adaptive moving-overlap squeeze
+explicit, clarifies the role of the independent local SRM refinement, and
+shortens the article's presentation. It adds no physical model, numerical
+claim, citation, or stronger headline conclusion.
 
 ## Authoritative sources
 
 | Relative path | SHA-256 |
 |---|---|
-| `paper1/quantum_revision_ultracritical/main.tex` | `FAACCE86875A07537671B92BF1BEE940B75CF8DAE78DC10F77C1003616B2B5AE` |
-| `paper1/quantum_revision_ultracritical/content.tex` | `98C2F3517CDF5E60F21C7C89064CD59E5F703B77BAFE88AB4221F29E95D2F914` |
+| `paper1/quantum_revision_ultracritical/main.tex` | `7A22563438E856B138290D6E4AC3DEAAB94D27921721C5ACAD05B92AF6711904` |
+| `paper1/quantum_revision_ultracritical/content.tex` | `D35CDE9304DCCFC064D4CC71945878C26BA7AB2FBA7263039926B5D3AE7FEFAD` |
 | `paper1/quantum_revision_ultracritical/supplement.tex` | `BA17925EE931A5A5056372B72DD4694C9296468A8B4D5BE2F5117EF0EB0BA77E` |
-| `paper1/quantum_revision_ultracritical/supplement_content.tex` | `A0736F26247D623489566F5FE1BFBA02F9701B06E16D3F66D728323C12E8A2F1` |
+| `paper1/quantum_revision_ultracritical/supplement_content.tex` | `7907D396F45F8788DACF228A92FB7FCBA3366618B45C422D52FC9DEDCFC01AF8` |
 | `paper1/quantum_revision_ultracritical/references.bib` | `FAA179CC5CE32CE80EFABDF7E97C3103EE3E434A8C04989ADD72E84FA1B34930` |
 
 The article build uses the bibliography output generated in the same clean
@@ -38,18 +38,18 @@ build:
 
 | Relative build path | Bytes | SHA-256 |
 |---|---:|---|
-| `paper1/quantum_revision_ultracritical/build-v1.5-main-freeze-20260901f/main.bbl` | 7387 | `685F2AB321CD7AD51E4E2034136B4E4E0386C5E1C6F72A1E004C413AD0107E2C` |
+| `paper1/quantum_revision_ultracritical/build-v1.5.1-main-freeze-20260901b/main.bbl` | 7387 | `685F2AB321CD7AD51E4E2034136B4E4E0386C5E1C6F72A1E004C413AD0107E2C` |
 
 ## Frozen PDFs
 
 | Artifact | Pages | Bytes | SHA-256 |
 |---|---:|---:|---|
-| Main article | 18 | 389853 | `DD1D752229E32CF57AED4BDC92AB3F389E59B189BBD87870B37AA6A420F97879` |
-| Supplemental Material | 27 | 235797 | `A2A7AABE11D49AC6158B99E8DA37827739FCADD4E6772672FF77158ECA9FA3CE` |
+| Main article | 19 | 389249 | `88F326D12F49CE2990FF9915B4298E843D142E98A629698609B72E7125422711` |
+| Supplemental Material | 28 | 242457 | `397F62F2116E73EA39C660061E4BAF0DA8E09DFF4585B9CD1566FF251250FEFE` |
 
 Both PDFs were built with Tectonic 0.17.0. Their final logs contain no LaTeX
 error, undefined citation, undefined reference, multiply defined label,
-overfull box, or fatal warning. Fonts, vector figures, metadata, and all 45
+overfull box, or fatal warning. Fonts, vector figures, metadata, and all 47
 rendered pages are covered by
 `paper1/quantum_revision_ultracritical/FINAL_PDF_QA_20260901.md`.
 
@@ -83,7 +83,7 @@ PSD violation.
 |---|---|
 | `paper1/quantum_revision_ultracritical/figures/figure1_model_geometry.pdf` | `C83DABC865F377C08DDB3AF4643F67F7F815D1A798BE093E1062D5B41343FF2B` |
 | `paper1/quantum_revision_ultracritical/figures/figure2_analytic_limits.pdf` | `D0734773A6F17D74E30377C39405A0E34DAD9DB59C12F43C3FFF6EA642198233` |
-| `paper1/quantum_revision_ultracritical/figures/figure3_finite_size.pdf` | `FD29DBEBC13FF0EA9D8BC0ED27F509D6C497089449EAFF22793D0E7FDACB1776` |
+| `paper1/quantum_revision_ultracritical/figures/figure3_finite_size.pdf` | `4A6BCF347D64DC06ADD99E3112E9695A2340F1ABE01B6FB7396D15EF3681C723` |
 
 The three article figures are vector based. The release also supplies 300 dpi
 PNG derivatives; Figure 1 additionally has a 600 dpi TIFF derivative.
@@ -95,22 +95,17 @@ PNG derivatives; Figure 1 additionally has a 600 dpi TIFF derivative.
 - BLAS thread variables: fixed to one during release reproduction
 - Full workspace suite: 258 tests run twice; each pass had 204 passes, 54
   documented skips, and no failure
-- Public release candidate: 241 tests run twice; each pass had 187 passes, 54
-  documented retired-interface skips, and no failure
-- Extracted public source archive: the same 241 tests ran twice with the same
-  186-pass, 55-skip result; the extra skip is the documented extracted-archive
-  path, all four scientific data comparisons passed, and
-  the regenerated manifest verified file by file
-- Extracted arXiv archive: clean 18-page Tectonic build with no undefined
-  citation or reference, multiply defined label, overfull box, or fatal error;
-  its embedded Supplemental Material has SHA-256
-  `A2A7AABE11D49AC6158B99E8DA37827739FCADD4E6772672FF77158ECA9FA3CE`
 - CSV files and Figures 1--3 regenerated from the current public code
 - Manifest generated after the second test pass and verified file by file
 - Release packager configured to reject missing, nonportable, or stale
   manifest entries
 - Generated CSV and JSON files use deterministic LF line endings on every
   supported platform
+
+Extracted-source tests, the isolated arXiv build, deterministic package
+comparison, and downloaded GitHub-asset checks occur after this hashed source
+manifest is frozen. Their results are recorded in the external Stage 5--6
+release audit and in the generated release inventory and checksum files.
 
 Package versions, solver availability, BLAS configuration, portable execution
 metadata, and public-input hashes are recorded in
@@ -146,6 +141,6 @@ Artifact hashes are stored in the generated inventory and checksum file rather
 than copied into this tracked document, which avoids a circular hash
 dependency.
 
-The annotated Git tag `v1.5.0-paper1` identifies the frozen source commit. The
+The annotated Git tag `v1.5.1-paper1` identifies the frozen source commit. The
 tag-to-commit mapping and released binary assets are recorded by GitHub rather
 than embedded here, avoiding a self-referential commit identifier.

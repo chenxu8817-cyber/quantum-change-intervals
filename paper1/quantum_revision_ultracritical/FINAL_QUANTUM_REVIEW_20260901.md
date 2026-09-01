@@ -5,13 +5,14 @@ Date: 2026-09-01
 This conclusion-blind review was performed after the Paper I scope and theorem
 set were frozen. It assesses mathematical consistency, exposition,
 reproducibility, and submission readiness. Stage 5--6 added no physical model
-or headline conclusion. It made an already-used elliptic endpoint expansion
-and the maximum-a-posteriori decision rule explicit.
+or new theorem during the final review. It audited and polished the previously
+approved unified moving-overlap theorem, the weighted-SRM results, and their
+supporting proofs.
 
 ## Overall assessment
 
 No blocking mathematical, bibliographic, numerical, editorial, or
-typesetting issue remains in the reviewed snapshot. The 18-page article has a
+typesetting issue remains in the reviewed snapshot. The 19-page article has a
 clear sequence:
 
 1. returning-interval model and exact Gram geometry;
@@ -21,7 +22,7 @@ clear sequence:
 5. fixed-prior no-change extension; and
 6. finite-size floating-point diagnostics.
 
-The 27-page Supplemental Material is dense but proportionate to the proof
+The 28-page Supplemental Material is dense but proportionate to the proof
 load. It contains the complete Følner and exceptional-sector arguments,
 excitation compression, singular-safe dual estimates, continuum matching,
 adaptive outer construction, local SRM refinement, and numerical details. Its
@@ -94,8 +95,9 @@ the cited papers.
 
 The article and Supplemental Material were reviewed for repeated caveats,
 vague claims, formulaic transitions, unnecessary jargon, ornamental dashes,
-and unsupported strengthening. No systematic AI-style pattern remains.
-Technical compounds such as `minimum-error`, `square-root`, and
+and unsupported strengthening. The final prose follows conventional
+mathematical exposition; the remaining repeated formulations state hypotheses
+or stable technical terms. Compounds such as `minimum-error`, `square-root`, and
 `fixed-overlap` retain necessary hyphens. The remaining negative statements
 define theorem domains, decision criteria, or the status of numerical
 evidence.
@@ -121,17 +123,6 @@ out-of-scope tests were skipped on each pass. Between the two passes, the
 workflow regenerated all release CSV files and Figures 1, 2, and 3. All four
 archived-versus-regenerated scientific data comparisons passed.
 
-The 17-file public Paper I test subset then ran twice with deterministic BLAS
-thread settings. Each pass executed 241 tests: 187 passed, 54 documented
-retired-interface tests were skipped, and none failed.
-
-The first extracted source candidate ran the same 241 tests twice: 186 passed,
-55 documented tests were skipped, and none failed. The additional skip is the
-expected extracted-archive path. Its manifest verified file by file. The
-arXiv archive compiled in isolation to 18 pages with clean final labels and
-references; its page-by-page extracted text matched the frozen article, and
-its embedded Supplemental PDF matched the frozen SHA-256 value.
-
 For the 30-case unknown-length SDP grid, the largest raw primal-dual gap was
 `6.7818e-9` and the largest safeguarded floating-point diagnostic width was
 `1.0243e-8`. For the 24-case no-change grid, the corresponding values were
@@ -142,6 +133,9 @@ certificates.
 
 The public environment manifest is regenerated only after the frozen source
 and review records are final. The release packager independently rejects
-missing, nonportable, or stale manifest entries.
+missing, nonportable, or stale manifest entries. Isolated source-archive,
+arXiv-build, and downloaded-GitHub-asset checks are post-manifest operations;
+their results are recorded in the external Stage 5--6 release audit rather
+than embedded in this hashed review record.
 
 Final submission-review status: **PASS**.

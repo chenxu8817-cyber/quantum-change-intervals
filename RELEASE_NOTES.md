@@ -1,3 +1,13 @@
+# v1.5.1-paper1
+
+This maintenance release preserves the Paper I model, assumptions, data, and
+headline conclusions while tightening the final presentation for submission to
+*Quantum*. It makes the adaptive moving-overlap squeeze explicit, identifies
+the labelwise local SRM law as an independent refinement, compresses the
+abstract and proof overview, and synchronizes Figure 3(c) with its reported
+floating-point quantity. All numerical tables, figures, PDFs, source archives,
+and release hashes are regenerated from the same frozen source snapshot.
+
 # v1.5.0-paper1
 
 This release freezes the polished Paper I article and Supplemental Material

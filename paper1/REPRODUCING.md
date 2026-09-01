@@ -92,7 +92,7 @@ checks, create the submission archives in a new or empty directory:
 
 ```powershell
 .\.venv-paper1-release-py312\Scripts\python.exe paper1\build_release.py `
-  --version v1.5.0-paper1 `
+  --version v1.5.1-paper1 `
   --main-pdf <clean-main-build>\main.pdf `
   --supplement-pdf <clean-supplement-build>\supplement.pdf `
   --main-bbl <clean-main-build>\main.bbl `
