@@ -1,0 +1,179 @@
+\begin{thebibliography}{10}
+
+\bibitem{akimoto2011}
+Daiki Akimoto and Masahito Hayashi.
+\newblock ``Discrimination of the change point in a quantum setting''.
+\newblock \href{https://dx.doi.org/10.1103/PhysRevA.83.052328}{Physical Review
+  A {\bf 83}, 052328}~(2011).
+
+\bibitem{sentis2016}
+Gael Sent{\'i}s, Emilio Bagan, John Calsamiglia, Giulio Chiribella, and Ramon
+  Mu{\~n}oz-Tapia.
+\newblock ``Quantum change point''.
+\newblock \href{https://dx.doi.org/10.1103/PhysRevLett.117.150502}{Physical
+  Review Letters {\bf 117}, 150502}~(2016).
+
+\bibitem{sentis2017}
+Gael Sent{\'i}s, John Calsamiglia, and Ramon Mu{\~n}oz-Tapia.
+\newblock ``Exact identification of a quantum change point''.
+\newblock \href{https://dx.doi.org/10.1103/PhysRevLett.119.140506}{Physical
+  Review Letters {\bf 119}, 140506}~(2017).
+
+\bibitem{sentis2018}
+Gael Sent{\'i}s, Esteban Mart{\'i}nez-Vargas, and Ramon Mu{\~n}oz-Tapia.
+\newblock ``Online strategies for exactly identifying a quantum change point''.
+\newblock \href{https://dx.doi.org/10.1103/PhysRevA.98.052305}{Physical Review
+  A {\bf 98}, 052305}~(2018).
+
+\bibitem{yu2018}
+Shang Yu, Chang-Jiang Huang, Jian-Shun Tang, Zhih-Ahn Jia, Yi-Tao Wang, Zhi-Jin
+  Ke, Wei Liu, Xiao Liu, Zong-Quan Zhou, Ze-Di Cheng, Jin-Shi Xu, Yu-Chun Wu,
+  Yuan-Yuan Zhao, Guo-Yong Xiang, Chuan-Feng Li, Guang-Can Guo, Gael
+  Sent{\'i}s, and Ramon Mu{\~n}oz-Tapia.
+\newblock ``Experimentally detecting a quantum change point via the {Bayesian}
+  inference''.
+\newblock \href{https://dx.doi.org/10.1103/PhysRevA.98.040301}{Physical Review
+  A {\bf 98}, 040301}~(2018).
+
+\bibitem{fanizza2023}
+Marco Fanizza, Christoph Hirche, and John Calsamiglia.
+\newblock ``Ultimate limits for quickest quantum change-point detection''.
+\newblock \href{https://dx.doi.org/10.1103/PhysRevLett.131.020602}{Physical
+  Review Letters {\bf 131}, 020602}~(2023).
+
+\bibitem{zecchin2026}
+Matteo Zecchin, Osvaldo Simeone, and Aaditya Ramdas.
+\newblock ``Universal sequential changepoint detection of quantum observables
+  via classical shadows''~(2026).
+\newblock  \href{http://arxiv.org/abs/2602.11846}{arXiv:2602.11846}.
+
+\bibitem{nakahira2023}
+Kenji Nakahira.
+\newblock ``Identification of quantum change points for hamiltonians''.
+\newblock \href{https://dx.doi.org/10.1103/PhysRevLett.131.210804}{Physical
+  Review Letters {\bf 131}, 210804}~(2023).
+
+\bibitem{nakahira2026}
+Kenji Nakahira.
+\newblock ``Unambiguous discrimination of the change point for quantum
+  channels''.
+\newblock \href{https://dx.doi.org/10.1103/k7tf-j2cb}{Physical Review A {\bf
+  113}, 032217}~(2026).
+
+\bibitem{mohan2023}
+Ankith Mohan, Jamie Sikora, and Sarvagya Upadhyay.
+\newblock ``A hybrid quantum-classical algorithm for {Bayes}-optimal quantum
+  state discrimination using the source code''~(2023).
+\newblock  \href{http://arxiv.org/abs/2312.04023}{arXiv:2312.04023}.
+
+\bibitem{skotiniotis2024}
+Michalis Skotiniotis, Santiago Llorens, Ronja Hotz, John Calsamiglia, and Ramon
+  Mu{\~n}oz-Tapia.
+\newblock ``Identification of malfunctioning quantum devices''.
+\newblock \href{https://dx.doi.org/10.1103/PhysRevResearch.6.033329}{Physical
+  Review Research {\bf 6}, 033329}~(2024).
+
+\bibitem{llorens2024}
+Santiago Llorens, Gael Sent{\'i}s, and Ramon Mu{\~n}oz-Tapia.
+\newblock ``Quantum multi-anomaly detection''.
+\newblock \href{https://dx.doi.org/10.22331/q-2024-08-28-1452}{Quantum {\bf 8},
+  1452}~(2024).
+
+\bibitem{llorens2025}
+Santiago Llorens, Walther Gonz{\'a}lez, Gael Sent{\'i}s, John Calsamiglia,
+  Ramon Mu{\~n}oz-Tapia, and Emili Bagan.
+\newblock ``Quantum edge detection''.
+\newblock \href{https://dx.doi.org/10.22331/q-2025-04-03-1687}{Quantum {\bf 9},
+  1687}~(2025).
+
+\bibitem{martinez2019}
+Esteban Mart{\'i}nez~Vargas and Ramon Mu{\~n}oz-Tapia.
+\newblock ``Certified answers for ordered quantum discrimination problems''.
+\newblock \href{https://dx.doi.org/10.1103/PhysRevA.100.042331}{Physical Review
+  A {\bf 100}, 042331}~(2019).
+
+\bibitem{levin1985}
+Bruce Levin and Jennie Kline.
+\newblock ``The {CUSUM} test of homogeneity with an application in spontaneous
+  abortion epidemiology''.
+\newblock \href{https://dx.doi.org/10.1002/sim.4780040408}{Statistics in
+  Medicine {\bf 4}, 469--488}~(1985).
+
+\bibitem{yao1993}
+Qiwei Yao.
+\newblock ``Tests for change-points with epidemic alternatives''.
+\newblock \href{https://dx.doi.org/10.1093/biomet/80.1.179}{Biometrika {\bf
+  80}, 179--191}~(1993).
+
+\bibitem{walther2010}
+Guenther Walther.
+\newblock ``Optimal and fast detection of spatial clusters with scan
+  statistics''.
+\newblock \href{https://dx.doi.org/10.1214/09-AOS732}{The Annals of Statistics
+  {\bf 38}, 1010--1033}~(2010).
+
+\bibitem{chen2015}
+Hao Chen and Nancy~R. Zhang.
+\newblock ``Graph-based change-point detection''.
+\newblock \href{https://dx.doi.org/10.1214/14-AOS1269}{The Annals of Statistics
+  {\bf 43}, 139--176}~(2015).
+
+\bibitem{helstrom1976}
+Carl~W. Helstrom.
+\newblock ``Quantum detection and estimation theory''.
+\newblock Volume 123 of Mathematics in Science and Engineering.
+\newblock Academic Press. New York~(1976).
+\newblock First edition.
+
+\bibitem{holevo1973}
+Alexander~S. Holevo.
+\newblock ``Statistical decision theory for quantum systems''.
+\newblock \href{https://dx.doi.org/10.1016/0047-259X(73)90028-6}{Journal of
+  Multivariate Analysis {\bf 3}, 337--394}~(1973).
+
+\bibitem{yuen1975}
+Horace~P. Yuen, Robert~S. Kennedy, and Melvin Lax.
+\newblock ``Optimum testing of multiple hypotheses in quantum detection
+  theory''.
+\newblock \href{https://dx.doi.org/10.1109/TIT.1975.1055351}{IEEE Transactions
+  on Information Theory {\bf 21}, 125--134}~(1975).
+
+\bibitem{barnett2009}
+Stephen~M. Barnett and Sarah Croke.
+\newblock ``Quantum state discrimination''.
+\newblock \href{https://dx.doi.org/10.1364/AOP.1.000238}{Advances in Optics and
+  Photonics {\bf 1}, 238--278}~(2009).
+
+\bibitem{hausladen1994}
+Paul Hausladen and William~K. Wootters.
+\newblock ``A pretty good measurement for distinguishing quantum states''.
+\newblock \href{https://dx.doi.org/10.1080/09500349414552221}{Journal of Modern
+  Optics {\bf 41}, 2385--2390}~(1994).
+
+\bibitem{eldar2001}
+Yonina~C. Eldar and G.~David Forney, Jr.
+\newblock ``On quantum detection and the square-root measurement''.
+\newblock \href{https://dx.doi.org/10.1109/18.915636}{IEEE Transactions on
+  Information Theory {\bf 47}, 858--872}~(2001).
+
+\bibitem{dallapozza2015}
+Nicola Dalla~Pozza and Gianfranco Pierobon.
+\newblock ``Optimality of square-root measurements in quantum state
+  discrimination''.
+\newblock \href{https://dx.doi.org/10.1103/PhysRevA.91.042334}{Physical Review
+  A {\bf 91}, 042334}~(2015).
+
+\bibitem{tilli1998}
+Paolo Tilli.
+\newblock ``A note on the spectral distribution of {Toeplitz} matrices''.
+\newblock \href{https://dx.doi.org/10.1080/03081089808818584}{Linear and
+  Multilinear Algebra {\bf 45}, 147--159}~(1998).
+
+\bibitem{tyrtyshnikov1998}
+E.~E. Tyrtyshnikov and N.~L. Zamarashkin.
+\newblock ``Spectra of multilevel {Toeplitz} matrices: Advanced theory via
+  simple matrix relationships''.
+\newblock \href{https://dx.doi.org/10.1016/S0024-3795(97)80001-8}{Linear
+  Algebra and its Applications {\bf 270}, 15--27}~(1998).
+
+\end{thebibliography}
